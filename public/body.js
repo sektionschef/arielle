@@ -34,7 +34,9 @@ class Body {
         push();
         fill(color(colorCode))
         translate(this.bodyPosition.x * conv, this.bodyPosition.y * conv, this.bodyPosition.z * conv);
-        if (this.body.isStatic != true) {
+
+
+        if (this.body.isStatic != true && this.body.isKinematic != true) {  // otherwise no data
             rotate(this.r, this.v)
         }
 
@@ -42,7 +44,7 @@ class Body {
         if (this.body.shapes.type == 2) {
             box(this.body.shapes.width * conv, this.body.shapes.height * conv, this.body.shapes.depth * conv)
         } else if (this.body.shapes.type == 3) {
-            console.log(this.body.shapes);
+            // console.log(this.body.shapes);
             cylinder(this.body.shapes.radius * conv, this.body.shapes.height * conv);
         }
         pop();

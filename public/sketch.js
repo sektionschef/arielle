@@ -47,6 +47,8 @@ function setup() {
   canvas = createCanvas(rescaling_width, rescaling_height, WEBGL);
   cam = createCamera();
 
+  mova = 0;
+
   world = new OIMO.World({
     timestep: 1 / 60,
     iterations: 8,
@@ -57,7 +59,7 @@ function setup() {
     gravity: [0, -9.8, 0]
   });
 
-  apples = new BodySystem(0);
+  apples = new BodySystem(10);
 
   ground = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
@@ -65,7 +67,7 @@ function setup() {
     pos: [0, -10, 0], // start position in degree
     rot: [0, 0, 0], // start rotation in degree
     move: false, // dynamic or statique
-    density: 1,
+    density: 1000,
     friction: 0.2,
     restitution: 0.2,
     // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
@@ -74,16 +76,16 @@ function setup() {
 
   pusher = new Body({
     type: 'cylinder', // type of shape : sphere, box, cylinder 
-    size: [5, 5, 5], // size of shape
+    size: [5, 10], // size of shape
     pos: [0, 0, 0], // start position in degree
-    rot: [0, 0, 0], // start rotation in degree
-    move: false, // dynamic or statique
+    move: true,
     density: 1,
-    friction: 0.2,
-    restitution: 0.2,
-    // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
-    // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
+    kinematic: true,
+    noSleep: true,
+    material: 'kinematic',
   });
+
+  // console.log(pusher);
 
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
   camera(0, 1000, 0, 0, 0, 0, 0, 0, 1);
@@ -94,7 +96,7 @@ function setup() {
 function draw() {
 
 
-  orbitControl();
+  // orbitControl();
 
   // ambientLight(255, 255, 255);
   // ambientMaterial(255);
@@ -130,7 +132,11 @@ function draw() {
     ground.display(color(0, 255, 0, 100));
   }
 
+  // console.log(pusher.body.position);
+  // pusher.body.setPosition({ x: 0, y: 0, z: 10 });
+  pusher.body.setPosition({ x: mouseX / conv, y: 0, z: mouseY / conv });
   pusher.update();
+
   if (MODE == 5) {
     pusher.display(color(0, 0, 255, 100));
   }
@@ -154,6 +160,7 @@ function draw() {
 
 function mousePressed() {
   // console.log(cam);
+  mova += 1;
 }
 
 
