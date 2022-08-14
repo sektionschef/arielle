@@ -83,12 +83,12 @@ function setup() {
   apple = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
     size: [3, 2, 3], // size of shape
-    pos: [0, 5, 0], // start position in degree
+    pos: [0, 15, 0], // start position in degree
     rot: [0, 0, 0], // start rotation in degree
     move: true, // dynamic or statique
     density: 1,
     friction: 0.2,
-    restitution: 0.2,
+    restitution: 0.9,
     // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
     // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
   });
@@ -113,9 +113,12 @@ function setup() {
 
 function draw() {
 
-  orbitControl(1, 1, 0.1);
+  // orbitControl(1, 1, 0.1);
+  // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
+  camera(0, -500, 0, 0, 0, 0, 0, 0, 1);
   // ambientLight(255, 255, 255);
   // ambientMaterial(255);
+
 
   background(100);
 
