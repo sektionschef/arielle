@@ -126,14 +126,20 @@ function draw() {
 
   // image(buffer, - width / 2, - height / 2);
 
+  // rotateX(frameCount * 0.01);
+  // rotateY(frameCount * 0.01);
+  // box(50);
+
   // and copy position and rotation to three mesh
-  console.log(body.getPosition());
+  // console.log(body.getPosition());
   console.log(body.getQuaternion());
 
+  var bodyPosition = body.getPosition()
 
-  rotateX(frameCount * 0.01);
-  rotateY(frameCount * 0.01);
-  box(50);
+  push();
+  translate(bodyPosition.x, bodyPosition.y, bodyPosition.z);
+  box(bodyPosition.w)
+  pop();
 
   // noLoop();
 
