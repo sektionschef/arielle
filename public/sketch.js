@@ -104,11 +104,11 @@ function setup() {
 
 function draw() {
 
-  // orbitControl(1, 1, 0.1);
+  orbitControl(1, 1, 0.1);
   // ambientLight(255, 255, 255);
   // ambientMaterial(255);
 
-  // background(100);
+  background(100);
 
   // update world
   world.step();
@@ -130,13 +130,23 @@ function draw() {
   // rotateY(frameCount * 0.01);
   // box(50);
 
-  // and copy position and rotation to three mesh
-  // console.log(body.getPosition());
-  console.log(body.getQuaternion());
+  var bodyPosition = body.getPosition();
+  var bodyQuaternionRaw = body.getQuaternion();
 
-  var bodyPosition = body.getPosition()
+  console.log(bodyQuaternionRaw);
+  var bodyQuaternion = new toxi.geom.Quaternion(bodyQuaternionRaw.x, bodyQuaternionRaw.y, bodyQuaternionRaw.z, bodyQuaternionRaw.w);
+  let axisAngle = bodyQuaternion.toAxisAngle();
+  console.log(axisAngle);
+
+  let r = axisAngle[0]
+  let v = createVector(axisAngle[1], axisAngle[2], axisAngle[3]);
+
+  console.log(r);
+  console.log(v);
+
 
   push();
+  rotate(r, v)
   translate(bodyPosition.x, bodyPosition.y, bodyPosition.z);
   box(bodyPosition.w)
   pop();
