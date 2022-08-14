@@ -1,5 +1,5 @@
-const MODE = 1  // "FINE ART";
-// const MODE = 5 // all debug messages
+// const MODE = 1  // "FINE ART";
+const MODE = 5 // all debug messages
 
 NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
@@ -27,6 +27,7 @@ let canvas;
 let rescaling_width;
 let rescaling_height;
 
+// convert pixel to real world physics
 let conv = 10;
 
 function preload() {
@@ -56,7 +57,7 @@ function setup() {
     gravity: [0, -9.8, 0]
   });
 
-  apples = new BodySystem(10);
+  apples = new BodySystem(0);
 
   ground = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
@@ -71,17 +72,29 @@ function setup() {
     // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
   });
 
-  // console.log(ground.body);
+  pusher = new Body({
+    type: 'cylinder', // type of shape : sphere, box, cylinder 
+    size: [5, 5, 5], // size of shape
+    pos: [0, 0, 0], // start position in degree
+    rot: [0, 0, 0], // start rotation in degree
+    move: false, // dynamic or statique
+    density: 1,
+    friction: 0.2,
+    restitution: 0.2,
+    // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
+    // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
+  });
+
+  // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
+  camera(0, 1000, 0, 0, 0, 0, 0, 0, 1);
 
 }
 
 
 function draw() {
 
-  // orbitControl(1, 1, 0.1);
 
-  // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
-  camera(0, 1000, 0, 0, 0, 0, 0, 0, 1);
+  orbitControl();
 
   // ambientLight(255, 255, 255);
   // ambientMaterial(255);
@@ -115,6 +128,11 @@ function draw() {
   ground.update();
   if (MODE == 5) {
     ground.display(color(0, 255, 0, 100));
+  }
+
+  pusher.update();
+  if (MODE == 5) {
+    pusher.display(color(0, 0, 255, 100));
   }
 
 
