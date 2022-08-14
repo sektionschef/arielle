@@ -79,7 +79,8 @@ function setup() {
     gravity: [0, -9.8, 0]
   });
 
-  body = world.add({
+
+  apple = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
     size: [3, 2, 3], // size of shape
     pos: [0, 5, 0], // start position in degree
@@ -92,8 +93,7 @@ function setup() {
     // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
   });
 
-
-  ground = world.add({
+  ground = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
     size: [10, 10, 4], // size of shape
     pos: [0, -5, 0], // start position in degree
@@ -105,7 +105,9 @@ function setup() {
     // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
     // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
   });
-  console.log(ground)
+
+  // console.log(ground.body);
+
 }
 
 
@@ -137,35 +139,21 @@ function draw() {
   // rotateY(frameCount * 0.01);
   // box(50);
 
-  var bodyPosition = body.getPosition();
-  var bodyQuaternionRaw = body.getQuaternion();
+  apple.update();
+  apple.display("red");
 
-  // console.log(bodyQuaternionRaw);
-  var bodyQuaternion = new toxi.geom.Quaternion(bodyQuaternionRaw.x, bodyQuaternionRaw.y, bodyQuaternionRaw.z, bodyQuaternionRaw.w);
-  let axisAngle = bodyQuaternion.toAxisAngle();
-  // console.log(axisAngle);
-
-  let r = axisAngle[0]
-  let v = createVector(axisAngle[1], axisAngle[2], axisAngle[3]);
-
-  // console.log(r);
-  // console.log(v);
+  ground.update();
+  // ground.display(color(255, 0, 0, 100));
+  ground.display(color(0, 255, 0, 100));
 
 
-  push();
-  // rotate(r, v)
-  translate(bodyPosition.x * conv, bodyPosition.y * conv, bodyPosition.z * conv);
-  box(body.shapes.width * conv, body.shapes.height * conv, body.shapes.depth * conv)
-  pop();
-
-
-  var groundPosition = ground.getPosition();
-  var groundQuaternionRaw = ground.getQuaternion();
-  push();
-  fill(255, 0, 0, 100);
-  translate(groundPosition.x * conv, groundPosition.y * conv, groundPosition.z * conv);
-  box(ground.shapes.width * conv, ground.shapes.height * conv, ground.shapes.depth * conv);
-  pop();
+  // var groundPosition = ground.getPosition();
+  // var groundQuaternionRaw = ground.getQuaternion();
+  // push();
+  // fill(255, 0, 0, 100);
+  // translate(groundPosition.x * conv, groundPosition.y * conv, groundPosition.z * conv);
+  // box(ground.shapes.width * conv, ground.shapes.height * conv, ground.shapes.depth * conv);
+  // pop();
 
   // noLoop();
 
@@ -176,5 +164,5 @@ function draw() {
 }
 
 function mousePressed() {
-  console.log(cam);
+  // console.log(cam);
 }
