@@ -56,12 +56,12 @@ function setup() {
     gravity: [0, -9.8, 0]
   });
 
-  apples = new BodySystem(4);
+  apples = new BodySystem(10);
 
   ground = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
-    size: [100, 4, 100], // size of shape
-    pos: [0, -4, 0], // start position in degree
+    size: [100, 10, 100], // size of shape
+    pos: [0, -10, 0], // start position in degree
     rot: [0, 0, 0], // start rotation in degree
     move: false, // dynamic or statique
     density: 1,
@@ -78,16 +78,17 @@ function setup() {
 
 function draw() {
 
-  orbitControl(1, 1, 0.1);
+  // orbitControl(1, 1, 0.1);
 
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
-  // camera(0, -1000, 0, 0, 0, 0, 0, 0, 1);
+  camera(0, 1000, 0, 0, 0, 0, 0, 0, 1);
 
   // ambientLight(255, 255, 255);
   // ambientMaterial(255);
 
-
-  background(100);
+  if (MODE == 5) {
+    background(100);
+  }
 
   // update world
   world.step();
@@ -112,8 +113,9 @@ function draw() {
   apples.updateDisplay();
 
   ground.update();
-  // ground.display(color(255, 0, 0, 100));
-  ground.display(color(0, 255, 0, 100));
+  if (MODE == 5) {
+    ground.display(color(0, 255, 0, 100));
+  }
 
 
   // var groundPosition = ground.getPosition();
@@ -134,4 +136,20 @@ function draw() {
 
 function mousePressed() {
   // console.log(cam);
+}
+
+
+// from here: https://stackoverflow.com/questions/62457529/how-do-you-get-the-axis-and-angle-representation-of-a-quaternion-in-three-js 
+function getAxisAndAngelFromQuaternion(q) {
+  const angle = 2 * Math.acos(q.w);
+  var s;
+  if (1 - q.w * q.w < 0.000001) {
+    // test to avoid divide by zero, s is always positive due to sqrt
+    // if s close to zero then direction of axis not important
+    // http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToAngle/
+    s = 1;
+  } else {
+    s = Math.sqrt(1 - q.w * q.w);
+  }
+  return [q.x / s, q.y / s, q.z / s, angle];
 }

@@ -10,13 +10,17 @@ class Body {
         this.bodyPosition = this.body.getPosition();
 
         this.bodyQuaternionRaw = this.body.getQuaternion();
-        this.bodyQuaternion = new toxi.geom.Quaternion(this.bodyQuaternionRaw.x, this.bodyQuaternionRaw.y, this.bodyQuaternionRaw.z, this.bodyQuaternionRaw.w);
         // console.log(this.bodyQuaternionRaw);
-        this.axisAngle = this.bodyQuaternion.toAxisAngle();
+
+        // this.bodyQuaternion = new toxi.geom.Quaternion(this.bodyQuaternionRaw.x, this.bodyQuaternionRaw.y, this.bodyQuaternionRaw.z, this.bodyQuaternionRaw.w);
+        // console.log(this.bodyQuaternionRaw);
+        // this.axisAngle = this.bodyQuaternion.toAxisAngle();
+
+        this.axisAngle = getAxisAndAngelFromQuaternion(this.bodyQuaternionRaw)
         // console.log(this.axisAngle);
 
-        this.r = this.axisAngle[0]
-        this.v = createVector(this.axisAngle[1], this.axisAngle[2], this.axisAngle[3]);
+        this.r = this.axisAngle[3]
+        this.v = createVector(this.axisAngle[0], this.axisAngle[1], this.axisAngle[2]);
 
         // console.log(this.r);
         // console.log(this.v);
@@ -26,8 +30,10 @@ class Body {
 
         push();
         fill(color(colorCode))
-        rotate(this.r, this.v)
         translate(this.bodyPosition.x * conv, this.bodyPosition.y * conv, this.bodyPosition.z * conv);
+        if (this.body.isStatic != true) {
+            rotate(this.r, this.v)
+        }
         box(this.body.shapes.width * conv, this.body.shapes.height * conv, this.body.shapes.depth * conv)
         pop();
     }
