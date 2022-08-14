@@ -29,29 +29,6 @@ let rescaling_height;
 
 let conv = 10;
 
-// let CountFeatureMin = 0.3;
-// let CountFeatureMax = 2;
-// let CountFeature = Math.round(getRandomFromInterval(CountFeatureMin, CountFeatureMax) * 100) / 100;
-// let CountFeatureLabel = label_feature(CountFeature, CountFeatureMin, CountFeatureMax);
-
-// let grainFeatureMin = 0.1;
-// let grainFeatureMax = 1.4;
-// let grainFeature = Math.round(getRandomFromInterval(grainFeatureMin, grainFeatureMax) * 100) / 100;
-// let grainFeatureLabel = label_feature(grainFeature, grainFeatureMin, grainFeatureMax);
-
-// let blurFeatureMin = 0.3;
-// let blurFeatureMax = 0.7;
-// let blurFeature = 0.7; Math.round(getRandomFromInterval(blurFeatureMin, blurFeatureMax) * 100) / 100;
-// let blurFeatureLabel = label_feature(blurFeature, blurFeatureMin, blurFeatureMax);
-
-// let opacityFeatureMin = 0.5;
-// let opacityFeatureMax = 1.5;
-// let opacityFeature = Math.round(getRandomFromInterval(opacityFeatureMin, opacityFeatureMax) * 100) / 100;
-// let opacityFeatureLabel = label_feature(opacityFeature, opacityFeatureMin, opacityFeatureMax);
-
-// let softNoiseFeature = getRandomFromList([true, false]);
-// let softNoiseFeatureLabel = softNoiseFeature;
-
 function preload() {
 }
 
@@ -79,24 +56,12 @@ function setup() {
     gravity: [0, -9.8, 0]
   });
 
-
-  apple = new Body({
-    type: 'box', // type of shape : sphere, box, cylinder 
-    size: [3, 2, 3], // size of shape
-    pos: [0, 15, 0], // start position in degree
-    rot: [0, 0, 0], // start rotation in degree
-    move: true, // dynamic or statique
-    density: 1,
-    friction: 0.2,
-    restitution: 0.9,
-    // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
-    // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
-  });
+  apples = new BodySystem(4);
 
   ground = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
-    size: [10, 10, 4], // size of shape
-    pos: [0, -5, 0], // start position in degree
+    size: [100, 4, 100], // size of shape
+    pos: [0, -4, 0], // start position in degree
     rot: [0, 0, 0], // start rotation in degree
     move: false, // dynamic or statique
     density: 1,
@@ -113,9 +78,11 @@ function setup() {
 
 function draw() {
 
-  // orbitControl(1, 1, 0.1);
+  orbitControl(1, 1, 0.1);
+
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
-  camera(0, -500, 0, 0, 0, 0, 0, 0, 1);
+  // camera(0, -1000, 0, 0, 0, 0, 0, 0, 1);
+
   // ambientLight(255, 255, 255);
   // ambientMaterial(255);
 
@@ -142,8 +109,7 @@ function draw() {
   // rotateY(frameCount * 0.01);
   // box(50);
 
-  apple.update();
-  apple.display("red");
+  apples.updateDisplay();
 
   ground.update();
   // ground.display(color(255, 0, 0, 100));

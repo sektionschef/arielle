@@ -33,3 +33,34 @@ class Body {
     }
 }
 
+
+class BodySystem {
+
+    constructor(amount) {
+        this.bodies = []
+
+        var data = {
+            type: 'box', // type of shape : sphere, box, cylinder 
+            size: [3, 2, 3], // size of shape
+            pos: [0, 15, 0], // start position in degree
+            rot: [0, 0, 0], // start rotation in degree
+            move: true, // dynamic or statique
+            density: 1,
+            friction: 0.2,
+            restitution: 0.9,
+            // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
+            // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
+        };
+
+        for (let i = 0; i < amount; i++) {
+            this.bodies.push(new Body(data));
+        }
+    }
+
+    updateDisplay() {
+        for (let i = 0; i < this.bodies.length; i++) {
+            this.bodies[i].update();
+            this.bodies[i].display("red");
+        }
+    }
+}
