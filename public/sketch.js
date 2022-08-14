@@ -21,18 +21,13 @@ let PaperDimensions = {
 
 let exportPaper = PaperDimensions['Quickie']
 
-defineColorPalettes();
-
 let scaleRatio;
 let exportRatio;
-let buffer;
 let canvas;
 let rescaling_width;
 let rescaling_height;
 
-let PALETTE = getRandomFromList([
-  "default"
-]);
+let conv = 10;
 
 // let CountFeatureMin = 0.3;
 // let CountFeatureMax = 2;
@@ -71,6 +66,9 @@ function setup() {
 
   scaleDynamically();
 
+  canvas = createCanvas(rescaling_width, rescaling_height, WEBGL);
+  cam = createCamera();
+
   world = new OIMO.World({
     timestep: 1 / 60,
     iterations: 8,
@@ -82,23 +80,32 @@ function setup() {
   });
 
   body = world.add({
-    type: 'sphere', // type of shape : sphere, box, cylinder 
-    size: [1, 1, 1], // size of shape
-    pos: [0, 0, 0], // start position in degree
-    rot: [0, 0, 90], // start rotation in degree
+    type: 'box', // type of shape : sphere, box, cylinder 
+    size: [3, 2, 3], // size of shape
+    pos: [0, 5, 0], // start position in degree
+    rot: [0, 0, 0], // start rotation in degree
     move: true, // dynamic or statique
     density: 1,
     friction: 0.2,
     restitution: 0.2,
-    belongsTo: 1, // The bits of the collision groups to which the shape belongs.
-    collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
+    // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
+    // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
   });
 
-  createLayers();
-  defineColorPalettes();
-  defineAllAreas();
-  defineAllElements();
-  createAllElements();
+
+  ground = world.add({
+    type: 'box', // type of shape : sphere, box, cylinder 
+    size: [10, 10, 4], // size of shape
+    pos: [0, -5, 0], // start position in degree
+    rot: [0, 0, 0], // start rotation in degree
+    move: false, // dynamic or statique
+    density: 1,
+    friction: 0.2,
+    restitution: 0.2,
+    // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
+    // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
+  });
+  console.log(ground)
 }
 
 
@@ -133,22 +140,31 @@ function draw() {
   var bodyPosition = body.getPosition();
   var bodyQuaternionRaw = body.getQuaternion();
 
-  console.log(bodyQuaternionRaw);
+  // console.log(bodyQuaternionRaw);
   var bodyQuaternion = new toxi.geom.Quaternion(bodyQuaternionRaw.x, bodyQuaternionRaw.y, bodyQuaternionRaw.z, bodyQuaternionRaw.w);
   let axisAngle = bodyQuaternion.toAxisAngle();
-  console.log(axisAngle);
+  // console.log(axisAngle);
 
   let r = axisAngle[0]
   let v = createVector(axisAngle[1], axisAngle[2], axisAngle[3]);
 
-  console.log(r);
-  console.log(v);
+  // console.log(r);
+  // console.log(v);
 
 
   push();
-  rotate(r, v)
-  translate(bodyPosition.x, bodyPosition.y, bodyPosition.z);
-  box(bodyPosition.w)
+  // rotate(r, v)
+  translate(bodyPosition.x * conv, bodyPosition.y * conv, bodyPosition.z * conv);
+  box(body.shapes.width * conv, body.shapes.height * conv, body.shapes.depth * conv)
+  pop();
+
+
+  var groundPosition = ground.getPosition();
+  var groundQuaternionRaw = ground.getQuaternion();
+  push();
+  fill(255, 0, 0, 100);
+  translate(groundPosition.x * conv, groundPosition.y * conv, groundPosition.z * conv);
+  box(ground.shapes.width * conv, ground.shapes.height * conv, ground.shapes.depth * conv);
   pop();
 
   // noLoop();
@@ -159,58 +175,6 @@ function draw() {
 
 }
 
-
-function createLayers() {
-  canvas = createCanvas(rescaling_width, rescaling_height, WEBGL);
-  buffer = createGraphics(rescaling_width, rescaling_height);
-
-  // lightShapeBuffer = createGraphics(rescaling_width, rescaling_height);
-}
-
-function defineDuftOrigin() {
-}
-
-function defineDuftOrbit() {
-}
-
-function defineDuftArea() {
-}
-
-function defineDuftCounty() {
-
-}
-
-function defineAllAreas() {
-
-}
-
-function createAllElements() {
-
-}
-
-function defineAllElements() {
-}
-
-
-function defineColorPalettes() {
-  colors = {
-    "default": {
-      // background: "#ffffff",
-      // backgroundnoise: "#ffffff30",
-      background: "#ebedf2",
-      backgroundnoise: "#ebedf230",
-      fillAll: [
-        "#2c698d",
-        "#bae8e8",
-        "#e3f6f5"
-      ],
-      falllAllNoise: [
-        "#2c698d",
-        "#bae8e8",
-        "#e3f6f5"
-      ],
-      duft: "#272643",
-      duftNoise: "#272643",
-    }
-  }
+function mousePressed() {
+  console.log(cam);
 }
