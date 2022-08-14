@@ -71,6 +71,29 @@ function setup() {
 
   scaleDynamically();
 
+  world = new OIMO.World({
+    timestep: 1 / 60,
+    iterations: 8,
+    broadphase: 2, // 1 brute force, 2 sweep and prune, 3 volume tree
+    worldscale: 1, // scale full world 
+    random: true,  // randomize sample
+    info: false,   // calculate statistic or not
+    gravity: [0, -9.8, 0]
+  });
+
+  body = world.add({
+    type: 'sphere', // type of shape : sphere, box, cylinder 
+    size: [1, 1, 1], // size of shape
+    pos: [0, 0, 0], // start position in degree
+    rot: [0, 0, 90], // start rotation in degree
+    move: true, // dynamic or statique
+    density: 1,
+    friction: 0.2,
+    restitution: 0.2,
+    belongsTo: 1, // The bits of the collision groups to which the shape belongs.
+    collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
+  });
+
   createLayers();
   defineColorPalettes();
   defineAllAreas();
@@ -85,21 +108,36 @@ function draw() {
   // ambientLight(255, 255, 255);
   // ambientMaterial(255);
 
+  // background(100);
+
+  // update world
+  world.step();
+
   // IS THIS NEEDED????
-  buffer.clear();
-  buffer.scale(scaleRatio);
+  // buffer.clear();
+  // buffer.scale(scaleRatio);
 
-  buffer.background(color(colors[PALETTE].background));
+  // buffer.background(color(colors[PALETTE].background));
 
-  buffer.push();
-  buffer.fill("red");
-  buffer.ellipse(30, 30, 50);
-  buffer.pop();
+  // buffer.push();
+  // buffer.fill("red");
+  // buffer.ellipse(30, 30, 50);
+  // buffer.pop();
 
-  image(buffer, - width / 2, - height / 2);
+  // image(buffer, - width / 2, - height / 2);
 
-  noLoop();
-  fxpreview()
+  // and copy position and rotation to three mesh
+  console.log(body.getPosition());
+  console.log(body.getQuaternion());
+
+
+  rotateX(frameCount * 0.01);
+  rotateY(frameCount * 0.01);
+  box(50);
+
+  // noLoop();
+
+  // fxpreview();
 
   // console.log("safety check for diff resolutions same hash: " + fxrand());
 
