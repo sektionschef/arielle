@@ -66,6 +66,7 @@ class BodySystem {
             density: 1,
             friction: 0.2,
             restitution: 0.9,
+            noSleep: true,
             // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
             // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
         };

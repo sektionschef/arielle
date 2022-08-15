@@ -19,7 +19,7 @@ let PaperDimensions = {
   },
 }
 
-let exportPaper = PaperDimensions['Quickie']
+let exportPaper = PaperDimensions['1to1']
 
 let scaleRatio;
 let exportRatio;
@@ -75,8 +75,10 @@ function setup() {
   });
 
   pusher = new Body({
-    type: 'cylinder', // type of shape : sphere, box, cylinder 
-    size: [5, 10], // size of shape
+    // type: 'cylinder', // type of shape : sphere, box, cylinder 
+    // size: [5, 10], // size of shape
+    type: 'box',
+    size: [5, 10, 5],
     pos: [0, 0, 0], // start position in degree
     move: true,
     density: 1,
@@ -134,7 +136,7 @@ function draw() {
 
   // console.log(pusher.body.position);
   // pusher.body.setPosition({ x: 0, y: 0, z: 10 });
-  pusher.body.setPosition({ x: mouseX / conv, y: 0, z: mouseY / conv });
+  pusher.body.setPosition({ x: (mouseX - width / 2) / conv, y: 0, z: (mouseY - height / 2) / conv });
   pusher.update();
 
   if (MODE == 5) {
