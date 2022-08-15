@@ -123,6 +123,45 @@ class Pusher extends Body {
             // console.log("shrinking");
             this.angle += 0.015
         }
-        this.body.setPosition({ x: 0, y: 0, z: this.waveZ });
+        this.body.setPosition({ x: this.body.getPosition().x, y: this.body.getPosition().y, z: this.waveZ });
+    }
+}
+
+class PusherSystem {
+
+    constructor(ground_width) {
+
+        this.widthPusher = 5;
+        this.amount = ground_width / this.widthPusher;
+
+        this.bodies = []
+
+        for (let i = 0; i < this.amount; i++) {
+            var data = {
+                type: 'box',
+                size: [this.widthPusher, 10, this.widthPusher],
+                pos: [i * this.widthPusher - ground_width / 2, 0, 50], // start position in degree
+                // rot: [0, 0, 0],
+                rot: [0, getRandomFromInterval(-60, 60), 0],
+                move: true,
+                density: 1,
+                kinematic: true,
+                noSleep: true,
+                material: 'kinematic',
+            };
+
+            this.bodies.push(new Pusher(data));
+        }
+    }
+
+    updateDisplay() {
+        for (let i = 0; i < this.bodies.length; i++) {
+            this.bodies[i].move();
+            this.bodies[i].update();
+
+            if (MODE == 5) {
+                this.bodies[i].display(color(0, 0, 255, 100));
+            }
+        }
     }
 }

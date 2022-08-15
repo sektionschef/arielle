@@ -56,7 +56,8 @@ function setup() {
     worldscale: 1, // scale full world 
     random: true,  // randomize sample
     info: false,   // calculate statistic or not
-    gravity: [0, -9.8, 0]
+    // gravity: [0, -9.8, 0]
+    gravity: [0, -9.8, 1]
   });
 
   apples = new BodySystem(10);
@@ -65,7 +66,7 @@ function setup() {
     type: 'box', // type of shape : sphere, box, cylinder 
     size: [100, 10, 100], // size of shape
     pos: [0, -10, 0], // start position in degree
-    rot: [10, 0, 0], // start rotation in degree
+    rot: [0, 0, 0], // start rotation in degree
     move: false, // dynamic or statique
     density: 1000,
     friction: 0.2,
@@ -75,24 +76,73 @@ function setup() {
     // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
   });
 
-  pusher = new Pusher({
-    type: 'box',
-    size: [5, 10, 5],
-    pos: [0, 0, 50], // start position in degree
-    rot: [0, 60, 0],
-    move: true,
-    density: 1,
-    kinematic: true,
-    noSleep: true,
-    material: 'kinematic',
+  upperBorder = new Body({
+    type: 'box', // type of shape : sphere, box, cylinder 
+    size: [100, 50, 10], // size of shape
+    pos: [0, 0, -50], // start position in degree
+    rot: [0, 0, 0], // start rotation in degree
+    move: false, // dynamic or statique
+    density: 1000,
+    friction: 0.2,
+    restitution: 0.2,
+    name: "upperBorder",
   });
 
-  // console.log(pusher);
+  lowerBorder = new Body({
+    type: 'box', // type of shape : sphere, box, cylinder 
+    size: [100, 50, 10], // size of shape
+    pos: [0, 0, 50], // start position in degree
+    rot: [0, 0, 0], // start rotation in degree
+    move: false, // dynamic or statique
+    density: 1000,
+    friction: 0.2,
+    restitution: 0.2,
+    name: "lowerBorder",
+  });
+
+  leftBorder = new Body({
+    type: 'box', // type of shape : sphere, box, cylinder 
+    size: [10, 50, 100], // size of shape
+    pos: [50, 0, 0], // start position in degree
+    rot: [0, 0, 0], // start rotation in degree
+    move: false, // dynamic or statique
+    density: 1000,
+    friction: 0.2,
+    restitution: 0.2,
+    name: "leftBorder",
+  });
+
+  rightBorder = new Body({
+    type: 'box', // type of shape : sphere, box, cylinder 
+    size: [10, 50, 100], // size of shape
+    pos: [-50, 0, 0], // start position in degree
+    rot: [0, 0, 0], // start rotation in degree
+    move: false, // dynamic or statique
+    density: 1000,
+    friction: 0.2,
+    restitution: 0.2,
+    name: "leftBorder",
+  });
+
+  // pusher = new Pusher({
+  //   type: 'box',
+  //   size: [5, 10, 5],
+  //   pos: [0, 0, 50], // start position in degree
+  //   rot: [0, 60, 0],
+  //   move: true,
+  //   density: 1,
+  //   kinematic: true,
+  //   noSleep: true,
+  //   material: 'kinematic',
+  // });
+
+  pushers = new PusherSystem(ground.body.shapes.width);
+
 
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
   camera(0, 1000, 0, 0, 0, 0, 0, 0, 1);
 
-  debugMode();
+  // debugMode(AXES);
 
 }
 
@@ -115,19 +165,28 @@ function draw() {
   apples.updateDisplay();
 
   ground.update();
+  upperBorder.update();
+  lowerBorder.update();
+  leftBorder.update();
+  rightBorder.update();
   if (MODE == 5) {
     ground.display(color(0, 255, 0, 100));
+    upperBorder.display(color(0, 155, 0, 100));
+    lowerBorder.display(color(0, 155, 0, 100));
+    leftBorder.display(color(0, 155, 0, 100));
+    rightBorder.display(color(0, 155, 0, 100));
   }
 
   // console.log(pusher.body.position); 
   // z should be halfway of ground
 
-  pusher.move();
-  pusher.update();
+  // pusher.move();
+  // pusher.update();
 
-  if (MODE == 5) {
-    pusher.display(color(0, 0, 255, 100));
-  }
+  // if (MODE == 5) {
+  //   pusher.display(color(0, 0, 255, 100));
+  // }
+  pushers.updateDisplay();
 
   // noLoop();
 
