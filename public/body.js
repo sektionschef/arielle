@@ -97,13 +97,28 @@ class Pusher extends Body {
     constructor(data) {
         super(data);
 
-        this.waveAcc = 0.01;
+        this.waveAcc = 0;
         this.waveVel = 0;
+
+        this.angle = 0;
     }
 
     move() {
-        this.waveVel += this.waveAcc;
-        this.waveZ = this.body.getPosition().z - this.waveVel;
+        // this.waveVel += this.waveAcc;
+        // this.waveZ = this.body.getPosition().z - this.waveVel;
+
+        this.sineValue = sin(this.angle);
+        this.waveZ = map(this.sineValue, -1, 1, -50, 50);
+
         this.body.setPosition({ x: 0, y: 0, z: this.waveZ });
+        if (this.sineValue > sin(this.angle + 0.02)) {
+            console.log("rising");
+            this.angle += 0.04
+        }
+        else {
+            console.log("shrinking");
+            this.angle += 0.02
+        }
+        // console.log(this.sineValue);
     }
 }
