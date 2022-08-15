@@ -38,6 +38,8 @@ class Body {
     display(colorCode) {
 
         // console.log(this.body);
+        // console.log(this.body.name);
+        // console.log(this.body.quaternion);
         // console.log(this.body.shapes.type);
 
         push();
@@ -45,7 +47,9 @@ class Body {
         translate(this.bodyPosition.x * conv, this.bodyPosition.y * conv, this.bodyPosition.z * conv);
 
 
-        if (this.body.isStatic != true && this.body.isKinematic != true) {  // otherwise no data
+        if (this.body.quaternion.w == 1 && this.body.quaternion.x == 0) {
+        } else {
+            // if (this.body.isStatic != true && this.body.isKinematic != true) {  // otherwise no data
             rotate(this.r, this.v)
         }
 
@@ -110,15 +114,15 @@ class Pusher extends Body {
         this.sineValue = sin(this.angle);
         this.waveZ = map(this.sineValue, -1, 1, -50, 50);
 
-        this.body.setPosition({ x: 0, y: 0, z: this.waveZ });
-        if (this.sineValue > sin(this.angle + 0.02)) {
-            console.log("rising");
-            this.angle += 0.04
+        // faster rising than shrinking
+        if (this.sineValue > sin(this.angle + 0.01)) {
+            // console.log("rising");
+            this.angle += 0.03
         }
         else {
-            console.log("shrinking");
-            this.angle += 0.02
+            // console.log("shrinking");
+            this.angle += 0.015
         }
-        // console.log(this.sineValue);
+        this.body.setPosition({ x: 0, y: 0, z: this.waveZ });
     }
 }

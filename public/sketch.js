@@ -70,6 +70,7 @@ function setup() {
     density: 1000,
     friction: 0.2,
     restitution: 0.2,
+    name: "ground",
     // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
     // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
   });
@@ -78,6 +79,7 @@ function setup() {
     type: 'box',
     size: [5, 10, 5],
     pos: [0, 0, 50], // start position in degree
+    rot: [0, 60, 0],
     move: true,
     density: 1,
     kinematic: true,
@@ -96,7 +98,7 @@ function setup() {
 function draw() {
 
 
-  // orbitControl();
+  orbitControl();
 
   // ambientLight(255, 255, 255);
   // ambientMaterial(255);
