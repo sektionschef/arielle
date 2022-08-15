@@ -1,5 +1,5 @@
-// const MODE = 1  // "FINE ART";
-const MODE = 5 // all debug messages
+const MODE = 1  // "FINE ART";
+// const MODE = 5 // all debug messages
 
 NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
@@ -60,7 +60,7 @@ function setup() {
     gravity: [0, -9.8, 1]
   });
 
-  apples = new BodySystem(10);
+  apples = new BodySystem(140);
 
   ground = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
@@ -123,18 +123,6 @@ function setup() {
     restitution: 0.2,
     name: "leftBorder",
   });
-
-  // pusher = new Pusher({
-  //   type: 'box',
-  //   size: [5, 10, 5],
-  //   pos: [0, 0, 50], // start position in degree
-  //   rot: [0, 60, 0],
-  //   move: true,
-  //   density: 1,
-  //   kinematic: true,
-  //   noSleep: true,
-  //   material: 'kinematic',
-  // });
 
   pushers = new PusherSystem(ground.body.shapes.width);
 

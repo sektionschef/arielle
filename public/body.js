@@ -69,21 +69,21 @@ class BodySystem {
     constructor(amount) {
         this.bodies = []
 
-        var data = {
-            type: 'box', // type of shape : sphere, box, cylinder 
-            size: [3, 2, 3], // size of shape
-            pos: [0, 15, 0], // start position in degree
-            rot: [0, 0, 0], // start rotation in degree
-            move: true, // dynamic or statique
-            density: 1,
-            friction: 0.2,
-            restitution: 0.9,
-            noSleep: true,
-            // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
-            // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
-        };
 
         for (let i = 0; i < amount; i++) {
+            var data = {
+                type: 'box', // type of shape : sphere, box, cylinder 
+                size: [3, 2, 3], // size of shape
+                pos: [getRandomFromInterval(-40, 40), 3, getRandomFromInterval(-40, 40)], // start position in degree
+                rot: [0, 0, 0], // start rotation in degree
+                move: true, // dynamic or statique
+                density: 1,
+                friction: 0.2,
+                restitution: 0.9,
+                noSleep: true,
+                // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
+                // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
+            };
             this.bodies.push(new Body(data));
         }
     }
@@ -105,6 +105,7 @@ class Pusher extends Body {
         this.waveVel = 0;
 
         this.angle = 0;
+        this.waveZOffset = + getRandomFromInterval(-10, 10);
     }
 
     move() {
@@ -113,6 +114,7 @@ class Pusher extends Body {
 
         this.sineValue = sin(this.angle);
         this.waveZ = map(this.sineValue, -1, 1, -50, 50);
+        this.waveZ += this.waveZOffset;
 
         // faster rising than shrinking
         if (this.sineValue > sin(this.angle + 0.01)) {
