@@ -74,7 +74,7 @@ function setup() {
     // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
   });
 
-  pusher = new Body({
+  pusher = new Pusher({
     type: 'box',
     size: [5, 10, 5],
     pos: [0, 0, 50], // start position in degree
@@ -118,16 +118,7 @@ function draw() {
   // console.log(pusher.body.position); 
   // z should be halfway of ground
 
-  // pusher.body.setPosition({ x: 0, y: 0, z: 50 });
-  // pusher.acceleration = 0.02;
-  // pusher.velocity = createVector(0, 0, 50);
-  pusher.waveVel = 0
-  pusher.waveAcc = 1
-  pusher.waveVel += pusher.waveAcc;
-  console.log(pusher.waveVel);
-  pusher.waveZ = pusher.body.getPosition().z - pusher.waveVel;
-  console.log(pusher.waveZ);
-  pusher.body.setPosition({ x: 0, y: 0, z: pusher.waveZ });
+  pusher.move();
   pusher.update();
 
   if (MODE == 5) {

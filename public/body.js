@@ -91,3 +91,19 @@ class BodySystem {
         }
     }
 }
+
+
+class Pusher extends Body {
+    constructor(data) {
+        super(data);
+
+        this.waveAcc = 0.01;
+        this.waveVel = 0;
+    }
+
+    move() {
+        this.waveVel += this.waveAcc;
+        this.waveZ = this.body.getPosition().z - this.waveVel;
+        this.body.setPosition({ x: 0, y: 0, z: this.waveZ });
+    }
+}
