@@ -18,6 +18,8 @@ let PaperDimensions = {
     height: 4000
   },
 }
+// convert pixel to real world physics
+let conv = 10;
 
 let exportPaper = PaperDimensions['1to1']
 
@@ -27,8 +29,6 @@ let canvas;
 let rescaling_width;
 let rescaling_height;
 
-// convert pixel to real world physics
-let conv = 10;
 
 function preload() {
 }
@@ -75,11 +75,9 @@ function setup() {
   });
 
   pusher = new Body({
-    // type: 'cylinder', // type of shape : sphere, box, cylinder 
-    // size: [5, 10], // size of shape
     type: 'box',
     size: [5, 10, 5],
-    pos: [0, 0, 0], // start position in degree
+    pos: [0, 0, 50], // start position in degree
     move: true,
     density: 1,
     kinematic: true,
@@ -110,23 +108,6 @@ function draw() {
   // update world
   world.step();
 
-  // IS THIS NEEDED????
-  // buffer.clear();
-  // buffer.scale(scaleRatio);
-
-  // buffer.background(color(colors[PALETTE].background));
-
-  // buffer.push();
-  // buffer.fill("red");
-  // buffer.ellipse(30, 30, 50);
-  // buffer.pop();
-
-  // image(buffer, - width / 2, - height / 2);
-
-  // rotateX(frameCount * 0.01);
-  // rotateY(frameCount * 0.01);
-  // box(50);
-
   apples.updateDisplay();
 
   ground.update();
@@ -134,23 +115,24 @@ function draw() {
     ground.display(color(0, 255, 0, 100));
   }
 
-  // console.log(pusher.body.position);
-  // pusher.body.setPosition({ x: 0, y: 0, z: 10 });
-  pusher.body.setPosition({ x: (mouseX - width / 2) / conv, y: 0, z: (mouseY - height / 2) / conv });
+  // console.log(pusher.body.position); 
+  // z should be halfway of ground
+
+  // pusher.body.setPosition({ x: 0, y: 0, z: 50 });
+  // pusher.acceleration = 0.02;
+  // pusher.velocity = createVector(0, 0, 50);
+  pusher.waveVel = 0
+  pusher.waveAcc = 1
+  pusher.waveVel += pusher.waveAcc;
+  console.log(pusher.waveVel);
+  pusher.waveZ = pusher.body.getPosition().z - pusher.waveVel;
+  console.log(pusher.waveZ);
+  pusher.body.setPosition({ x: 0, y: 0, z: pusher.waveZ });
   pusher.update();
 
   if (MODE == 5) {
     pusher.display(color(0, 0, 255, 100));
   }
-
-
-  // var groundPosition = ground.getPosition();
-  // var groundQuaternionRaw = ground.getQuaternion();
-  // push();
-  // fill(255, 0, 0, 100);
-  // translate(groundPosition.x * conv, groundPosition.y * conv, groundPosition.z * conv);
-  // box(ground.shapes.width * conv, ground.shapes.height * conv, ground.shapes.depth * conv);
-  // pop();
 
   // noLoop();
 
@@ -162,21 +144,5 @@ function draw() {
 
 function mousePressed() {
   // console.log(cam);
-  mova += 1;
 }
 
-
-// from here: https://stackoverflow.com/questions/62457529/how-do-you-get-the-axis-and-angle-representation-of-a-quaternion-in-three-js 
-function getAxisAndAngelFromQuaternion(q) {
-  const angle = 2 * Math.acos(q.w);
-  var s;
-  if (1 - q.w * q.w < 0.000001) {
-    // test to avoid divide by zero, s is always positive due to sqrt
-    // if s close to zero then direction of axis not important
-    // http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToAngle/
-    s = 1;
-  } else {
-    s = Math.sqrt(1 - q.w * q.w);
-  }
-  return [q.x / s, q.y / s, q.z / s, angle];
-}

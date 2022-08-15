@@ -6,17 +6,26 @@ class Body {
 
     }
 
+    // from here: https://stackoverflow.com/questions/62457529/how-do-you-get-the-axis-and-angle-representation-of-a-quaternion-in-three-js 
+    getAxisAndAngelFromQuaternion(q) {
+        const angle = 2 * Math.acos(q.w);
+        var s;
+        if (1 - q.w * q.w < 0.000001) {
+            // test to avoid divide by zero, s is always positive due to sqrt
+            // if s close to zero then direction of axis not important
+            // http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToAngle/
+            s = 1;
+        } else {
+            s = Math.sqrt(1 - q.w * q.w);
+        }
+        return [q.x / s, q.y / s, q.z / s, angle];
+    }
+
     update() {
         this.bodyPosition = this.body.getPosition();
 
         this.bodyQuaternionRaw = this.body.getQuaternion();
-        // console.log(this.bodyQuaternionRaw);
-
-        // this.bodyQuaternion = new toxi.geom.Quaternion(this.bodyQuaternionRaw.x, this.bodyQuaternionRaw.y, this.bodyQuaternionRaw.z, this.bodyQuaternionRaw.w);
-        // console.log(this.bodyQuaternionRaw);
-        // this.axisAngle = this.bodyQuaternion.toAxisAngle();
-
-        this.axisAngle = getAxisAndAngelFromQuaternion(this.bodyQuaternionRaw)
+        this.axisAngle = this.getAxisAndAngelFromQuaternion(this.bodyQuaternionRaw)
         // console.log(this.axisAngle);
 
         this.r = this.axisAngle[3]
@@ -44,7 +53,6 @@ class Body {
         if (this.body.shapes.type == 2) {
             box(this.body.shapes.width * conv, this.body.shapes.height * conv, this.body.shapes.depth * conv)
         } else if (this.body.shapes.type == 3) {
-            // console.log(this.body.shapes);
             cylinder(this.body.shapes.radius * conv, this.body.shapes.height * conv);
         }
         pop();
