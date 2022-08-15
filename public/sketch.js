@@ -65,7 +65,7 @@ function setup() {
     type: 'box', // type of shape : sphere, box, cylinder 
     size: [100, 10, 100], // size of shape
     pos: [0, -10, 0], // start position in degree
-    rot: [0, 0, 0], // start rotation in degree
+    rot: [10, 0, 0], // start rotation in degree
     move: false, // dynamic or statique
     density: 1000,
     friction: 0.2,
@@ -91,6 +91,8 @@ function setup() {
 
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
   camera(0, 1000, 0, 0, 0, 0, 0, 0, 1);
+
+  debugMode();
 
 }
 
