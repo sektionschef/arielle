@@ -1,8 +1,6 @@
 class Body {
     constructor(data, appleColor) {
 
-        console.log(appleColor);
-
         if (typeof appleColor != "undefined") {
             this.fillColor = appleColor.fill;
             this.strokeColor = appleColor.stroke;
@@ -125,7 +123,7 @@ class Pusher extends Body {
         this.waveAcc = 0;
         this.waveVel = 0;
 
-        this.angle = 0;
+        this.angle = 90;  // start at bottom
         this.waveZOffset = + getRandomFromInterval(-5, 5);
     }
 
@@ -141,12 +139,17 @@ class Pusher extends Body {
         if (this.sineValue > sin(this.angle + 0.01)) {
             // console.log("rising");
             this.angle += 0.03
+            this.body.setPosition({ x: this.body.getPosition().x, y: 0, z: this.waveZ });
         }
         else {
             // console.log("shrinking");
+            // this.angle += 0.015
             this.angle += 0.015
+
+            this.body.setPosition({ x: this.body.getPosition().x, y: 50, z: this.waveZ });
         }
-        this.body.setPosition({ x: this.body.getPosition().x, y: this.body.getPosition().y, z: this.waveZ });
+        // overall
+        // this.body.setPosition({ x: this.body.getPosition().x, y: this.body.getPosition().y, z: this.waveZ });
     }
 }
 

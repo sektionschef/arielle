@@ -1,5 +1,5 @@
-const MODE = 1  // "FINE ART";
-// const MODE = 5 // all debug messages
+// const MODE = 1  // "FINE ART";
+const MODE = 5 // all debug messages
 
 const NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
