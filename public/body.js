@@ -124,7 +124,7 @@ class Pusher extends Body {
         this.waveVel = 0;
 
         this.angle = 90;  // start at bottom
-        this.waveZOffset = + getRandomFromInterval(-5, 5);
+        this.waveZOffset = + getRandomFromInterval(-1, 1);
     }
 
     move() {
@@ -144,7 +144,7 @@ class Pusher extends Body {
         else {
             // console.log("shrinking");
             // this.angle += 0.015
-            this.angle += 0.015
+            this.angle += 0.008
 
             this.body.setPosition({ x: this.body.getPosition().x, y: 50, z: this.waveZ });
         }
@@ -168,10 +168,10 @@ class PusherSystem {
         for (let i = 0; i < this.amount; i++) {
             var data = {
                 type: 'box',
-                size: [this.widthPusher, 10, this.widthPusher],
+                size: [this.widthPusher, 20, this.widthPusher],
                 pos: [i * this.widthPusher - ground_width / 2, 0, 50], // start position in degree
-                // rot: [0, 0, 0],
-                rot: [0, getRandomFromInterval(-60, 60), 0],
+                rot: [0, 0, 0],
+                // rot: [0, getRandomFromInterval(-5, 5), 0],
                 move: true,
                 density: 1,
                 kinematic: true,

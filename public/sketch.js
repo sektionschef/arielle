@@ -1,5 +1,5 @@
-// const MODE = 1  // "FINE ART";
-const MODE = 5 // all debug messages
+const MODE = 1  // "FINE ART";
+// const MODE = 5 // all debug messages
 
 const NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
@@ -66,7 +66,7 @@ function setup() {
     gravity: [0, -9.8, 3]
   });
 
-  apples = new AppleSystem(140);
+  apples = new AppleSystem(500);
 
   ground = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
@@ -82,17 +82,17 @@ function setup() {
     // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
   }, { "fill": color(0, 255, 0, 100), "stroke": "black" });
 
-  upperBorder = new Body({
-    type: 'box', // type of shape : sphere, box, cylinder 
-    size: [100, 50, 10], // size of shape
-    pos: [0, 0, -50], // start position in degree
-    rot: [0, 0, 0], // start rotation in degree
-    move: false, // dynamic or statique
-    density: 1000,
-    friction: 0.2,
-    restitution: 0.2,
-    name: "upperBorder",
-  }, { "fill": color(0, 155, 0, 100), "stroke": "black" });
+  // upperBorder = new Body({
+  //   type: 'box', // type of shape : sphere, box, cylinder 
+  //   size: [100, 50, 10], // size of shape
+  //   pos: [0, 0, -50], // start position in degree
+  //   rot: [0, 0, 0], // start rotation in degree
+  //   move: false, // dynamic or statique
+  //   density: 1000,
+  //   friction: 0.2,
+  //   restitution: 0.2,
+  //   name: "upperBorder",
+  // }, { "fill": color(0, 155, 0, 100), "stroke": "black" });
 
   lowerBorder = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
@@ -106,29 +106,29 @@ function setup() {
     name: "lowerBorder",
   }, { "fill": color(0, 155, 0, 100), "stroke": "black" });
 
-  leftBorder = new Body({
-    type: 'box', // type of shape : sphere, box, cylinder 
-    size: [10, 50, 100], // size of shape
-    pos: [50, 0, 0], // start position in degree
-    rot: [0, 0, 0], // start rotation in degree
-    move: false, // dynamic or statique
-    density: 1000,
-    friction: 0.2,
-    restitution: 0.2,
-    name: "leftBorder",
-  }, { "fill": color(0, 155, 0, 100), "stroke": "black" });
+  // leftBorder = new Body({
+  //   type: 'box', // type of shape : sphere, box, cylinder 
+  //   size: [10, 50, 100], // size of shape
+  //   pos: [50, 0, 0], // start position in degree
+  //   rot: [0, 0, 0], // start rotation in degree
+  //   move: false, // dynamic or statique
+  //   density: 1000,
+  //   friction: 0.2,
+  //   restitution: 0.2,
+  //   name: "leftBorder",
+  // }, { "fill": color(0, 155, 0, 100), "stroke": "black" });
 
-  rightBorder = new Body({
-    type: 'box', // type of shape : sphere, box, cylinder 
-    size: [10, 50, 100], // size of shape
-    pos: [-50, 0, 0], // start position in degree
-    rot: [0, 0, 0], // start rotation in degree
-    move: false, // dynamic or statique
-    density: 1000,
-    friction: 0.2,
-    restitution: 0.2,
-    name: "leftBorder",
-  }, { "fill": color(0, 155, 0, 100), "stroke": "black" });
+  // rightBorder = new Body({
+  //   type: 'box', // type of shape : sphere, box, cylinder 
+  //   size: [10, 50, 100], // size of shape
+  //   pos: [-50, 0, 0], // start position in degree
+  //   rot: [0, 0, 0], // start rotation in degree
+  //   move: false, // dynamic or statique
+  //   density: 1000,
+  //   friction: 0.2,
+  //   restitution: 0.2,
+  //   name: "leftBorder",
+  // }, { "fill": color(0, 155, 0, 100), "stroke": "black" });
 
   pushers = new PusherSystem(ground.body.shapes.width);
 
@@ -167,20 +167,21 @@ function draw() {
   apples.updateDisplay();
 
   ground.update();
-  upperBorder.update();
+  // upperBorder.update();
   lowerBorder.update();
-  leftBorder.update();
-  rightBorder.update();
+  // leftBorder.update();
+  // rightBorder.update();
   if (MODE == 5) {
     ground.display();
-    upperBorder.display();
+    // upperBorder.display();
     lowerBorder.display();
-    leftBorder.display();
-    rightBorder.display();
+    // leftBorder.display();
+    // rightBorder.display();
   }
 
-
-  pushers.updateDisplay();
+  if (frameCount > 50) {
+    pushers.updateDisplay();
+  }
 
   // noLoop();
 
