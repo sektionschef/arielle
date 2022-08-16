@@ -1,7 +1,7 @@
-// const MODE = 1  // "FINE ART";
-const MODE = 5 // all debug messages
+const MODE = 1  // "FINE ART";
+// const MODE = 5 // all debug messages
 
-NOISESEED = hashFnv32a(fxhash);
+const NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
 
 let PaperDimensions = {
@@ -29,8 +29,10 @@ let canvas;
 let rescaling_width;
 let rescaling_height;
 
+let PALETTE;
 
 function preload() {
+  img = loadImage('sand.jpg');
 }
 
 function setup() {
@@ -45,7 +47,9 @@ function setup() {
   scaleDynamically();
 
   canvas = createCanvas(rescaling_width, rescaling_height, WEBGL);
-  cam = createCamera();
+  cam = createCamera();  // needed?
+
+  createPalette();
 
   mova = 0;
 
@@ -128,7 +132,11 @@ function setup() {
 
 
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
-  camera(0, 1000, 0, 0, 0, 0, 0, 0, 1);
+  if (MODE == 5) {
+    camera(0, 1000, 0, 0, 0, 0, 0, 0, 1); // debug
+  } else {
+    camera(0, 700, 0, 0, 0, 0, 0, 0, 1);
+  }
 
   // debugMode(AXES);
 
@@ -142,6 +150,10 @@ function draw() {
 
   // ambientLight(255, 255, 255);
   // ambientMaterial(255);
+
+  if (frameCount == 1) {
+    background(PALETTE.background);
+  }
 
   if (MODE == 5) {
     background(100);
@@ -188,3 +200,16 @@ function mousePressed() {
   // console.log(cam);
 }
 
+
+function createPalette() {
+  const PALETTESYSTEM = {
+    "Medousa": {
+      "background": color("#CEA588"),
+      "fillApples": [color("#534438"), color("#FBE1BB"), color("#785237"), color("#926139")],
+      "strokeApples": [color("#CEA588")],
+    },
+
+  }
+
+  PALETTE = PALETTESYSTEM['Medousa'];
+}

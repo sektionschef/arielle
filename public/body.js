@@ -67,6 +67,8 @@ class Body {
             rotate(this.r, this.v)
         }
 
+        texture(img);
+
         // shape specific
         if (this.body.shapes.type == 2) {
             box(this.body.shapes.width * conv, this.body.shapes.height * conv, this.body.shapes.depth * conv)
@@ -87,13 +89,8 @@ class AppleSystem {
         for (let i = 0; i < amount; i++) {
 
             var bodySize = getRandomFromList([2, 1, 0.5]);
-            var fillColor = getRandomFromList([
-                color(255, 0, 0, 255),
-                color(0, 255, 0, 255)
-            ]);
-            var strokeColor = getRandomFromList([
-                color(0, 0, 0, 255),
-            ]);
+            var fillColor = getRandomFromList(PALETTE.fillApples);
+            var strokeColor = getRandomFromList(PALETTE.strokeApples);
 
             var data = {
                 type: 'box', // type of shape : sphere, box, cylinder 
