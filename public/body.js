@@ -1,6 +1,8 @@
 class Body {
     constructor(data, appleColor) {
 
+        this.killMe = false;
+
         if (typeof appleColor != "undefined") {
             this.fillColor = appleColor.fill;
             this.strokeColor = appleColor.stroke;
@@ -33,6 +35,13 @@ class Body {
 
     update() {
         this.bodyPosition = this.body.getPosition();
+        if (
+            this.bodyPosition.x < -100 || this.bodyPosition.x > 100 ||
+            this.bodyPosition.y < -100 || this.bodyPosition.y > 100 ||
+            this.bodyPosition.z < -100 || this.bodyPosition.z > 100
+        ) {
+            this.killMe = true;
+        }
 
         this.bodyQuaternionRaw = this.body.getQuaternion();
         this.axisAngle = this.getAxisAndAngelFromQuaternion(this.bodyQuaternionRaw)
@@ -108,10 +117,18 @@ class AppleSystem {
     }
 
     updateDisplay() {
-        for (let i = 0; i < this.bodies.length; i++) {
+        for (var i = this.bodies.length - 1; i >= 0; i--) {
+            // for (let i = 0; i < this.bodies.length; i++) {
             this.bodies[i].update();
             this.bodies[i].display();
+            if (this.bodies[i].killMe) {
+                console.log("adsfaf")
+                this.bodies[i].body.remove();
+                this.bodies.splice(i, 1);
+            }
         }
+
+
     }
 }
 
