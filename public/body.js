@@ -1,14 +1,14 @@
 class Body {
-    constructor(data, fillColor, strokeColor) {
+    constructor(data, appleColor) {
 
-        if (typeof fillColor != "undefined") {
-            this.fillColor = fillColor;
+        console.log(appleColor);
+
+        if (typeof appleColor != "undefined") {
+            this.fillColor = appleColor.fill;
+            this.strokeColor = appleColor.stroke;
+            this.img = appleColor.img;
         } else {
             this.fillColor = color("white");
-        }
-        if (typeof strokeColor != "undefined") {
-            this.strokeColor = strokeColor;
-        } else {
             this.strokeColor = color("black");
         }
 
@@ -67,8 +67,9 @@ class Body {
             rotate(this.r, this.v)
         }
 
-        texture(img);
-
+        if (typeof this.img != "undefined") {
+            texture(this.img);
+        }
         // shape specific
         if (this.body.shapes.type == 2) {
             box(this.body.shapes.width * conv, this.body.shapes.height * conv, this.body.shapes.depth * conv)
@@ -88,9 +89,8 @@ class AppleSystem {
 
         for (let i = 0; i < amount; i++) {
 
-            var bodySize = getRandomFromList([2, 1, 0.5]);
-            var fillColor = getRandomFromList(PALETTE.fillApples);
-            var strokeColor = getRandomFromList(PALETTE.strokeApples);
+            var bodySize = getRandomFromList([1, 0.5]);
+            var appleColor = getRandomFromList(PALETTE.apples);
 
             var data = {
                 type: 'box', // type of shape : sphere, box, cylinder 
@@ -105,7 +105,7 @@ class AppleSystem {
                 // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
                 // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
             };
-            this.bodies.push(new Body(data, fillColor, strokeColor));
+            this.bodies.push(new Body(data, appleColor));
         }
     }
 
@@ -119,14 +119,14 @@ class AppleSystem {
 
 
 class Pusher extends Body {
-    constructor(data, fillColor, strokeColor) {
-        super(data, fillColor, strokeColor);
+    constructor(data, colorCodes) {
+        super(data, colorCodes);
 
         this.waveAcc = 0;
         this.waveVel = 0;
 
         this.angle = 0;
-        this.waveZOffset = + getRandomFromInterval(-10, 10);
+        this.waveZOffset = + getRandomFromInterval(-5, 5);
     }
 
     move() {
@@ -176,7 +176,7 @@ class PusherSystem {
                 material: 'kinematic',
             };
 
-            this.bodies.push(new Pusher(data, fillColor, strokeColor));
+            this.bodies.push(new Pusher(data, { "fill": fillColor, "stroke": strokeColor }));
         }
     }
 

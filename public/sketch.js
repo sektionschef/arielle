@@ -32,7 +32,7 @@ let rescaling_height;
 let PALETTE;
 
 function preload() {
-  img = loadImage('sand.jpg');
+  // img = loadImage('sand.jpg');
 }
 
 function setup() {
@@ -50,6 +50,8 @@ function setup() {
   cam = createCamera();  // needed?
 
   createPalette();
+  addTexture();
+
 
   mova = 0;
 
@@ -61,7 +63,7 @@ function setup() {
     random: true,  // randomize sample
     info: false,   // calculate statistic or not
     // gravity: [0, -9.8, 0]
-    gravity: [0, -9.8, 1]
+    gravity: [0, -9.8, 3]
   });
 
   apples = new AppleSystem(140);
@@ -73,12 +75,12 @@ function setup() {
     rot: [0, 0, 0], // start rotation in degree
     move: false, // dynamic or statique
     density: 1000,
-    friction: 0.2,
+    friction: 0.1,
     restitution: 0.2,
     name: "ground",
     // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
     // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
-  }, color(0, 255, 0, 100));
+  }, { "fill": color(0, 255, 0, 100), "stroke": "black" });
 
   upperBorder = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
@@ -90,7 +92,7 @@ function setup() {
     friction: 0.2,
     restitution: 0.2,
     name: "upperBorder",
-  }, color(0, 155, 0, 100));
+  }, { "fill": color(0, 155, 0, 100), "stroke": "black" });
 
   lowerBorder = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
@@ -102,7 +104,7 @@ function setup() {
     friction: 0.2,
     restitution: 0.2,
     name: "lowerBorder",
-  }, color(0, 155, 0, 100));
+  }, { "fill": color(0, 155, 0, 100), "stroke": "black" });
 
   leftBorder = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
@@ -114,7 +116,7 @@ function setup() {
     friction: 0.2,
     restitution: 0.2,
     name: "leftBorder",
-  }, color(0, 155, 0, 100));
+  }, { "fill": color(0, 155, 0, 100), "stroke": "black" });
 
   rightBorder = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
@@ -126,7 +128,7 @@ function setup() {
     friction: 0.2,
     restitution: 0.2,
     name: "leftBorder",
-  }, color(0, 155, 0, 100));
+  }, { "fill": color(0, 155, 0, 100), "stroke": "black" });
 
   pushers = new PusherSystem(ground.body.shapes.width);
 
@@ -177,15 +179,7 @@ function draw() {
     rightBorder.display();
   }
 
-  // console.log(pusher.body.position); 
-  // z should be halfway of ground
 
-  // pusher.move();
-  // pusher.update();
-
-  // if (MODE == 5) {
-  //   pusher.display(color(0, 0, 255, 100));
-  // }
   pushers.updateDisplay();
 
   // noLoop();
@@ -205,11 +199,64 @@ function createPalette() {
   const PALETTESYSTEM = {
     "Medousa": {
       "background": color("#CEA588"),
-      "fillApples": [color("#534438"), color("#FBE1BB"), color("#785237"), color("#926139")],
-      "strokeApples": [color("#CEA588")],
+      "apples": [
+        {
+          "fill": color("#534438"),
+          "stroke": color("#785237")
+        },
+        {
+          "fill": color("#FBE1BB"),
+          "stroke": color("#CEA588")
+        },
+        {
+          "fill": color("#785237"),
+          "stroke": color("#926139")
+        },
+        {
+          "fill": color("#926139"),
+          "stroke": color("#534438")
+        }
+      ]
     },
 
   }
 
   PALETTE = PALETTESYSTEM['Medousa'];
+}
+
+function drawPixelBuffer(bufferWidth, bufferHeight, baseColor, range) {
+  let buffer = createGraphics(bufferWidth, bufferHeight);
+
+  buffer.loadPixels();
+  // let baseColor = color(242, 210, 169);
+  // let range = 40;
+
+  for (let y = 0; y < buffer.height; y++) {
+    for (let x = 0; x < buffer.width; x++) {
+      // formula to get each pixels rgba
+      let index = (x + y * buffer.width) * 4;
+      buffer.pixels[index + 0] = random(red(baseColor) - range, red(baseColor) + range);
+      buffer.pixels[index + 1] = random(green(baseColor) - range, green(baseColor) + range);
+      buffer.pixels[index + 2] = random(blue(baseColor) - range, blue(baseColor) + range);
+      buffer.pixels[index + 3] = 255;
+    }
+  }
+  buffer.updatePixels();
+  return buffer
+}
+
+function addTexture() {
+
+  for (var i = 0; i < PALETTE['apples'].length; i++) {
+
+    // console.log(PALETTE['apples'][i]);
+
+    // size of the biggest apple
+    PALETTE['apples'][i]["img"] = drawPixelBuffer(
+      20,
+      20,
+      PALETTE['apples'][i].fill,
+      40);
+  }
+
 }
