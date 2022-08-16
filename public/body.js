@@ -1,5 +1,17 @@
 class Body {
-    constructor(data) {
+    constructor(data, fillColor, strokeColor) {
+
+        if (typeof fillColor != "undefined") {
+            this.fillColor = fillColor;
+        } else {
+            this.fillColor = color("white");
+        }
+        if (typeof strokeColor != "undefined") {
+            this.strokeColor = strokeColor;
+        } else {
+            this.strokeColor = color("black");
+        }
+
         this.body = world.add(
             data
         );
@@ -35,7 +47,7 @@ class Body {
         // console.log(this.v);
     }
 
-    display(colorCode) {
+    display() {
 
         // console.log(this.body);
         // console.log(this.body.name);
@@ -43,7 +55,9 @@ class Body {
         // console.log(this.body.shapes.type);
 
         push();
-        fill(color(colorCode))
+        fill(color(this.fillColor))
+        stroke(color(this.strokeColor));
+        strokeWeight(1);
         translate(this.bodyPosition.x * conv, this.bodyPosition.y * conv, this.bodyPosition.z * conv);
 
 
@@ -64,42 +78,52 @@ class Body {
 }
 
 
-class BodySystem {
+class AppleSystem {
 
     constructor(amount) {
         this.bodies = []
 
 
         for (let i = 0; i < amount; i++) {
+
+            var bodySize = getRandomFromList([2, 1, 0.5]);
+            var fillColor = getRandomFromList([
+                color(255, 0, 0, 255),
+                color(0, 255, 0, 255)
+            ]);
+            var strokeColor = getRandomFromList([
+                color(0, 0, 0, 255),
+            ]);
+
             var data = {
                 type: 'box', // type of shape : sphere, box, cylinder 
-                size: [3, 2, 3], // size of shape
+                size: [bodySize, bodySize, bodySize], // size of shape
                 pos: [getRandomFromInterval(-40, 40), 3, getRandomFromInterval(-40, 40)], // start position in degree
                 rot: [0, 0, 0], // start rotation in degree
                 move: true, // dynamic or statique
-                density: 1,
-                friction: 0.2,
+                density: 100,  // 1
+                friction: 0.5,
                 restitution: 0.9,
                 noSleep: true,
                 // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
                 // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
             };
-            this.bodies.push(new Body(data));
+            this.bodies.push(new Body(data, fillColor, strokeColor));
         }
     }
 
     updateDisplay() {
         for (let i = 0; i < this.bodies.length; i++) {
             this.bodies[i].update();
-            this.bodies[i].display("red");
+            this.bodies[i].display();
         }
     }
 }
 
 
 class Pusher extends Body {
-    constructor(data) {
-        super(data);
+    constructor(data, fillColor, strokeColor) {
+        super(data, fillColor, strokeColor);
 
         this.waveAcc = 0;
         this.waveVel = 0;
@@ -138,6 +162,9 @@ class PusherSystem {
 
         this.bodies = []
 
+        var fillColor = color(0, 0, 255, 100);
+        var strokeColor = color("black");
+
         for (let i = 0; i < this.amount; i++) {
             var data = {
                 type: 'box',
@@ -152,7 +179,7 @@ class PusherSystem {
                 material: 'kinematic',
             };
 
-            this.bodies.push(new Pusher(data));
+            this.bodies.push(new Pusher(data, fillColor, strokeColor));
         }
     }
 
@@ -162,7 +189,7 @@ class PusherSystem {
             this.bodies[i].update();
 
             if (MODE == 5) {
-                this.bodies[i].display(color(0, 0, 255, 100));
+                this.bodies[i].display();
             }
         }
     }

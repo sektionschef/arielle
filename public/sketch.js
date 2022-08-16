@@ -1,5 +1,5 @@
-const MODE = 1  // "FINE ART";
-// const MODE = 5 // all debug messages
+// const MODE = 1  // "FINE ART";
+const MODE = 5 // all debug messages
 
 NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
@@ -60,7 +60,7 @@ function setup() {
     gravity: [0, -9.8, 1]
   });
 
-  apples = new BodySystem(140);
+  apples = new AppleSystem(140);
 
   ground = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
@@ -74,7 +74,7 @@ function setup() {
     name: "ground",
     // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
     // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
-  });
+  }, color(0, 255, 0, 100));
 
   upperBorder = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
@@ -86,7 +86,7 @@ function setup() {
     friction: 0.2,
     restitution: 0.2,
     name: "upperBorder",
-  });
+  }, color(0, 155, 0, 100));
 
   lowerBorder = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
@@ -98,7 +98,7 @@ function setup() {
     friction: 0.2,
     restitution: 0.2,
     name: "lowerBorder",
-  });
+  }, color(0, 155, 0, 100));
 
   leftBorder = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
@@ -110,7 +110,7 @@ function setup() {
     friction: 0.2,
     restitution: 0.2,
     name: "leftBorder",
-  });
+  }, color(0, 155, 0, 100));
 
   rightBorder = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
@@ -122,7 +122,7 @@ function setup() {
     friction: 0.2,
     restitution: 0.2,
     name: "leftBorder",
-  });
+  }, color(0, 155, 0, 100));
 
   pushers = new PusherSystem(ground.body.shapes.width);
 
@@ -158,11 +158,11 @@ function draw() {
   leftBorder.update();
   rightBorder.update();
   if (MODE == 5) {
-    ground.display(color(0, 255, 0, 100));
-    upperBorder.display(color(0, 155, 0, 100));
-    lowerBorder.display(color(0, 155, 0, 100));
-    leftBorder.display(color(0, 155, 0, 100));
-    rightBorder.display(color(0, 155, 0, 100));
+    ground.display();
+    upperBorder.display();
+    lowerBorder.display();
+    leftBorder.display();
+    rightBorder.display();
   }
 
   // console.log(pusher.body.position); 
