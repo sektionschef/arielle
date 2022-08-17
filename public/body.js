@@ -122,7 +122,6 @@ class AppleSystem {
             this.bodies[i].update();
             this.bodies[i].display();
             if (this.bodies[i].killMe) {
-                console.log("adsfaf")
                 this.bodies[i].body.remove();
                 this.bodies.splice(i, 1);
             }
