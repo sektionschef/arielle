@@ -1,5 +1,5 @@
-const MODE = 1  // "FINE ART";
-// const MODE = 5 // all debug messages
+// const MODE = 1  // "FINE ART";
+const MODE = 5 // all debug messages
 
 const NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
@@ -30,6 +30,7 @@ let rescaling_width;
 let rescaling_height;
 
 let PALETTE;
+let WAVELAUNCH;
 
 function preload() {
   // img = loadImage('sand.jpg');
@@ -52,9 +53,6 @@ function setup() {
   createPalette();
   addTexture();
 
-
-  mova = 0;
-
   world = new OIMO.World({
     timestep: 1 / 60,
     iterations: 8,
@@ -65,8 +63,6 @@ function setup() {
     // gravity: [0, -9.8, 0]
     gravity: [0, -9.8, 3]
   });
-
-  apples = new AppleSystem(500);
 
   ground = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
@@ -148,7 +144,6 @@ function setup() {
 
 function draw() {
 
-
   orbitControl();
 
   // ambientLight(255, 255, 255);
@@ -165,13 +160,16 @@ function draw() {
   // update world
   world.step();
 
-  apples.updateDisplay();
+  if (typeof apples != "undefined") {
+    apples.updateDisplay();
+  }
 
   ground.update();
   // upperBorder.update();
   lowerBorder.update();
   // leftBorder.update();
   // rightBorder.update();
+
   if (MODE == 5) {
     ground.display();
     // upperBorder.display();
@@ -180,7 +178,7 @@ function draw() {
     // rightBorder.display();
   }
 
-  if (frameCount > 50) {
+  if (WAVELAUNCH) {
     pushers.updateDisplay();
   }
 
@@ -271,19 +269,17 @@ function sleep(ms) {
 
 
 async function waveCycle() {
-  await sleep(1000 * 60 * 1);
+  WAVELAUNCH = false;
   console.log("Starting new wave cycle");
   console.log("Planting apples");
   apples = new AppleSystem(500);
+  await sleep(1000 * 60 * 0.1);
+  if (WAVELAUNCH) {
+    this.angle = 90;
+  }
+  WAVELAUNCH = true;
 
   // repeat itself
+  await sleep(1000 * 60 * 0.3);
   waveCycle();
 }
-
-// async function waveCycle() {
-//   for (let i = 0; i < 5; i++) {
-//     console.log(`Waiting ${i} seconds...`);
-//     await sleep(i * 1000);
-//   }
-//   console.log('Done');
-// }

@@ -151,18 +151,22 @@ class Pusher extends Body {
         this.waveZ = map(this.sineValue, -1, 1, -50, 50);
         this.waveZ += this.waveZOffset;
 
+        this.waveActive = false;
+
         // faster rising than shrinking
         if (this.sineValue > sin(this.angle + 0.01)) {
             // console.log("rising");
+            this.waveActive = true;
+            // console.log(this.sineValue);
             this.angle += 0.03
             this.body.setPosition({ x: this.body.getPosition().x, y: 0, z: this.waveZ });
         }
         else {
             // console.log("shrinking");
-            // this.angle += 0.015
-            this.angle += 0.008
+            // this.angle += 0.008
 
-            this.body.setPosition({ x: this.body.getPosition().x, y: 50, z: this.waveZ });
+            this.waveActive = false;
+            this.body.setPosition({ x: this.body.getPosition().x, y: 50, z: -50 });
         }
         // overall
         // this.body.setPosition({ x: this.body.getPosition().x, y: this.body.getPosition().y, z: this.waveZ });
