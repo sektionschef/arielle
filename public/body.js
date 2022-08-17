@@ -36,9 +36,9 @@ class Body {
     update() {
         this.bodyPosition = this.body.getPosition();
         if (
-            this.bodyPosition.x < -100 || this.bodyPosition.x > 100 ||
-            this.bodyPosition.y < -100 || this.bodyPosition.y > 100 ||
-            this.bodyPosition.z < -100 || this.bodyPosition.z > 100
+            this.bodyPosition.x < -50 || this.bodyPosition.x > 50 ||
+            this.bodyPosition.y < -50 || this.bodyPosition.y > 50 ||
+            this.bodyPosition.z < -50 || this.bodyPosition.z > 50
         ) {
             this.killMe = true;
         }
@@ -96,18 +96,24 @@ class AppleSystem {
 
         for (let i = 0; i < amount; i++) {
 
-            var bodySize = getRandomFromList([1, 0.5]);
+            if (waveIndex == 0) {
+                var bodySize = 2;
+            } else if ((waveIndex == 1)) {
+                var bodySize = 2;
+            } else {
+                var bodySize = 2;
+            }
             var appleColor = getRandomFromList(PALETTE.apples);
 
             var data = {
                 type: 'box', // type of shape : sphere, box, cylinder 
                 size: [bodySize, bodySize, bodySize], // size of shape
-                pos: [getRandomFromInterval(-40, 40), 3, getRandomFromInterval(-40, 40)], // start position in degree
+                pos: [getRandomFromInterval(-50, 50), 0, getRandomFromInterval(40, 50)], // start position in degree
                 rot: [0, 0, 0], // start rotation in degree
                 move: true, // dynamic or statique
-                density: 100,  // 1
+                density: 1000,  // 1
                 friction: 0.5,
-                restitution: 0.9,
+                restitution: 0.1,
                 noSleep: true,
                 // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
                 // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
@@ -139,8 +145,9 @@ class Pusher extends Body {
         // this.waveAcc = 0;
         // this.waveVel = 0;
 
-        this.angle = 90;  // start at bottom
-        this.waveZOffset = + getRandomFromInterval(-1, 1);  // not fully in line
+        // this.angle = 90;  // start at bottom
+        this.angle = 300;
+        this.waveZOffset = + getRandomFromInterval(-2, 2);  // not fully in line
     }
 
     fire() {
@@ -152,21 +159,24 @@ class Pusher extends Body {
         // this.waveZ = this.body.getPosition().z - this.waveVel;
 
         this.sineValue = sin(this.angle);
-        this.waveZ = map(this.sineValue, -1, 1, -50, 50);
+        // this.waveZ = map(this.sineValue, -1, 1, -50, 50);
+        this.waveZ = map(this.sineValue, -1, 1, -20, 150);  // FEATURE - wie weit
         this.waveZ += this.waveZOffset;
 
         // rising, sin value is getting larger not smaller
         if (this.sineValue > sin(this.angle + 0.01)) {
             // console.log("rising");
             // console.log(this.sineValue);
-            this.angle += 0.03
+
+            // this.angle += 0.03
+            this.angle += 0.007;
             this.body.setPosition({ x: this.body.getPosition().x, y: 0, z: this.waveZ });
         }
         else {
             // console.log("shrinking");
             // this.angle += 0.008
 
-            this.body.setPosition({ x: this.body.getPosition().x, y: 0, z: -50 });
+            this.body.setPosition({ x: this.body.getPosition().x, y: 50, z: -50 });
         }
         // overall
         // this.body.setPosition({ x: this.body.getPosition().x, y: this.body.getPosition().y, z: this.waveZ });

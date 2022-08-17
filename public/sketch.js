@@ -63,7 +63,7 @@ function setup() {
     random: true,  // randomize sample
     info: false,   // calculate statistic or not
     // gravity: [0, -9.8, 0]
-    gravity: [0, -9.8, 3]
+    gravity: [0, -9.8, 2]
   });
 
   ground = new Body({
@@ -146,9 +146,12 @@ function setup() {
 
 function draw() {
 
-  orbitControl();
+  if (MODE == 5) {
+    orbitControl();
+  }
 
   // ambientLight(255, 255, 255);
+  // ambientLight(50);
   // ambientMaterial(255);
 
   if (frameCount == 1) {
@@ -279,15 +282,22 @@ async function waveCycle() {
   waveIndex += 1;
 
   console.log("Cycle starting");
-  apples = new AppleSystem(500);
+  if (waveIndex == 0) {
+    var appleNumber = 400;
+  } else if ((waveIndex == 1)) {
+    var appleNumber = 400;
+  } else {
+    var appleNumber = 400;
+  }
+  apples = new AppleSystem(appleNumber);
 
-  await sleep(1000 * 60 * 0.1);
+  await sleep(1000 * 60 * 0.2);
   // await sleep(1000 * 60 * 0.01);  // fast
 
   console.log("Fire");
   pushers.fire();
 
   // repeat
-  await sleep(1000 * 60 * 0.1);
+  await sleep(1000 * 60 * 0.3);
   waveCycle();
 }
