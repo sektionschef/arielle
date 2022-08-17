@@ -151,8 +151,15 @@ function draw() {
   }
 
   // ambientLight(255, 255, 255);
-  // ambientLight(50);
+  ambientLight(100);
   // ambientMaterial(255);
+  // specularMaterial(250);
+
+
+  directionalLight(255, 255, 255, 1, -1, 0); // from right and above
+  directionalLight(255, 255, 255, 1, -1, 0); // from right and above
+
+  // directionalLight(255, 255, 255, 1, 1, 0); // from right and above
 
   if (frameCount == 1) {
     background(PALETTE.background);
@@ -200,7 +207,7 @@ function mousePressed() {
 
 function createPalette() {
   const PALETTESYSTEM = {
-    "Medousa": {
+    "Medusa": {
       "background": color("#CEA588"),
       "apples": [
         {
@@ -221,10 +228,52 @@ function createPalette() {
         }
       ]
     },
+    "Ierissos": {
+      "background": color("#cfbb95"),
+      "apples": [
+        {
+          "fill": color("#e7d3a4"),
+          "stroke": color("#ede7d1")
+        },
+        {
+          "fill": color("#ede7d1"),
+          "stroke": color("#e7d3a4")
+        },
+        {
+          "fill": color("#bed4e4"),
+          "stroke": color("#9ebdd5")
+        },
+        {
+          "fill": color("#9ebdd5"),
+          "stroke": color("#bed4e4")
+        }
+      ]
+    },
+    "Niko": {
+      "background": color("#404040"),
+      "apples": [
+        {
+          "fill": color("#00000010"),
+          "stroke": color("#80808010")
+        },
+        {
+          "fill": color("#80808010"),
+          "stroke": color("#00000010")
+        },
+        {
+          "fill": color("#c0c0c010"),
+          "stroke": color("#ffffff10")
+        },
+        {
+          "fill": color("#ffffff10"),
+          "stroke": color("#c0c0c010")
+        }
+      ]
+    },
 
   }
 
-  PALETTE = PALETTESYSTEM['Medousa'];
+  PALETTE = PALETTESYSTEM['Niko'];
 }
 
 function drawPixelBuffer(bufferWidth, bufferHeight, baseColor, range) {
@@ -259,7 +308,7 @@ function addTexture() {
       20,
       20,
       PALETTE['apples'][i].fill,
-      40);
+      20);
   }
 
 }
@@ -283,21 +332,21 @@ async function waveCycle() {
 
   console.log("Cycle starting");
   if (waveIndex == 0) {
-    var appleNumber = 400;
+    var appleNumber = 300;
   } else if ((waveIndex == 1)) {
-    var appleNumber = 400;
+    var appleNumber = 300;
   } else {
-    var appleNumber = 400;
+    var appleNumber = 300;
   }
   apples = new AppleSystem(appleNumber);
 
-  await sleep(1000 * 60 * 0.2);
+  await sleep(1000 * 60 * 0.1);
   // await sleep(1000 * 60 * 0.01);  // fast
 
   console.log("Fire");
   pushers.fire();
 
   // repeat
-  await sleep(1000 * 60 * 0.3);
+  await sleep(1000 * 60 * 0.2);
   waveCycle();
 }

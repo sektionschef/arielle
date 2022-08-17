@@ -97,17 +97,22 @@ class AppleSystem {
         for (let i = 0; i < amount; i++) {
 
             if (waveIndex == 0) {
-                var bodySize = 2;
+                var bodySize = 1;
             } else if ((waveIndex == 1)) {
-                var bodySize = 2;
+                var bodySize = 1;
             } else {
-                var bodySize = 2;
+                var bodySize = 1;
             }
             var appleColor = getRandomFromList(PALETTE.apples);
 
+
             var data = {
-                type: 'box', // type of shape : sphere, box, cylinder 
-                size: [bodySize, bodySize, bodySize], // size of shape
+                // type: 'box', // type of shape : sphere, box, cylinder 
+                // size: [bodySize, bodySize, bodySize], // size of shape
+                // type: 'cylinder', // type of shape : sphere, box, cylinder 
+                // size: [bodySize, bodySize], // size of shape
+                // type: 'sphere', // type of shape : sphere, box, cylinder 
+                // size: [bodySize], // size of shape
                 pos: [getRandomFromInterval(-50, 50), 0, getRandomFromInterval(40, 50)], // start position in degree
                 rot: [0, 0, 0], // start rotation in degree
                 move: true, // dynamic or statique
