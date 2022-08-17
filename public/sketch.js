@@ -269,19 +269,19 @@ function sleep(ms) {
 }
 
 
-// async function waveCycle() {
-//   await console.log("Starting new wave cycle");
-//   await sleep(2 * 100 * 60);
-//   await console.log("Planting apples");
-//   // apples = new AppleSystem(500);
-// }
+async function waveCycle() {
+  console.log("Starting new wave cycle");
+  await sleep(2 * 100 * 60);
+  console.log("Planting apples");
+  apples = new AppleSystem(500);
+}
 
 waveCycle();
 
-async function waveCycle() {
-  for (let i = 0; i < 5; i++) {
-    console.log(`Waiting ${i} seconds...`);
-    await sleep(i * 1000);
-  }
-  console.log('Done');
-}
+// async function waveCycle() {
+//   for (let i = 0; i < 5; i++) {
+//     console.log(`Waiting ${i} seconds...`);
+//     await sleep(i * 1000);
+//   }
+//   console.log('Done');
+// }
