@@ -30,6 +30,9 @@ let rescaling_width;
 let rescaling_height;
 
 let PALETTE;
+const WAVECOUNT = 3;
+const WAVEINDEXMAX = WAVECOUNT - 1;
+let waveIndex = 0;
 
 function preload() {
   // img = loadImage('sand.jpg');
@@ -266,17 +269,25 @@ function sleep(ms) {
 
 
 async function waveCycle() {
-  console.log("Starting new wave cycle");
-  console.log("Planting apples");
+
+  console.log("index: " + waveIndex);
+  console.log("limit: " + WAVEINDEXMAX);
+  if (waveIndex > WAVEINDEXMAX) {
+    console.log("end of game!");
+    return;
+  }
+  waveIndex += 1;
+
+  console.log("Cycle starting");
   apples = new AppleSystem(500);
 
   await sleep(1000 * 60 * 0.1);
   // await sleep(1000 * 60 * 0.01);  // fast
 
-  console.log("fire");
+  console.log("Fire");
   pushers.fire();
 
-  // repeat itself
-  await sleep(1000 * 60 * 0.3);
+  // repeat
+  await sleep(1000 * 60 * 0.1);
   waveCycle();
 }
