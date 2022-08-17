@@ -142,6 +142,7 @@ function setup() {
 
   // debugMode(AXES);
 
+  waveCycle();
 }
 
 
@@ -252,7 +253,7 @@ function addTexture() {
 
     // console.log(PALETTE['apples'][i]);
 
-    // size of the biggest apple
+    // size of the biggest apple, inclusive conv
     PALETTE['apples'][i]["img"] = drawPixelBuffer(
       20,
       20,
@@ -270,13 +271,14 @@ function sleep(ms) {
 
 
 async function waveCycle() {
+  await sleep(1000 * 60 * 1);
   console.log("Starting new wave cycle");
-  await sleep(2 * 100 * 60);
   console.log("Planting apples");
   apples = new AppleSystem(500);
-}
 
-waveCycle();
+  // repeat itself
+  waveCycle();
+}
 
 // async function waveCycle() {
 //   for (let i = 0; i < 5; i++) {
