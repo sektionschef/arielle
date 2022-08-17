@@ -143,6 +143,14 @@ class Pusher extends Body {
         this.waveZOffset = + getRandomFromInterval(-1, 1);
     }
 
+    fire() {
+        this.angle = 90;
+    }
+
+    load() {
+        this.angle = 90;
+    }
+
     move() {
         // this.waveVel += this.waveAcc;
         // this.waveZ = this.body.getPosition().z - this.waveVel;
@@ -151,12 +159,9 @@ class Pusher extends Body {
         this.waveZ = map(this.sineValue, -1, 1, -50, 50);
         this.waveZ += this.waveZOffset;
 
-        this.waveActive = false;
-
         // faster rising than shrinking
         if (this.sineValue > sin(this.angle + 0.01)) {
             // console.log("rising");
-            this.waveActive = true;
             // console.log(this.sineValue);
             this.angle += 0.03
             this.body.setPosition({ x: this.body.getPosition().x, y: 0, z: this.waveZ });
@@ -165,7 +170,6 @@ class Pusher extends Body {
             // console.log("shrinking");
             // this.angle += 0.008
 
-            this.waveActive = false;
             this.body.setPosition({ x: this.body.getPosition().x, y: 50, z: -50 });
         }
         // overall
@@ -211,6 +215,18 @@ class PusherSystem {
             if (MODE == 5) {
                 this.bodies[i].display();
             }
+        }
+    }
+
+    load() {
+        for (let i = 0; i < this.bodies.length; i++) {
+            this.bodies[i].load();
+        }
+    }
+
+    fire() {
+        for (let i = 0; i < this.bodies.length; i++) {
+            this.bodies[i].fire();
         }
     }
 }

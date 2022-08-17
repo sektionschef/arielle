@@ -1,5 +1,5 @@
-// const MODE = 1  // "FINE ART";
-const MODE = 5 // all debug messages
+const MODE = 1  // "FINE ART";
+// const MODE = 5 // all debug messages
 
 const NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
@@ -30,7 +30,6 @@ let rescaling_width;
 let rescaling_height;
 
 let PALETTE;
-let WAVELAUNCH;
 
 function preload() {
   // img = loadImage('sand.jpg');
@@ -178,9 +177,7 @@ function draw() {
     // rightBorder.display();
   }
 
-  if (WAVELAUNCH) {
-    pushers.updateDisplay();
-  }
+  pushers.updateDisplay();
 
   // noLoop();
 
@@ -269,15 +266,15 @@ function sleep(ms) {
 
 
 async function waveCycle() {
-  WAVELAUNCH = false;
   console.log("Starting new wave cycle");
   console.log("Planting apples");
   apples = new AppleSystem(500);
+
   await sleep(1000 * 60 * 0.1);
-  if (WAVELAUNCH) {
-    this.angle = 90;
-  }
-  WAVELAUNCH = true;
+  // await sleep(1000 * 60 * 0.01);  // fast
+
+  console.log("fire");
+  pushers.fire();
 
   // repeat itself
   await sleep(1000 * 60 * 0.3);
