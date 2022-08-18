@@ -125,7 +125,8 @@ function windowResized() {
 
 function keyTyped() {
     if (key === 'e' || key == 'E') {
-        exportHighResolution();
+        // exportHighResolution();
+        exportCanvas();
     } else if (key === "r") {
         // reset_camera()
     } else if (key === "c") {
@@ -182,6 +183,14 @@ function exportHighResolution() {
     scaleRatio = 1;
     buffer = createGraphics(width, height);
     draw();
+}
+
+function exportCanvas() {
+    // save(canvas, 'myCanvas.jpg');
+
+    // Saves the canvas as an image by default
+    save('myCanvas.jpg');
+    describe(`An example for saving a canvas as an image.`);
 }
 
 function getTimestamp() {

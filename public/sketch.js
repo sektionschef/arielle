@@ -30,7 +30,7 @@ let rescaling_width;
 let rescaling_height;
 
 let PALETTE;
-const WAVECOUNT = 3;
+const WAVECOUNT = 2;
 const WAVEINDEXMAX = WAVECOUNT - 1;
 let waveIndex = 0;
 
@@ -192,10 +192,6 @@ function draw() {
 
   pushers.updateDisplay();
 
-  // noLoop();
-
-  // fxpreview();
-
   // console.log("safety check for diff resolutions same hash: " + fxrand());
 
 }
@@ -319,13 +315,19 @@ function sleep(ms) {
   // return Promise.resolve();
 }
 
+function terminate() {
+  console.log("Shutting down!");
+  apples.killAllCall();
+  noLoop();
+  fxpreview();
+}
 
 async function waveCycle() {
 
   console.log("index: " + waveIndex);
   console.log("limit: " + WAVEINDEXMAX);
   if (waveIndex > WAVEINDEXMAX) {
-    console.log("end of game!");
+    terminate()
     return;
   }
   waveIndex += 1;
@@ -338,9 +340,10 @@ async function waveCycle() {
   } else {
     var appleNumber = 300;
   }
-  apples = new AppleSystem(appleNumber);
+  // apples = new AppleSystem(appleNumber);
+  apples = new AppleSystem(1);
 
-  await sleep(1000 * 60 * 0.1);
+  await sleep(1000 * 60 * 0.01);
   // await sleep(1000 * 60 * 0.01);  // fast
 
   console.log("Fire");
@@ -348,5 +351,12 @@ async function waveCycle() {
 
   // repeat
   await sleep(1000 * 60 * 0.2);
+
+  // colored layer;
+  // push();
+  // fill(0, 0, 0, 70);
+  // box(300, 300, 300, 500, 100, 500);
+  // pop();
+
   waveCycle();
 }

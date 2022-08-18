@@ -78,10 +78,12 @@ class Body {
             texture(this.img);
         }
         // shape specific
-        if (this.body.shapes.type == 2) {
+        if (this.body.type == 2) {
             box(this.body.shapes.width * conv, this.body.shapes.height * conv, this.body.shapes.depth * conv)
-        } else if (this.body.shapes.type == 3) {
+        } else if (this.body.type == 3) {
             cylinder(this.body.shapes.radius * conv, this.body.shapes.height * conv);
+        } else if (this.body.type == 1) {
+            sphere(this.body.shapes.radius * conv);
         }
         pop();
     }
@@ -96,14 +98,17 @@ class AppleSystem {
 
         for (let i = 0; i < amount; i++) {
 
-            if (waveIndex == 0) {
-                var bodySize = 1;
-            } else if ((waveIndex == 1)) {
-                var bodySize = 1;
-            } else {
-                var bodySize = 1;
-            }
+            // if (waveIndex == 0) {
+            //     var bodySize = 1;
+            // } else if ((waveIndex == 1)) {
+            //     var bodySize = 1;
+            // } else {
+            //     var bodySize = 1;
+            // }
+
             var appleColor = getRandomFromList(PALETTE.apples);
+            // var bodySize = getRandomFromInterval(1, 2);
+            var bodySize = 1;
 
 
             var data = {
@@ -111,7 +116,7 @@ class AppleSystem {
                 // size: [bodySize, bodySize, bodySize], // size of shape
                 // type: 'cylinder', // type of shape : sphere, box, cylinder 
                 // size: [bodySize, bodySize], // size of shape
-                // type: 'sphere', // type of shape : sphere, box, cylinder 
+                type: 'sphere', // type of shape : sphere, box, cylinder 
                 // size: [bodySize], // size of shape
                 pos: [getRandomFromInterval(-50, 50), 0, getRandomFromInterval(40, 50)], // start position in degree
                 rot: [0, 0, 0], // start rotation in degree
@@ -120,10 +125,12 @@ class AppleSystem {
                 friction: 0.5,
                 restitution: 0.1,
                 noSleep: true,
+                name: "apple_" + i,
                 // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
                 // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
             };
             this.bodies.push(new Body(data, appleColor));
+            console.log(this.bodies);
         }
     }
 
@@ -137,8 +144,12 @@ class AppleSystem {
                 this.bodies.splice(i, 1);
             }
         }
+    }
 
-
+    killAllCall() {
+        for (let i = 0; i < this.bodies.length; i++) {
+            this.bodies[i].killMe = true;
+        }
     }
 }
 
