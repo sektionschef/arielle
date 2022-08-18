@@ -154,15 +154,17 @@ function draw() {
   // ambientMaterial(255);
   // specularMaterial(250);
 
+  // contrast only single light, no ambient light
   if (waveIndex == 0) {
     ambientLight(50);
+    directionalLight(100, 100, 100, 1, -1, 0); // from right and above
   } else if (waveIndex == 1) {
     ambientLight(100);
-    directionalLight(255, 255, 255, 1, -1, 0); // from right and above
+    directionalLight(155, 155, 155, 1, -1, 0); // from right and above
   } else {
-    ambientLight(100);
+    ambientLight(50);
     directionalLight(255, 255, 255, 1, -1, 0); // from right and above
-    directionalLight(255, 255, 255, 1, -1, 0); // from right and above
+    // directionalLight(155, 155, 155, -1, -1, 0); // from left and above
   }
 
   if (frameCount == 1) {
@@ -229,7 +231,7 @@ function createPalette() {
       ]
     },
     "Ierissos": {
-      "background": color("#cfbb95"),
+      "background": color("#404040"),
       "apples": [
         {
           "fill": color("#e7d3a4"),
@@ -270,10 +272,30 @@ function createPalette() {
         }
       ]
     },
-
+    "Fix Hellas": {
+      "background": color("#404040"),
+      "apples": [
+        {
+          "fill": color("#A10035"),
+          "stroke": color("#80808010")
+        },
+        {
+          "fill": color("#FEC260"),
+          "stroke": color("#00000010")
+        },
+        {
+          "fill": color("#3FA796"),
+          "stroke": color("#ffffff10")
+        },
+        {
+          "fill": color("#2A0944"),
+          "stroke": color("#c0c0c010")
+        }
+      ]
+    },
   }
 
-  PALETTE = PALETTESYSTEM['Niko'];
+  PALETTE = PALETTESYSTEM['Fix Hellas'];
 }
 
 function drawPixelBuffer(bufferWidth, bufferHeight, baseColor, range) {
@@ -337,14 +359,14 @@ async function waveCycle() {
 
   console.log("Cycle starting");
   if (waveIndex == 0) {
-    var appleNumber = 300;
+    var appleNumber = 400;
   } else if ((waveIndex == 1)) {
-    var appleNumber = 300;
+    var appleNumber = 400;
   } else {
-    var appleNumber = 300;
+    var appleNumber = 400;
   }
-  // apples = new AppleSystem(appleNumber);
-  apples = new AppleSystem(400);
+  apples = new AppleSystem(appleNumber);
+  // apples = new AppleSystem(400);
 
   await sleep(1000 * 60 * 0.01);
   // await sleep(1000 * 60 * 0.01);  // fast

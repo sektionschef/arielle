@@ -63,7 +63,8 @@ class Body {
 
         push();
         fill(color(this.fillColor))
-        stroke(color(this.strokeColor));
+        // stroke(color(this.strokeColor));
+        noStroke();
         strokeWeight(1);
         translate(this.bodyPosition.x * conv, this.bodyPosition.y * conv, this.bodyPosition.z * conv);
 
@@ -105,19 +106,38 @@ class AppleSystem {
             // } else {
             //     var bodySize = 1;
             // }
+            var bodySize = 1;
+
+            // if (waveIndex == 0) {
+            //     var form = getRandomFromList([
+            //         { type: "sphere", size: [0.5] },
+            //         { type: 'cylinder', size: [0.5, 1] },
+            //         { type: 'box', size: [1, 1, 1] },
+            //     ]);
+            // } else if ((waveIndex == 1)) {
+            //     var bodySize = 1;
+            // } else {
+            //     var bodySize = 1;
+            // }
+
+            var form = getRandomFromList([
+                // { type: "sphere", size: [0.5] },
+                // { type: 'cylinder', size: [0.5, 1] },
+                { type: 'box', size: [1, 1, 1] },
+            ]);
 
             var appleColor = getRandomFromList(PALETTE.apples);
-            // var bodySize = getRandomFromInterval(1, 2);
-            var bodySize = 1;
 
 
             var data = {
-                type: 'box', // type of shape : sphere, box, cylinder 
-                size: [bodySize, bodySize, bodySize], // size of shape
+                // type: 'box', // type of shape : sphere, box, cylinder 
+                // size: [bodySize, bodySize, bodySize], // size of shape
                 // type: 'cylinder', // type of shape : sphere, box, cylinder 
                 // size: [bodySize, bodySize], // size of shape
                 // type: 'sphere', // type of shape : sphere, box, cylinder 
                 // size: [bodySize], // size of shape
+                type: form.type,
+                size: form.size,
                 pos: [getRandomFromInterval(-50, 50), 0, getRandomFromInterval(40, 50)], // start position in degree
                 rot: [0, 0, 0], // start rotation in degree
                 move: true, // dynamic or statique
@@ -161,12 +181,19 @@ class Pusher extends Body {
         // this.waveVel = 0;
 
         // this.angle = 90;  // start at bottom
-        this.angle = 300;
         this.waveZOffset = + getRandomFromInterval(-2, 2);  // not fully in line
+        this.angle = 300;
     }
 
     fire() {
         this.angle = 90;
+        // if (waveIndex == 0) {
+        //     this.waveZOffset = + getRandomFromInterval(-2, 2);  // not fully in line
+        // } else if ((waveIndex == 1)) {
+        //     this.waveZOffset = + getRandomFromInterval(-3, 3);  // not fully in line
+        // } else {
+        //     this.waveZOffset = + getRandomFromInterval(-4, 4);  // not fully in line
+        // }
     }
 
     move() {
@@ -175,8 +202,6 @@ class Pusher extends Body {
 
         this.sineValue = sin(this.angle);
         // this.waveZ = map(this.sineValue, -1, 1, -50, 50);
-        this.waveZ = map(this.sineValue, -1, 1, -20, 150);  // FEATURE - wie weit
-        this.waveZ += this.waveZOffset;
 
         // rising, sin value is getting larger not smaller
         if (this.sineValue > sin(this.angle + 0.01)) {
@@ -184,7 +209,21 @@ class Pusher extends Body {
             // console.log(this.sineValue);
 
             // this.angle += 0.03
-            this.angle += 0.007;
+            // this.angle += 0.007;
+            if (waveIndex == 0) {
+                this.angle += 0.007;
+                this.waveZ = map(this.sineValue, -1, 1, -20, 150);  // FEATURE - wie weit
+                this.waveZ += this.waveZOffset;
+            } else if ((waveIndex == 1)) {
+                this.angle += 0.007;
+                this.waveZ = map(this.sineValue, -1, 1, -10, 100);  // FEATURE - wie weit
+                this.waveZ += this.waveZOffset;
+            } else {
+                this.angle += 0.005;
+                this.waveZ = map(this.sineValue, -1, 1, -5, 200);  // FEATURE - wie weit
+                this.waveZ += this.waveZOffset;
+            }
+
             this.body.setPosition({ x: this.body.getPosition().x, y: 0, z: this.waveZ });
         }
         else {
