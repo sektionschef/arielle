@@ -30,7 +30,7 @@ let rescaling_width;
 let rescaling_height;
 
 let PALETTE;
-const WAVECOUNT = 2;
+const WAVECOUNT = 3;
 const WAVEINDEXMAX = WAVECOUNT - 1;
 let waveIndex = 0;
 
@@ -151,15 +151,19 @@ function draw() {
   }
 
   // ambientLight(255, 255, 255);
-  ambientLight(100);
   // ambientMaterial(255);
   // specularMaterial(250);
 
-
-  directionalLight(255, 255, 255, 1, -1, 0); // from right and above
-  directionalLight(255, 255, 255, 1, -1, 0); // from right and above
-
-  // directionalLight(255, 255, 255, 1, 1, 0); // from right and above
+  if (waveIndex == 0) {
+    ambientLight(50);
+  } else if (waveIndex == 1) {
+    ambientLight(100);
+    directionalLight(255, 255, 255, 1, -1, 0); // from right and above
+  } else {
+    ambientLight(100);
+    directionalLight(255, 255, 255, 1, -1, 0); // from right and above
+    directionalLight(255, 255, 255, 1, -1, 0); // from right and above
+  }
 
   if (frameCount == 1) {
     background(PALETTE.background);
@@ -330,7 +334,6 @@ async function waveCycle() {
     terminate()
     return;
   }
-  waveIndex += 1;
 
   console.log("Cycle starting");
   if (waveIndex == 0) {
@@ -341,7 +344,7 @@ async function waveCycle() {
     var appleNumber = 300;
   }
   // apples = new AppleSystem(appleNumber);
-  apples = new AppleSystem(1);
+  apples = new AppleSystem(400);
 
   await sleep(1000 * 60 * 0.01);
   // await sleep(1000 * 60 * 0.01);  // fast
@@ -358,5 +361,6 @@ async function waveCycle() {
   // box(300, 300, 300, 500, 100, 500);
   // pop();
 
+  waveIndex += 1;
   waveCycle();
 }

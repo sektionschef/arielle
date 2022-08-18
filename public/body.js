@@ -78,11 +78,11 @@ class Body {
             texture(this.img);
         }
         // shape specific
-        if (this.body.type == 2) {
+        if (this.body.shapes.type == 2) {
             box(this.body.shapes.width * conv, this.body.shapes.height * conv, this.body.shapes.depth * conv)
-        } else if (this.body.type == 3) {
+        } else if (this.body.shapes.type == 3) {
             cylinder(this.body.shapes.radius * conv, this.body.shapes.height * conv);
-        } else if (this.body.type == 1) {
+        } else if (this.body.shapes.type == 1) {
             sphere(this.body.shapes.radius * conv);
         }
         pop();
@@ -112,11 +112,11 @@ class AppleSystem {
 
 
             var data = {
-                // type: 'box', // type of shape : sphere, box, cylinder 
-                // size: [bodySize, bodySize, bodySize], // size of shape
+                type: 'box', // type of shape : sphere, box, cylinder 
+                size: [bodySize, bodySize, bodySize], // size of shape
                 // type: 'cylinder', // type of shape : sphere, box, cylinder 
                 // size: [bodySize, bodySize], // size of shape
-                type: 'sphere', // type of shape : sphere, box, cylinder 
+                // type: 'sphere', // type of shape : sphere, box, cylinder 
                 // size: [bodySize], // size of shape
                 pos: [getRandomFromInterval(-50, 50), 0, getRandomFromInterval(40, 50)], // start position in degree
                 rot: [0, 0, 0], // start rotation in degree
@@ -130,7 +130,6 @@ class AppleSystem {
                 // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
             };
             this.bodies.push(new Body(data, appleColor));
-            console.log(this.bodies);
         }
     }
 
