@@ -293,9 +293,38 @@ function createPalette() {
         }
       ]
     },
+    "Lasagne": {
+      "background": color("#404040"),
+      "apples": [
+        {
+          "fill": color("#ffd1a9"),
+          "stroke": color("#80808010")
+        },
+        {
+          "fill": color("#ff9e79"),
+          "stroke": color("#00000010")
+        },
+        {
+          "fill": color("#fb6d4c"),
+          "stroke": color("#ffffff10")
+        },
+        {
+          "fill": color("#c23b22"),
+          "stroke": color("#c0c0c010")
+        },
+        {
+          "fill": color("#8a0000"),
+          "stroke": color("#c0c0c010")
+        },
+        {
+          "fill": color("#580000"),
+          "stroke": color("#c0c0c010")
+        }
+      ]
+    },
   }
 
-  PALETTE = PALETTESYSTEM['Fix Hellas'];
+  PALETTE = PALETTESYSTEM['Lasagne'];
 }
 
 function drawPixelBuffer(bufferWidth, bufferHeight, baseColor, range) {
