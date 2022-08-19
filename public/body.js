@@ -177,30 +177,24 @@ class Pusher extends Body {
     constructor(data, colorCodes) {
         super(data, colorCodes);
 
-        this.startPosition = this.body.getPosition();
+        this.startPosition = structuredClone(this.body.getPosition());
         this.noiseOffset = this.startPosition.z;
-        console.log(this.noiseOffset);
+        // console.log(this.noiseOffset);
 
-        // this.waveZOffset = + getRandomFromInterval(-2, 2);  // not fully in line
         this.angle = 300;  // start level well out of range 90-270;
     }
 
     fire() {
-        // this.angle = 300;
         this.angle = 90;
     }
 
     move() {
-        // this.waveVel += this.waveAcc;
-        // this.waveZ = this.body.getPosition().z - this.waveVel;
 
         this.waveLocation = this.noiseOffset;  // offset of the middle - 0 value
         this.waveVel = 0;
         this.waveAcc = 0;
 
         this.sineValue = sin(this.angle);
-
-        this.body.setPosition({ x: this.startPosition.x, y: 0, z: this.waveLocation });
 
         // rising, sin value is getting larger not smaller
         if (this.sineValue > sin(this.angle + 0.01)) {
@@ -214,31 +208,19 @@ class Pusher extends Body {
 
             // if (waveIndex == 0) {
             //     this.angle += 0.007;
-            //     // this.waveAcc = map(this.sineValue, -1, 1, -20, 150);  // FEATURE - wie weit
-            //     this.waveLocation = map(this.sineValue, -1, 1, 0, 150);  // FEATURE - wie weit
             // } else if ((waveIndex == 1)) {
             //     this.angle += 0.007;
-            //     // this.waveAcc = map(this.sineValue, -1, 1, -10, 100);  // FEATURE - wie weit
-            //     this.waveLocation = map(this.sineValue, -1, 1, -10, 100);  // FEATURE - wie weit
             // } else {
             //     this.angle += 0.005;
-            //     // this.waveAcc = map(this.sineValue, -1, 1, -5, 200);  // FEATURE - wie weit
-            //     this.waveLocation = map(this.sineValue, -1, 1, -5, 200);  // FEATURE - wie weit
             // }
-            // this.waveZ = this.waveLocation //+ this.noiseOffset;
-
-            // this.waveLocation += this.waveVel;
 
             this.body.setPosition({ x: this.startPosition.x, y: 0, z: this.waveLocation });
         }
         else {
             // console.log("shrinking");
-            // this.angle += 0.008
 
             this.body.setPosition({ x: this.startPosition.x, y: this.startPosition.y, z: this.startPosition.z });
         }
-        // overall
-        // this.body.setPosition({ x: this.body.getPosition().x, y: this.body.getPosition().y, z: this.waveZ });
     }
 }
 
@@ -258,7 +240,7 @@ class PusherSystem {
             var data = {
                 type: 'box',
                 size: [this.widthPusher, 30, this.widthPusher],
-                pos: [i * this.widthPusher - ground_width / 2, 200, this.noiseLine[i]], // start position in degree
+                pos: [i * this.widthPusher - ground_width / 2, 100, this.noiseLine[i]],
                 rot: [0, 0, 0],
                 // rot: [0, getRandomFromInterval(-5, 5), 0],
                 move: true,
@@ -273,7 +255,7 @@ class PusherSystem {
     }
 
     createNoiseLine() {
-        this.widthPusher = 5;
+        this.widthPusher = 1;
         this.noiseStep = 0.3;
         this.noiseRange = 10;
 

@@ -30,7 +30,7 @@ let rescaling_width;
 let rescaling_height;
 
 let PALETTE;
-const WAVECOUNT = 1;
+const WAVECOUNT = 3;
 const WAVEINDEXMAX = WAVECOUNT - 1;
 let waveIndex = 0;
 
@@ -379,6 +379,13 @@ function terminate() {
   fxpreview();
 }
 
+async function launchWave() {
+  // console.log("Fire");
+  apples = new AppleSystem(200);
+  await sleep(1000 * 60 * 0.0);
+  pushers.fire();
+}
+
 async function waveCycle() {
 
   console.log("index: " + waveIndex);
@@ -397,19 +404,10 @@ async function waveCycle() {
     var appleNumber = 400;
   }
   // apples = new AppleSystem(appleNumber);
-  apples = new AppleSystem(200);
-  await sleep(1000 * 60 * 0.02);
-  console.log("Fire");
-  pushers.fire();
 
-  await sleep(1000 * 60 * 0.04);
+  launchWave();
 
-  apples = new AppleSystem(200);
-  await sleep(1000 * 60 * 0.02);
-  console.log("Fire");
-  pushers.fire();
-
-  await sleep(1000 * 60 * 0.3);
+  await sleep(1000 * 60 * 0.2);
 
   // colored layer or medusa text;
   // push();
