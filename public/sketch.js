@@ -1,5 +1,5 @@
-const MODE = 1  // "FINE ART";
-// const MODE = 5 // all debug messages
+// const MODE = 1  // "FINE ART";
+const MODE = 5 // all debug messages
 
 const NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
@@ -30,7 +30,7 @@ let rescaling_width;
 let rescaling_height;
 
 let PALETTE;
-const WAVECOUNT = 3;
+const WAVECOUNT = 1;
 const WAVEINDEXMAX = WAVECOUNT - 1;
 let waveIndex = 0;
 
@@ -69,7 +69,7 @@ function setup() {
   ground = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
     size: [100, 10, 100], // size of shape
-    pos: [0, -10, 0], // start position in degree
+    pos: [0, -20, 0], // start position in degree
     rot: [0, 0, 0], // start rotation in degree
     move: false, // dynamic or statique
     density: 1000,
@@ -95,7 +95,7 @@ function setup() {
   lowerBorder = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
     size: [100, 50, 10], // size of shape
-    pos: [0, 0, 50], // start position in degree
+    pos: [0, 0, 55], // start position in degree
     rot: [0, 0, 0], // start rotation in degree
     move: false, // dynamic or statique
     density: 1000,
@@ -133,7 +133,8 @@ function setup() {
 
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
   if (MODE == 5) {
-    camera(0, 1000, 0, 0, 0, 0, 0, 0, 1); // debug
+    // camera(0, 2000, 0, 0, 0, 0, 0, 0, 1); // debug
+    camera(-2000, 0, 0, 0, 0, 0, 0, -1, 0); // debug -- side view
   } else {
     camera(0, 700, 0, 0, 0, 0, 0, 0, 1);
   }
@@ -154,18 +155,19 @@ function draw() {
   // ambientMaterial(255);
   // specularMaterial(250);
 
+  ambientLight(100);
+  directionalLight(255, 255, 255, 1, -1, 0); // from right and above
+
   // contrast only single light, no ambient light
-  if (waveIndex == 0) {
-    ambientLight(50);
-    directionalLight(100, 100, 100, 1, -1, 0); // from right and above
-  } else if (waveIndex == 1) {
-    ambientLight(100);
-    directionalLight(155, 155, 155, 1, -1, 0); // from right and above
-  } else {
-    ambientLight(50);
-    directionalLight(255, 255, 255, 1, -1, 0); // from right and above
-    // directionalLight(155, 155, 155, -1, -1, 0); // from left and above
-  }
+  // if (waveIndex == 0) {
+  //   ambientLight(100);
+  //   directionalLight(155, 155, 155, 1, -1, 0); // from right and above
+  // } else if (waveIndex == 1) {
+  //   ambientLight(50);
+  //   directionalLight(255, 255, 255, 1, -1, 0); // from right and above
+  //   // directionalLight(155, 155, 155, -1, -1, 0); // from left and above
+  // } else {
+  // }
 
   if (frameCount == 1) {
     background(PALETTE.background);
@@ -294,7 +296,7 @@ function createPalette() {
       ]
     },
     "Lasagne": {
-      "background": color("#404040"),
+      "background": color("#8a0000"),
       "apples": [
         {
           "fill": color("#ffd1a9"),
@@ -312,10 +314,10 @@ function createPalette() {
           "fill": color("#c23b22"),
           "stroke": color("#c0c0c010")
         },
-        {
-          "fill": color("#8a0000"),
-          "stroke": color("#c0c0c010")
-        },
+        // {
+        //   "fill": color("#8a0000"),
+        //   "stroke": color("#c0c0c010")
+        // },
         {
           "fill": color("#580000"),
           "stroke": color("#c0c0c010")
