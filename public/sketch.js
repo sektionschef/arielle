@@ -133,8 +133,8 @@ function setup() {
 
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
   if (MODE == 5) {
-    // camera(0, 2000, 0, 0, 0, 0, 0, 0, 1); // debug
-    camera(-2000, 0, 0, 0, 0, 0, 0, -1, 0); // debug -- side view
+    camera(0, 3000, 0, 0, 0, 0, 0, 0, 1); // debug
+    // camera(-2000, 0, 0, 0, 0, 0, 0, -1, 0); // debug -- side view
   } else {
     camera(0, 700, 0, 0, 0, 0, 0, 0, 1);
   }

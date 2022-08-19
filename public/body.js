@@ -138,7 +138,7 @@ class AppleSystem {
                 // size: [bodySize], // size of shape
                 type: form.type,
                 size: form.size,
-                pos: [getRandomFromInterval(-50, 50), 0, getRandomFromInterval(40, 50)], // start position in degree
+                pos: [getRandomFromInterval(-50, 50), -15, getRandomFromInterval(30, 50)], // start position in degree
                 rot: [0, 0, 0], // start rotation in degree
                 move: true, // dynamic or statique
                 density: 1,  // 1
@@ -178,6 +178,8 @@ class Pusher extends Body {
         super(data, colorCodes);
 
         this.startPosition = this.body.getPosition();
+        this.noiseOffset = this.startPosition.z;
+        console.log(this.noiseOffset);
 
         // this.waveZOffset = + getRandomFromInterval(-2, 2);  // not fully in line
         this.angle = 300;  // start level well out of range 90-270;
@@ -192,11 +194,9 @@ class Pusher extends Body {
         // this.waveVel += this.waveAcc;
         // this.waveZ = this.body.getPosition().z - this.waveVel;
 
-        this.waveLocation = 0;  // offset of the middle - 0 value
+        this.waveLocation = this.noiseOffset;  // offset of the middle - 0 value
         this.waveVel = 0;
         this.waveAcc = 0;
-
-        // this.noiseOffset = this.startPosition.z; // on 0
 
         this.sineValue = sin(this.angle);
 
@@ -206,10 +206,10 @@ class Pusher extends Body {
         if (this.sineValue > sin(this.angle + 0.01)) {
             // console.log("rising");
 
-            this.waveAcc = map(this.sineValue, -1, 1, -20, 60);  // starts from 100 and ends at 0
+            this.waveAcc = map(this.sineValue, -1, 1, 30, 55);  // starts from 100 and ends at 0
             this.waveVel += this.waveAcc;
             this.waveLocation += this.waveVel;
-            this.angle += 0.005;
+            this.angle += 0.035;
 
             // if (waveIndex == 0) {
             //     this.angle += 0.007;
@@ -273,13 +273,16 @@ class PusherSystem {
 
     createNoiseLine() {
         this.widthPusher = 5;
-        this.amount = this.ground_width / this.widthPusher;
+        this.noiseStep = 0.3;
+        this.noiseRange =
+
+            this.amount = this.ground_width / this.widthPusher;
 
         this.noiseLine = [];
         let xoff = 0;
         for (let i = 0; i < this.amount; i++) {
-            this.noiseLine.push(map(noise(xoff), 0, 1, -3, 3));
-            xoff += 0.3
+            this.noiseLine.push(map(noise(xoff), 0, 1, -this.noiseRange, this.noiseRange));
+            xoff += this.noiseStep
         }
     }
 
