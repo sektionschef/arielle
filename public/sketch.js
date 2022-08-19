@@ -1,5 +1,5 @@
-// const MODE = 1  // "FINE ART";
-const MODE = 5 // all debug messages
+const MODE = 1  // "FINE ART";
+// const MODE = 5 // all debug messages
 
 const NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
@@ -63,7 +63,7 @@ function setup() {
     random: true,  // randomize sample
     info: false,   // calculate statistic or not
     // gravity: [0, -9.8, 0]
-    gravity: [0, -9.8, 2]
+    gravity: [0, -9.8, 3]
   });
 
   ground = new Body({
@@ -73,8 +73,8 @@ function setup() {
     rot: [0, 0, 0], // start rotation in degree
     move: false, // dynamic or statique
     density: 1000,
-    friction: 0.1,
-    restitution: 0.2,
+    friction: 0.6,
+    restitution: 0,
     name: "ground",
     // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
     // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
@@ -133,7 +133,7 @@ function setup() {
 
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
   if (MODE == 5) {
-    camera(0, 3000, 0, 0, 0, 0, 0, 0, 1); // debug
+    camera(0, 1500, 0, 0, 0, 0, 0, 0, 1); // debug
     // camera(-2000, 0, 0, 0, 0, 0, 0, -1, 0); // debug -- side view
   } else {
     camera(0, 700, 0, 0, 0, 0, 0, 0, 1);
@@ -396,19 +396,22 @@ async function waveCycle() {
   } else {
     var appleNumber = 400;
   }
-  apples = new AppleSystem(appleNumber);
-  // apples = new AppleSystem(400);
-
-  await sleep(1000 * 60 * 0.01);
-  // await sleep(1000 * 60 * 0.01);  // fast
-
+  // apples = new AppleSystem(appleNumber);
+  apples = new AppleSystem(200);
+  await sleep(1000 * 60 * 0.02);
   console.log("Fire");
   pushers.fire();
 
-  // repeat
-  await sleep(1000 * 60 * 0.2);
+  await sleep(1000 * 60 * 0.04);
 
-  // colored layer;
+  apples = new AppleSystem(200);
+  await sleep(1000 * 60 * 0.02);
+  console.log("Fire");
+  pushers.fire();
+
+  await sleep(1000 * 60 * 0.3);
+
+  // colored layer or medusa text;
   // push();
   // fill(0, 0, 0, 70);
   // box(300, 300, 300, 500, 100, 500);

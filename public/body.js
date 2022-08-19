@@ -138,11 +138,11 @@ class AppleSystem {
                 // size: [bodySize], // size of shape
                 type: form.type,
                 size: form.size,
-                pos: [getRandomFromInterval(-50, 50), -15, getRandomFromInterval(30, 50)], // start position in degree
+                pos: [getRandomFromInterval(-50, 50), -15, getRandomFromInterval(45, 50)], // start position in degree
                 rot: [0, 0, 0], // start rotation in degree
                 move: true, // dynamic or statique
                 density: 1,  // 1
-                friction: 0.5,
+                friction: 0,
                 restitution: 0,
                 noSleep: true,
                 name: "apple_" + i,
@@ -206,10 +206,11 @@ class Pusher extends Body {
         if (this.sineValue > sin(this.angle + 0.01)) {
             // console.log("rising");
 
-            this.waveAcc = map(this.sineValue, -1, 1, 30, 55);  // starts from 100 and ends at 0
+            this.waveAcc = map(this.sineValue, -1, 1, 30, 60);  // starts from 100 and ends at 0
             this.waveVel += this.waveAcc;
             this.waveLocation += this.waveVel;
-            this.angle += 0.035;
+            // this.angle += 0.035;
+            this.angle += 0.025;
 
             // if (waveIndex == 0) {
             //     this.angle += 0.007;
@@ -274,9 +275,9 @@ class PusherSystem {
     createNoiseLine() {
         this.widthPusher = 5;
         this.noiseStep = 0.3;
-        this.noiseRange =
+        this.noiseRange = 10;
 
-            this.amount = this.ground_width / this.widthPusher;
+        this.amount = this.ground_width / this.widthPusher;
 
         this.noiseLine = [];
         let xoff = 0;
