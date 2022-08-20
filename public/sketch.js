@@ -1,5 +1,5 @@
-// const MODE = 1  // "FINE ART";
-const MODE = 5 // all debug messages
+const MODE = 1  // "FINE ART";
+// const MODE = 5 // all debug messages
 
 const NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
@@ -153,7 +153,7 @@ function setup() {
 
   // debugMode(AXES);
 
-  waveCycle();
+  AllWaveCycles();
 }
 
 
@@ -197,6 +197,13 @@ function draw() {
   if (typeof apples != "undefined") {
     apples.updateDisplay();
   }
+  if (typeof apples2 != "undefined") {
+    apples2.updateDisplay();
+  }
+  if (typeof apples3 != "undefined") {
+    apples3.updateDisplay();
+  }
+
 
   ground.update();
   // upperBorder.update();
@@ -391,39 +398,52 @@ function sleep(ms) {
 function terminate() {
   console.log("Shutting down!");
   apples.killAllCall();
+  apples2.killAllCall();
+  // apples.killAllCall();
   noLoop();
   fxpreview();
 }
 
-async function waveCycle() {
+async function waveCycle(bodiesObject) {
+  console.log("Pushers fire.");
+  await sleep(1000 * 60 * 0.01);
+  pushers.fire();
+  await sleep(1000 * 60 * 0.2);
+  bodiesObject.killAllCall();
+}
+
+async function AllWaveCycles() {
 
   console.log("index: " + waveIndex);
   console.log("limit: " + WAVEINDEXMAX);
 
-  if (waveIndex > WAVEINDEXMAX) {
-    terminate()
-    return;
-  }
+  // if (waveIndex > WAVEINDEXMAX) {
+  //   terminate()
+  //   return;
+  // }
 
+  apples = new AppleSystem(400);
   console.log("Cycle starting");
-  if (waveIndex == 0) {
-    var appleNumber = 400;
-  } else if ((waveIndex == 1)) {
-    var appleNumber = 400;
-  } else {
-    var appleNumber = 400;
-  }
+  waveCycle(apples);
 
-  // console.log("Fire");
-  apples = new AppleSystem(appleNumber);
-  console.log("before: " + world.numRigidBodies);
-  await sleep(1000 * 60 * 0.01);
-  pushers.fire();
-  await sleep(1000 * 60 * 0.2);
-  apples.killAllCall();
+  // debug
+  // console.log("body count: " + world.numRigidBodies);
 
-  await sleep(1000 * 60 * 0.01);
-  console.log("after: " + world.numRigidBodies);
+  await sleep(1000 * 60 * 0.1);
+  waveIndex += 1;
+  console.log("index: " + waveIndex);
+  console.log("limit: " + WAVEINDEXMAX);
+  apples2 = new AppleSystem(400);
+  waveCycle(apples2);
+  await sleep(1000 * 60 * 0.1);
+
+  await sleep(1000 * 60 * 0.1);
+  waveIndex += 1;
+  console.log("index: " + waveIndex);
+  console.log("limit: " + WAVEINDEXMAX);
+  apples3 = new AppleSystem(400);
+  waveCycle(apples3);
+  await sleep(1000 * 60 * 0.1);
 
   // colored layer or medusa text;
   // push();
@@ -431,6 +451,6 @@ async function waveCycle() {
   // box(300, 300, 300, 500, 100, 500);
   // pop();
 
-  waveIndex += 1;
-  waveCycle();
+  // waveIndex += 1;
+  // waveCycle();
 }
