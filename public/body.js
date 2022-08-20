@@ -4,12 +4,12 @@ class Body {
         this.killMe = false;
 
         if (typeof appleColor != "undefined") {
-            this.fillColor = appleColor.fill;
-            this.strokeColor = appleColor.stroke;
+            this.fillColor = appleColor;
+            // this.strokeColor = appleColor.stroke;
             this.img = appleColor.img;
         } else {
             this.fillColor = color("white");
-            this.strokeColor = color("black");
+            // this.strokeColor = color("black");
         }
 
         this.body = world.add(
@@ -235,7 +235,7 @@ class PusherSystem {
         this.bodies = []
 
         var fillColor = color(0, 0, 255, 100);
-        var strokeColor = color("black");
+        // var strokeColor = color("black");
 
         for (let i = 0; i < this.amount; i++) {
             var data = {
@@ -252,7 +252,7 @@ class PusherSystem {
                 name: "Pusher_" + i,
             };
 
-            this.bodies.push(new Pusher(data, { "fill": fillColor, "stroke": strokeColor }));
+            this.bodies.push(new Pusher(data, { "fill": fillColor }));
         }
     }
 
@@ -311,7 +311,7 @@ class ObstacleSystem {
                 name: "obstacle",
             }
 
-            this.bodies.push(new Body(data, { "fill": color(0, 155, 0, 100), "stroke": "black" }));
+            this.bodies.push(new Body(data, { "fill": color(0, 155, 0, 100) }));
         }
 
     }

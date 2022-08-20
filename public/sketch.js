@@ -85,7 +85,7 @@ function setup() {
     name: "ground",
     // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
     // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
-  }, { "fill": color(0, 255, 0, 100), "stroke": "black" });
+  }, { "fill": color(0, 255, 0, 100) });
 
   // upperBorder = new Body({
   //   type: 'box', // type of shape : sphere, box, cylinder 
@@ -109,7 +109,7 @@ function setup() {
     friction: 0.2,
     restitution: 0.2,
     name: "lowerBorder",
-  }, { "fill": color(0, 155, 0, 100), "stroke": "black" });
+  }, { "fill": color(0, 155, 0, 100) });
 
   // leftBorder = new Body({
   //   type: 'box', // type of shape : sphere, box, cylinder 
@@ -158,13 +158,13 @@ function draw() {
     orbitControl();
   }
 
-  ambientLight(255, 255, 255);
+  // ambientLight(255, 255, 255);
   // ambientMaterial(255);
   // specularMaterial(250);
 
   // runs
-  // ambientLight(150);
-  // directionalLight(200, 200, 200, 1, -1, 0);
+  ambientLight(150);
+  directionalLight(200, 200, 200, 1, -1, 0);
   // runs out
 
   // directionalLight(155, 155, 155, 0, -1, 0); 
@@ -242,203 +242,155 @@ function createPalette() {
     "Medusa": {
       "background": color("#CEA588"),
       "apples": [
-        {
-          "fill": color("#534438"),
-          "stroke": color("#785237")
-        },
-        {
-          "fill": color("#FBE1BB"),
-          "stroke": color("#CEA588")
-        },
-        {
-          "fill": color("#785237"),
-          "stroke": color("#926139")
-        },
-        {
-          "fill": color("#926139"),
-          "stroke": color("#534438")
-        }
+        color("#534438"),
+        color("#FBE1BB"),
+        color("#785237"),
+        color("#926139"),
       ]
     },
     "Ierissos": {
-      "background": color("#404040"),
+      "background": color("#bed4e4"),
       "apples": [
-        {
-          "fill": color("#e7d3a4"),
-          "stroke": color("#ede7d1")
-        },
-        {
-          "fill": color("#ede7d1"),
-          "stroke": color("#e7d3a4")
-        },
-        {
-          "fill": color("#bed4e4"),
-          "stroke": color("#9ebdd5")
-        },
-        {
-          "fill": color("#9ebdd5"),
-          "stroke": color("#bed4e4")
-        }
+        color("#e7d3a4"),
+        color("#ede7d1"),
+        color("#404040"),
+        color("#7d9bb3"),
       ]
     },
     "Niko": {
       "background": color("#404040"),
       "apples": [
-        {
-          "fill": color("#00000010"),
-          "stroke": color("#80808010")
-        },
-        {
-          "fill": color("#80808010"),
-          "stroke": color("#00000010")
-        },
-        {
-          "fill": color("#c0c0c010"),
-          "stroke": color("#ffffff10")
-        },
-        {
-          "fill": color("#ffffff10"),
-          "stroke": color("#c0c0c010")
-        }
+        color("#211f1f"),
+        color("#808080"),
+        color("#c0c0c0"),
+        color("#ffffff"),
       ]
     },
     "Fix Hellas": {
-      "background": color("#404040"),
+      "background": color("#D97F6D"),
       "apples": [
-        {
-          "fill": color("#A10035"),
-          "stroke": color("#80808010")
-        },
-        {
-          "fill": color("#FEC260"),
-          "stroke": color("#00000010")
-        },
-        {
-          "fill": color("#3FA796"),
-          "stroke": color("#ffffff10")
-        },
-        {
-          "fill": color("#2A0944"),
-          "stroke": color("#c0c0c010")
-        }
+        color("#A10035"),
+        color("#FEC260"),
+        color("#3FA796"),
+        color("#2A0944"),
       ]
     },
-    "Lasagne": {
-      "background": color("#8a0000"),
-      "apples": [
-        {
-          "fill": color("#ffd1a9"),
-          "stroke": color("#80808010")
-        },
-        {
-          "fill": color("#ff9e79"),
-          "stroke": color("#00000010")
-        },
-        {
-          "fill": color("#fb6d4c"),
-          "stroke": color("#ffffff10")
-        },
-        {
-          "fill": color("#c23b22"),
-          "stroke": color("#c0c0c010")
-        },
-        // {
-        //   "fill": color("#8a0000"),
-        //   "stroke": color("#c0c0c010")
-        // },
-        {
-          "fill": color("#580000"),
-          "stroke": color("#c0c0c010")
-        }
-      ]
-    },
-    "Mamos": {
-      "background": color("#b38c6d"),
-      "apples": [
-        {
-          "fill": color("#77d8f9"),
-          "stroke": color("#80808010")
-        },
-        {
-          "fill": color("#624c38"),
-          "stroke": color("#00000010")
-        },
-        {
-          "fill": color("#cedeed"),
-          "stroke": color("#ffffff10")
-        },
-        {
-          "fill": color("#c64b62"),
-          "stroke": color("#c0c0c010")
-        },
-      ]
-    },
-    "Babushka": {
-      "background": color("#9ebbc1"),
-      "apples": [
-        {
-          "fill": color("#d8bc00"),
-          "stroke": color("#80808010")
-        },
-        {
-          "fill": color("#040c21"),
-          "stroke": color("#00000010")
-        },
-        {
-          "fill": color("#74a2c6"),
-          "stroke": color("#ffffff10")
-        },
-        {
-          "fill": color("#a43b4f"),
-          "stroke": color("#c0c0c010")
-        },
-      ]
-    },
-    "Autodrom": {
-      "background": color("#657582"),
-      "apples": [
-        {
-          "fill": color("#d8bc00"),
-          "stroke": color("#80808010")
-        },
-        {
-          "fill": color("#894292"),
-          "stroke": color("#00000010")
-        },
-        {
-          "fill": color("#67bfee"),
-          "stroke": color("#ffffff10")
-        },
-        {
-          "fill": color("#3e2543"),
-          "stroke": color("#c0c0c010")
-        },
-      ]
-    },
-    "Olivenhain": {
-      "background": color("	#a89062"),
-      "apples": [
-        {
-          "fill": color("	#14140a"),
-          "stroke": color("#80808010")
-        },
-        {
-          "fill": color("#918e41"),
-          "stroke": color("#00000010")
-        },
-        {
-          "fill": color("#ffc83d"),
-          "stroke": color("#ffffff10")
-        },
-        {
-          "fill": color("#4e542c"),
-          "stroke": color("#c0c0c010")
-        },
-      ]
-    },
+    // "Lasagne": {
+    //   "background": color("#8a0000"),
+    //   "apples": [
+    //     {
+    //       color("#ffd1a9"),
+    //       "stroke": color("#80808010")
+    //     },
+    //     {
+    //       color("#ff9e79"),
+    //       "stroke": color("#00000010")
+    //     },
+    //     {
+    //       color("#fb6d4c"),
+    //       "stroke": color("#ffffff10")
+    //     },
+    //     {
+    //       color("#c23b22"),
+    //       "stroke": color("#c0c0c010")
+    //     },
+    //     // {
+    //     //   color("#8a0000"),
+    //     //   "stroke": color("#c0c0c010")
+    //     // },
+    //     {
+    //       color("#580000"),
+    //       "stroke": color("#c0c0c010")
+    //     }
+    //   ]
+    // },
+    // "Mamos": {
+    //   "background": color("#b38c6d"),
+    //   "apples": [
+    //     {
+    //       color("#77d8f9"),
+    //       "stroke": color("#80808010")
+    //     },
+    //     {
+    //       color("#624c38"),
+    //       "stroke": color("#00000010")
+    //     },
+    //     {
+    //       color("#cedeed"),
+    //       "stroke": color("#ffffff10")
+    //     },
+    //     {
+    //       color("#c64b62"),
+    //       "stroke": color("#c0c0c010")
+    //     },
+    //   ]
+    // },
+    // "Babushka": {
+    //   "background": color("#9ebbc1"),
+    //   "apples": [
+    //     {
+    //       color("#d8bc00"),
+    //       "stroke": color("#80808010")
+    //     },
+    //     {
+    //       color("#040c21"),
+    //       "stroke": color("#00000010")
+    //     },
+    //     {
+    //       color("#74a2c6"),
+    //       "stroke": color("#ffffff10")
+    //     },
+    //     {
+    //       color("#a43b4f"),
+    //       "stroke": color("#c0c0c010")
+    //     },
+    //   ]
+    // },
+    // "Autodrom": {
+    //   "background": color("#657582"),
+    //   "apples": [
+    //     {
+    //       color("#d8bc00"),
+    //       "stroke": color("#80808010")
+    //     },
+    //     {
+    //       color("#894292"),
+    //       "stroke": color("#00000010")
+    //     },
+    //     {
+    //       color("#67bfee"),
+    //       "stroke": color("#ffffff10")
+    //     },
+    //     {
+    //       color("#3e2543"),
+    //       "stroke": color("#c0c0c010")
+    //     },
+    //   ]
+    // },
+    // "Olivenhain": {
+    //   "background": color("	#a89062"),
+    //   "apples": [
+    //     {
+    //       color("	#14140a"),
+    //       "stroke": color("#80808010")
+    //     },
+    //     {
+    //       color("#918e41"),
+    //       "stroke": color("#00000010")
+    //     },
+    //     {
+    //       color("#ffc83d"),
+    //       "stroke": color("#ffffff10")
+    //     },
+    //     {
+    //       color("#4e542c"),
+    //       "stroke": color("#c0c0c010")
+    //     },
+    //   ]
+    // },
   }
 
-  PALETTE = PALETTESYSTEM['Olivenhain'];
+  PALETTE = PALETTESYSTEM['Fix Hellas'];
 }
 
 function drawPixelBuffer(bufferWidth, bufferHeight, baseColor, range) {
@@ -452,14 +404,20 @@ function drawPixelBuffer(bufferWidth, bufferHeight, baseColor, range) {
     for (let x = 0; x < buffer.width; x++) {
       // formula to get each pixels rgba
       let index = (x + y * buffer.width) * 4;
-      buffer.pixels[index + 0] = random(red(baseColor) - range, red(baseColor) + range);
-      buffer.pixels[index + 1] = random(green(baseColor) - range, green(baseColor) + range);
-      buffer.pixels[index + 2] = random(blue(baseColor) - range, blue(baseColor) + range);
-      if (fxrand() > 0.15) {
-        buffer.pixels[index + 3] = 255;
+      if (fxrand() < 0.01) {
+        buffer.pixels[index + 0] = 50;
+        buffer.pixels[index + 1] = 50;
+        buffer.pixels[index + 2] = 50;
+      } else if (fxrand() > 0.99) {
+        buffer.pixels[index + 0] = 200;
+        buffer.pixels[index + 1] = 200;
+        buffer.pixels[index + 2] = 200;
       } else {
-        buffer.pixels[index + 3] = 0;
+        buffer.pixels[index + 0] = random(red(baseColor) - range, red(baseColor) + range);
+        buffer.pixels[index + 1] = random(green(baseColor) - range, green(baseColor) + range);
+        buffer.pixels[index + 2] = random(blue(baseColor) - range, blue(baseColor) + range);
       }
+      buffer.pixels[index + 3] = 255;
     }
   }
   buffer.updatePixels();
@@ -476,7 +434,7 @@ function addTexture() {
     PALETTE['apples'][i]["img"] = drawPixelBuffer(
       1 * conv,
       1 * conv,
-      PALETTE['apples'][i].fill,
+      PALETTE['apples'][i],
       20);
   }
 
