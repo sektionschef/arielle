@@ -1,5 +1,5 @@
-// const MODE = 1  // "FINE ART";
-const MODE = 5 // all debug messages
+const MODE = 1  // "FINE ART";
+// const MODE = 5 // all debug messages
 
 const NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
@@ -35,7 +35,7 @@ const WAVEINDEXMAX = WAVECOUNT - 1;
 let waveIndex = 0;
 
 function preload() {
-  img = loadImage('download.png');
+  // img = loadImage('download.png');
 }
 
 function setup() {
@@ -58,9 +58,8 @@ function setup() {
   backgroundImage = drawPixelBuffer(
     100 * conv,
     100 * conv,
-    // PALETTE.background,
-    color("red"),
-    20
+    PALETTE.background,
+    10
   );
 
   world = new OIMO.World({
@@ -187,17 +186,16 @@ function draw() {
     background(100);
   }
 
-  // if (frameCount == 1) {
-  // background(PALETTE.background);
-  push()
-  // translate(-50, 0, -50);
-  // rotate(PI / 2, 0, 1, 0);
-  // image(backgroundImage, 0, 0);
-  // image(img, 0, 0, 0);
-  texture(img);
-  plane(img.width, img.height);
-  pop();
-  // }
+  if (frameCount == 1) {
+    // background(PALETTE.background);
+    push()
+    translate(0, -15 * conv, 0);
+    rotateX(PI / 2);
+    texture(backgroundImage, 0, 0);
+    noStroke();
+    plane(backgroundImage.width, backgroundImage.height);
+    pop();
+  }
 
   // update world
   world.step();
