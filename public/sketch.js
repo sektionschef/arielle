@@ -267,7 +267,7 @@ function createPalette() {
       ]
     },
     "Fix Hellas": {
-      "background": color("#D97F6D"),
+      "background": color("#555c5b1"),
       "apples": [
         color("#A10035"),
         color("#FEC260"),
@@ -275,122 +275,55 @@ function createPalette() {
         color("#2A0944"),
       ]
     },
-    // "Lasagne": {
-    //   "background": color("#8a0000"),
-    //   "apples": [
-    //     {
-    //       color("#ffd1a9"),
-    //       "stroke": color("#80808010")
-    //     },
-    //     {
-    //       color("#ff9e79"),
-    //       "stroke": color("#00000010")
-    //     },
-    //     {
-    //       color("#fb6d4c"),
-    //       "stroke": color("#ffffff10")
-    //     },
-    //     {
-    //       color("#c23b22"),
-    //       "stroke": color("#c0c0c010")
-    //     },
-    //     // {
-    //     //   color("#8a0000"),
-    //     //   "stroke": color("#c0c0c010")
-    //     // },
-    //     {
-    //       color("#580000"),
-    //       "stroke": color("#c0c0c010")
-    //     }
-    //   ]
-    // },
-    // "Mamos": {
-    //   "background": color("#b38c6d"),
-    //   "apples": [
-    //     {
-    //       color("#77d8f9"),
-    //       "stroke": color("#80808010")
-    //     },
-    //     {
-    //       color("#624c38"),
-    //       "stroke": color("#00000010")
-    //     },
-    //     {
-    //       color("#cedeed"),
-    //       "stroke": color("#ffffff10")
-    //     },
-    //     {
-    //       color("#c64b62"),
-    //       "stroke": color("#c0c0c010")
-    //     },
-    //   ]
-    // },
-    // "Babushka": {
-    //   "background": color("#9ebbc1"),
-    //   "apples": [
-    //     {
-    //       color("#d8bc00"),
-    //       "stroke": color("#80808010")
-    //     },
-    //     {
-    //       color("#040c21"),
-    //       "stroke": color("#00000010")
-    //     },
-    //     {
-    //       color("#74a2c6"),
-    //       "stroke": color("#ffffff10")
-    //     },
-    //     {
-    //       color("#a43b4f"),
-    //       "stroke": color("#c0c0c010")
-    //     },
-    //   ]
-    // },
-    // "Autodrom": {
-    //   "background": color("#657582"),
-    //   "apples": [
-    //     {
-    //       color("#d8bc00"),
-    //       "stroke": color("#80808010")
-    //     },
-    //     {
-    //       color("#894292"),
-    //       "stroke": color("#00000010")
-    //     },
-    //     {
-    //       color("#67bfee"),
-    //       "stroke": color("#ffffff10")
-    //     },
-    //     {
-    //       color("#3e2543"),
-    //       "stroke": color("#c0c0c010")
-    //     },
-    //   ]
-    // },
-    // "Olivenhain": {
-    //   "background": color("	#a89062"),
-    //   "apples": [
-    //     {
-    //       color("	#14140a"),
-    //       "stroke": color("#80808010")
-    //     },
-    //     {
-    //       color("#918e41"),
-    //       "stroke": color("#00000010")
-    //     },
-    //     {
-    //       color("#ffc83d"),
-    //       "stroke": color("#ffffff10")
-    //     },
-    //     {
-    //       color("#4e542c"),
-    //       "stroke": color("#c0c0c010")
-    //     },
-    //   ]
-    // },
+    "Lasagne": {
+      "background": color("#8a0000"),
+      "apples": [
+        color("#ffd1a9"),
+        color("#ff9e79"),
+        color("#fb6d4c"),
+        color("#c23b22"),
+        color("#580000"),
+      ]
+    },
+    "Mamos": {
+      "background": color("#f5eee4"),
+      "apples": [
+        color("#77d8f9"),
+        color("#624c38"),
+        color("#cedeed"),
+        color("#c64b62"),
+      ]
+    },
+    "Babushka": {
+      "background": color("#9ebbc1"),
+      "apples": [
+        color("#d8bc00"),
+        color("#040c21"),
+        color("#74a2c6"),
+        color("#a43b4f"),
+      ]
+    },
+    "Autodrom": {
+      "background": color("#657582"),
+      "apples": [
+        color("#d8bc00"),
+        color("#894292"),
+        color("#67bfee"),
+        color("#3e2543"),
+      ]
+    },
+    "Olivenhain": {
+      "background": color("#919079"),
+      "apples": [
+        color("	#14140a"),
+        color("#918e41"),
+        color("#ffc83d"),
+        color("#4e542c"),
+      ]
+    },
   }
 
-  PALETTE = PALETTESYSTEM['Fix Hellas'];
+  PALETTE = PALETTESYSTEM['Olivenhain'];
 }
 
 function drawPixelBuffer(bufferWidth, bufferHeight, baseColor, range) {
