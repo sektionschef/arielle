@@ -128,20 +128,10 @@ function setup() {
   //   name: "leftBorder",
   // }, { "fill": color(0, 155, 0, 100), "stroke": "black" });
 
-  obstacle = new Body({
-    type: 'cylinder', // type of shape : sphere, box, cylinder 
-    size: [3, 30], // size of shape
-    pos: [getRandomFromInterval(-50, 50), 0, getRandomFromInterval(-30, 30)], // start position in degree
-    rot: [0, 0, 0], // start rotation in degree
-    move: false, // dynamic or statique
-    density: 1000,
-    friction: 0.2,
-    restitution: 0.2,
-    name: "obstacle",
-  }, { "fill": color(0, 155, 0, 100), "stroke": "black" });
-
   pushers = new PusherSystem(ground.body.shapes.width);
+  obstacles = new ObstacleSystem(5);
 
+  console.log(obstacles);
 
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
   if (MODE == 5) {
@@ -210,7 +200,7 @@ function draw() {
   lowerBorder.update();
   // leftBorder.update();
   // rightBorder.update();
-  obstacle.update();
+  obstacles.updateDisplay();
 
   if (MODE == 5) {
     ground.display();
@@ -218,7 +208,6 @@ function draw() {
     lowerBorder.display();
     // leftBorder.display();
     // rightBorder.display();
-    obstacle.display();
   }
 
   pushers.updateDisplay();

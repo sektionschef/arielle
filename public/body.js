@@ -289,3 +289,49 @@ class PusherSystem {
         }
     }
 }
+
+
+class ObstacleSystem {
+    constructor(amount) {
+
+        this.amount = amount;
+
+        this.bodies = [];
+
+        for (let i = 0; i < this.amount; i++) {
+            var data = {
+                type: 'cylinder', // type of shape : sphere, box, cylinder 
+                size: [1, 30], // size of shape
+                pos: [getRandomFromInterval(-50, 50), 0, getRandomFromInterval(-30, 30)], // start position in degree
+                rot: [0, 0, 0], // start rotation in degree
+                move: false, // dynamic or statique
+                density: 1000,
+                friction: 0.2,
+                restitution: 0.2,
+                name: "obstacle",
+            }
+
+            this.bodies.push(new Body(data, { "fill": color(0, 155, 0, 100), "stroke": "black" }));
+        }
+
+    }
+
+    updateDisplay() {
+        // for (var i = this.bodies.length - 1; i >= 0; i--) {
+        //     // for (let i = 0; i < this.bodies.length; i++) {
+        //     if (this.bodies[i].killMe == true) {
+        //         this.bodies[i].body.remove();
+        //         this.bodies.splice(i, 1);
+        //     } else {
+        //         this.bodies[i].update();
+        //         this.bodies[i].display();
+        //     }
+        // }
+        for (let i = 0; i < this.bodies.length; i++) {
+            this.bodies[i].update();
+            if (MODE == 5) {
+                this.bodies[i].display();
+            }
+        }
+    }
+}
