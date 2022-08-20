@@ -206,16 +206,14 @@ class Pusher extends Body {
             this.waveAcc = map(this.sineValue, -1, 1, 30, 60);  // starts from 100 and ends at 0
             this.waveVel += this.waveAcc;
             this.waveLocation += this.waveVel;
-            // this.angle += 0.035;
-            this.angle += 0.025;
 
-            // if (waveIndex == 0) {
-            //     this.angle += 0.007;
-            // } else if ((waveIndex == 1)) {
-            //     this.angle += 0.007;
-            // } else {
-            //     this.angle += 0.005;
-            // }
+            if (waveIndex == 0) {
+                this.angle += 0.025;
+            } else if ((waveIndex == 1)) {
+                this.angle += 0.020;
+            } else {
+                this.angle += 0.010;
+            }
 
             this.body.setPosition({ x: this.startPosition.x, y: 0, z: this.waveLocation });
         }

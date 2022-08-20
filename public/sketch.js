@@ -349,7 +349,7 @@ function createPalette() {
     },
   }
 
-  PALETTE = PALETTESYSTEM['Ierissos'];
+  PALETTE = PALETTESYSTEM['Lasagne'];
 }
 
 function drawPixelBuffer(bufferWidth, bufferHeight, baseColor, range) {
@@ -404,11 +404,11 @@ function terminate() {
   fxpreview();
 }
 
-async function waveCycle(bodiesObject) {
+async function waveCycle(bodiesObject, waitTime) {
   console.log("Pushers fire.");
   await sleep(1000 * 60 * 0.01);
   pushers.fire();
-  await sleep(1000 * 60 * 0.2);
+  await sleep(1000 * 60 * waitTime);
   bodiesObject.killAllCall();
 }
 
@@ -424,7 +424,7 @@ async function AllWaveCycles() {
 
   apples = new AppleSystem(400);
   console.log("Cycle starting");
-  waveCycle(apples);
+  waveCycle(apples, 0.2);
 
   // debug
   // console.log("body count: " + world.numRigidBodies);
@@ -433,17 +433,16 @@ async function AllWaveCycles() {
   waveIndex += 1;
   console.log("index: " + waveIndex);
   console.log("limit: " + WAVEINDEXMAX);
-  apples2 = new AppleSystem(400);
-  waveCycle(apples2);
-  await sleep(1000 * 60 * 0.1);
+  apples2 = new AppleSystem(200);
+  waveCycle(apples2, 0.1);
 
-  await sleep(1000 * 60 * 0.1);
+  await sleep(1000 * 60 * 0.05);
   waveIndex += 1;
   console.log("index: " + waveIndex);
   console.log("limit: " + WAVEINDEXMAX);
-  apples3 = new AppleSystem(400);
-  waveCycle(apples3);
-  await sleep(1000 * 60 * 0.1);
+  apples3 = new AppleSystem(100);
+  waveCycle(apples3, 0.1);
+  await sleep(1000 * 60 * 0.03);
 
   // colored layer or medusa text;
   // push();
