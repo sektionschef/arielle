@@ -1,5 +1,5 @@
-const MODE = 1  // "FINE ART";
-// const MODE = 5 // all debug messages
+// const MODE = 1  // "FINE ART";
+const MODE = 5 // all debug messages
 
 const NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
@@ -35,7 +35,7 @@ const WAVEINDEXMAX = WAVECOUNT - 1;
 let waveIndex = 0;
 
 function preload() {
-  // img = loadImage('sand.jpg');
+  img = loadImage('download.png');
 }
 
 function setup() {
@@ -54,6 +54,14 @@ function setup() {
 
   createPalette();
   addTexture();
+
+  backgroundImage = drawPixelBuffer(
+    100 * conv,
+    100 * conv,
+    // PALETTE.background,
+    color("red"),
+    20
+  );
 
   world = new OIMO.World({
     timestep: 1 / 60,
@@ -131,8 +139,6 @@ function setup() {
   pushers = new PusherSystem(ground.body.shapes.width);
   obstacles = new ObstacleSystem(5);
 
-  console.log(obstacles);
-
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
   if (MODE == 5) {
     // camera(0, 1500, 0, 0, 0, 0, 0, 0, 1); // debug - on top view
@@ -153,12 +159,15 @@ function draw() {
     orbitControl();
   }
 
-  // ambientLight(255, 255, 255);
+  ambientLight(255, 255, 255);
   // ambientMaterial(255);
   // specularMaterial(250);
 
-  ambientLight(100);
-  directionalLight(200, 200, 200, 1, -1, 0);
+  // runs
+  // ambientLight(150);
+  // directionalLight(200, 200, 200, 1, -1, 0);
+  // runs out
+
   // directionalLight(155, 155, 155, 0, -1, 0); 
   // pointLight(255, 255, 255, getRandomFromInterval(-50, 50), 0, getRandomFromInterval(-30, 30))
 
@@ -173,13 +182,22 @@ function draw() {
   // } else {
   // }
 
-  if (frameCount == 1) {
-    background(PALETTE.background);
-  }
 
   if (MODE == 5) {
     background(100);
   }
+
+  // if (frameCount == 1) {
+  // background(PALETTE.background);
+  push()
+  // translate(-50, 0, -50);
+  // rotate(PI / 2, 0, 1, 0);
+  // image(backgroundImage, 0, 0);
+  // image(img, 0, 0, 0);
+  texture(img);
+  plane(img.width, img.height);
+  pop();
+  // }
 
   // update world
   world.step();
@@ -336,9 +354,93 @@ function createPalette() {
         }
       ]
     },
+    "Mamos": {
+      "background": color("#b38c6d"),
+      "apples": [
+        {
+          "fill": color("#77d8f9"),
+          "stroke": color("#80808010")
+        },
+        {
+          "fill": color("#624c38"),
+          "stroke": color("#00000010")
+        },
+        {
+          "fill": color("#cedeed"),
+          "stroke": color("#ffffff10")
+        },
+        {
+          "fill": color("#c64b62"),
+          "stroke": color("#c0c0c010")
+        },
+      ]
+    },
+    "Babushka": {
+      "background": color("#9ebbc1"),
+      "apples": [
+        {
+          "fill": color("#d8bc00"),
+          "stroke": color("#80808010")
+        },
+        {
+          "fill": color("#040c21"),
+          "stroke": color("#00000010")
+        },
+        {
+          "fill": color("#74a2c6"),
+          "stroke": color("#ffffff10")
+        },
+        {
+          "fill": color("#a43b4f"),
+          "stroke": color("#c0c0c010")
+        },
+      ]
+    },
+    "Autodrom": {
+      "background": color("#657582"),
+      "apples": [
+        {
+          "fill": color("#d8bc00"),
+          "stroke": color("#80808010")
+        },
+        {
+          "fill": color("#894292"),
+          "stroke": color("#00000010")
+        },
+        {
+          "fill": color("#67bfee"),
+          "stroke": color("#ffffff10")
+        },
+        {
+          "fill": color("#3e2543"),
+          "stroke": color("#c0c0c010")
+        },
+      ]
+    },
+    "Olivenhain": {
+      "background": color("	#a89062"),
+      "apples": [
+        {
+          "fill": color("	#14140a"),
+          "stroke": color("#80808010")
+        },
+        {
+          "fill": color("#918e41"),
+          "stroke": color("#00000010")
+        },
+        {
+          "fill": color("#ffc83d"),
+          "stroke": color("#ffffff10")
+        },
+        {
+          "fill": color("#4e542c"),
+          "stroke": color("#c0c0c010")
+        },
+      ]
+    },
   }
 
-  PALETTE = PALETTESYSTEM['Lasagne'];
+  PALETTE = PALETTESYSTEM['Olivenhain'];
 }
 
 function drawPixelBuffer(bufferWidth, bufferHeight, baseColor, range) {
@@ -355,7 +457,11 @@ function drawPixelBuffer(bufferWidth, bufferHeight, baseColor, range) {
       buffer.pixels[index + 0] = random(red(baseColor) - range, red(baseColor) + range);
       buffer.pixels[index + 1] = random(green(baseColor) - range, green(baseColor) + range);
       buffer.pixels[index + 2] = random(blue(baseColor) - range, blue(baseColor) + range);
-      buffer.pixels[index + 3] = 255;
+      if (fxrand() > 0.15) {
+        buffer.pixels[index + 3] = 255;
+      } else {
+        buffer.pixels[index + 3] = 0;
+      }
     }
   }
   buffer.updatePixels();
