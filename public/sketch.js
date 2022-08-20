@@ -1,5 +1,5 @@
-const MODE = 1  // "FINE ART";
-// const MODE = 5 // all debug messages
+// const MODE = 1  // "FINE ART";
+const MODE = 5 // all debug messages
 
 const NOISESEED = hashFnv32a(fxhash);
 // console.log("Noise seed: " + NOISESEED);
@@ -128,13 +128,25 @@ function setup() {
   //   name: "leftBorder",
   // }, { "fill": color(0, 155, 0, 100), "stroke": "black" });
 
+  obstacle = new Body({
+    type: 'cylinder', // type of shape : sphere, box, cylinder 
+    size: [3, 30], // size of shape
+    pos: [getRandomFromInterval(-50, 50), 0, getRandomFromInterval(-30, 30)], // start position in degree
+    rot: [0, 0, 0], // start rotation in degree
+    move: false, // dynamic or statique
+    density: 1000,
+    friction: 0.2,
+    restitution: 0.2,
+    name: "obstacle",
+  }, { "fill": color(0, 155, 0, 100), "stroke": "black" });
+
   pushers = new PusherSystem(ground.body.shapes.width);
 
 
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
   if (MODE == 5) {
-    camera(0, 1500, 0, 0, 0, 0, 0, 0, 1); // debug
-    // camera(-2000, 0, 0, 0, 0, 0, 0, -1, 0); // debug -- side view
+    // camera(0, 1500, 0, 0, 0, 0, 0, 0, 1); // debug - on top view
+    camera(-2000, 0, 0, 0, 0, 0, 0, -1, 0); // debug -- side view
   } else {
     camera(0, 700, 0, 0, 0, 0, 0, 0, 1);
   }
@@ -156,7 +168,9 @@ function draw() {
   // specularMaterial(250);
 
   ambientLight(100);
-  directionalLight(255, 255, 255, 1, -1, 0); // from right and above
+  directionalLight(200, 200, 200, 1, -1, 0);
+  // directionalLight(155, 155, 155, 0, -1, 0); 
+  // pointLight(255, 255, 255, getRandomFromInterval(-50, 50), 0, getRandomFromInterval(-30, 30))
 
   // contrast only single light, no ambient light
   // if (waveIndex == 0) {
@@ -189,6 +203,7 @@ function draw() {
   lowerBorder.update();
   // leftBorder.update();
   // rightBorder.update();
+  obstacle.update();
 
   if (MODE == 5) {
     ground.display();
@@ -196,6 +211,7 @@ function draw() {
     lowerBorder.display();
     // leftBorder.display();
     // rightBorder.display();
+    obstacle.display();
   }
 
   pushers.updateDisplay();
@@ -326,7 +342,7 @@ function createPalette() {
     },
   }
 
-  PALETTE = PALETTESYSTEM['Lasagne'];
+  PALETTE = PALETTESYSTEM['Ierissos'];
 }
 
 function drawPixelBuffer(bufferWidth, bufferHeight, baseColor, range) {
@@ -358,8 +374,8 @@ function addTexture() {
 
     // size of the biggest apple, inclusive conv
     PALETTE['apples'][i]["img"] = drawPixelBuffer(
-      20,
-      20,
+      1 * conv,
+      1 * conv,
       PALETTE['apples'][i].fill,
       20);
   }
@@ -379,17 +395,11 @@ function terminate() {
   fxpreview();
 }
 
-async function launchWave() {
-  // console.log("Fire");
-  apples = new AppleSystem(200);
-  await sleep(1000 * 60 * 0.0);
-  pushers.fire();
-}
-
 async function waveCycle() {
 
   console.log("index: " + waveIndex);
   console.log("limit: " + WAVEINDEXMAX);
+
   if (waveIndex > WAVEINDEXMAX) {
     terminate()
     return;
@@ -403,11 +413,17 @@ async function waveCycle() {
   } else {
     var appleNumber = 400;
   }
-  // apples = new AppleSystem(appleNumber);
 
-  launchWave();
-
+  // console.log("Fire");
+  apples = new AppleSystem(appleNumber);
+  console.log("before: " + world.numRigidBodies);
+  await sleep(1000 * 60 * 0.01);
+  pushers.fire();
   await sleep(1000 * 60 * 0.2);
+  apples.killAllCall();
+
+  await sleep(1000 * 60 * 0.01);
+  console.log("after: " + world.numRigidBodies);
 
   // colored layer or medusa text;
   // push();

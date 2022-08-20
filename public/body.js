@@ -64,8 +64,8 @@ class Body {
         push();
         fill(color(this.fillColor))
         // stroke(color(this.strokeColor));
+        // strokeWeight(1);
         noStroke();
-        strokeWeight(1);
         translate(this.bodyPosition.x * conv, this.bodyPosition.y * conv, this.bodyPosition.z * conv);
 
 
@@ -141,7 +141,7 @@ class AppleSystem {
                 pos: [getRandomFromInterval(-50, 50), -15, getRandomFromInterval(45, 50)], // start position in degree
                 rot: [0, 0, 0], // start rotation in degree
                 move: true, // dynamic or statique
-                density: 1,  // 1
+                density: 1,
                 friction: 0,
                 restitution: 0,
                 noSleep: true,
@@ -156,12 +156,15 @@ class AppleSystem {
     updateDisplay() {
         for (var i = this.bodies.length - 1; i >= 0; i--) {
             // for (let i = 0; i < this.bodies.length; i++) {
-            this.bodies[i].update();
-            this.bodies[i].display();
-            if (this.bodies[i].killMe) {
+            if (this.bodies[i].killMe == true) {
                 this.bodies[i].body.remove();
                 this.bodies.splice(i, 1);
+            } else {
+                this.bodies[i].update();
+                this.bodies[i].display();
             }
+
+
         }
     }
 
@@ -241,13 +244,14 @@ class PusherSystem {
                 type: 'box',
                 size: [this.widthPusher, 30, this.widthPusher],
                 pos: [i * this.widthPusher - ground_width / 2, 100, this.noiseLine[i]],
-                rot: [0, 0, 0],
+                rot: [0, 60, 0],
                 // rot: [0, getRandomFromInterval(-5, 5), 0],
                 move: true,
-                density: 1,
+                density: 1000,
                 kinematic: true,
                 noSleep: true,
                 material: 'kinematic',
+                name: "Pusher_" + i,
             };
 
             this.bodies.push(new Pusher(data, { "fill": fillColor, "stroke": strokeColor }));
@@ -259,7 +263,8 @@ class PusherSystem {
         this.noiseStep = 0.3;
         this.noiseRange = 10;
 
-        this.amount = this.ground_width / this.widthPusher;
+        this.amount = 100;  // number of particles
+        this.widthPusher = this.ground_width / this.amount;
 
         this.noiseLine = [];
         let xoff = 0;
