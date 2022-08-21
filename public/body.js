@@ -92,61 +92,38 @@ class Body {
 
 class AppleSystem {
 
-    constructor(amount) {
-        this.bodies = []
+    constructor(amount, initFall) {
+        this.bodies = [];
+        this.initFall = initFall;
 
+        this.appleSize = 1;
 
         for (let i = 0; i < amount; i++) {
-
-            // if (waveIndex == 0) {
-            //     var bodySize = 1;
-            // } else if ((waveIndex == 1)) {
-            //     var bodySize = 1;
-            // } else {
-            //     var bodySize = 1;
-            // }
-            var bodySize = 1;
-
-            // if (waveIndex == 0) {
-            //     var form = getRandomFromList([
-            //         { type: "sphere", size: [0.5] },
-            //         { type: 'cylinder', size: [0.5, 1] },
-            //         { type: 'box', size: [1, 1, 1] },
-            //     ]);
-            // } else if ((waveIndex == 1)) {
-            //     var bodySize = 1;
-            // } else {
-            //     var bodySize = 1;
-            // }
 
             var form = getRandomFromList([
                 // { type: "sphere", size: [0.5] },
                 // { type: 'cylinder', size: [0.5, 1] },
-                { type: 'box', size: [1, 1, 1] },
+                { type: 'box', size: [this.appleSize, this.appleSize, this.appleSize] },
             ]);
 
             var appleColor = getRandomFromList(PALETTE.apples);
 
-
-            var appleSize = 1;
-            var applePerRow = 90;
-            var startX = (applePerRow / 2 - (i * appleSize) % applePerRow);  // from -45 to 45
+            var applePerRow = 100;
+            var startX = applePerRow / 2 - (i * this.appleSize) % applePerRow;  // from -45 to 45
             // console.log(startX);
-            var startZ = 50 + Math.floor(i * appleSize / applePerRow) * -1;
+            var startY = (-15 + this.appleSize / 2); // floor level - dependent on height of ground and its position.
+            if (this.initFall) {
+                var startZ = 20 + Math.floor(i * this.appleSize / applePerRow) * -1;
+            } else {
+                var startZ = 50 + Math.floor(i * this.appleSize / applePerRow) * -1;
+            }
             // console.log(startZ);
 
-
             var data = {
-                // type: 'box', // type of shape : sphere, box, cylinder 
-                // size: [bodySize, bodySize, bodySize], // size of shape
-                // type: 'cylinder', // type of shape : sphere, box, cylinder 
-                // size: [bodySize, bodySize], // size of shape
-                // type: 'sphere', // type of shape : sphere, box, cylinder 
-                // size: [bodySize], // size of shape
                 type: form.type,
                 size: form.size,
                 // pos: [getRandomFromInterval(-50, 50), -15, getRandomFromInterval(45, 50)], // start position in degree
-                pos: [startX, (-15 + appleSize / 2), startZ], // start position in degree
+                pos: [startX, startY, startZ], // start position in degree
                 rot: [0, 0, 0], // start rotation in degree
                 move: true, // dynamic or statique
                 density: 1,

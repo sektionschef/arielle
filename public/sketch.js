@@ -88,19 +88,6 @@ function setup() {
     // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
   }, color(0, 255, 0, 100));
 
-  POX = new Body({
-    type: 'box', // type of shape : sphere, box, cylinder 
-    size: [50, 10, 50], // size of shape
-    pos: [0, (5 - 15), 0], // start position in degree
-    move: false, // dynamic or statique
-    density: 1,
-    friction: 0.6,
-    restitution: 0,
-    name: "POX",
-    // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
-    // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
-  }, color(0, 0, 255, 100));
-
   // upperBorder = new Body({
   //   type: 'box', // type of shape : sphere, box, cylinder 
   //   size: [100, 50, 10], // size of shape
@@ -150,12 +137,12 @@ function setup() {
   // }, { "fill": color(0, 155, 0, 100), "stroke": "black" });
 
   pushers = new PusherSystem(ground.body.shapes.width);
-  // obstacles = new ObstacleSystem(5);
+  obstacles = new ObstacleSystem(5);
 
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
   if (MODE == 5) {
-    // camera(0, 1500, 0, 0, 0, 0, 0, 0, 1); // debug - on top view
-    camera(-1500, 0, 0, 0, 0, 0, 0, -1, 0); // debug -- side view
+    camera(0, 800, 0, 0, 0, 0, 0, 0, 1); // debug - on top view
+    // camera(-1500, 0, 0, 0, 0, 0, 0, -1, 0); // debug -- side view
   } else {
     camera(0, 700, 0, 0, 0, 0, 0, 0, 1);
   }
@@ -174,7 +161,7 @@ function setup() {
 function draw() {
 
   if (MODE == 5) {
-    orbitControl();
+    // orbitControl();
   }
 
   // ambientLight(255, 255, 255);
@@ -235,12 +222,10 @@ function draw() {
   lowerBorder.update();
   // leftBorder.update();
   // rightBorder.update();
-  // obstacles.updateDisplay();
-  POX.update();
+  obstacles.updateDisplay();
 
   if (MODE == 5) {
     ground.display();
-    POX.display();
     // upperBorder.display();
     lowerBorder.display();
     // leftBorder.display();
@@ -255,7 +240,6 @@ function draw() {
 
 function mousePressed() {
   // console.log(cam);
-  waveCycle(apples, 0.5);
 }
 
 
@@ -423,7 +407,8 @@ async function AllWaveCycles() {
   console.log("index: " + waveIndex);
   console.log("limit: " + WAVEINDEXMAX);
 
-  apples = new AppleSystem(400);
+  apples = new AppleSystem(400, true);
+  world.setGravity([0, -9.8, 9.8]);
   console.log("Cycle starting");
   waveCycle(apples, 0.2);
 

@@ -1,6 +1,9 @@
-# Arielle
+# Medusa
 
 waves.
+
+positioning relative to center of object, so move by object's half.
+
 
 ## tasks
 * dieing particles
