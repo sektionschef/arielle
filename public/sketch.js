@@ -1,5 +1,5 @@
-const MODE = 1  // "FINE ART";
-// const MODE = 5 // all debug messages
+// const MODE = 1  // "FINE ART";
+const MODE = 5 // all debug messages
 
 const NOISESEED = hashFnv32a(fxhash);
 console.log("Noise seed: " + NOISESEED);
@@ -88,6 +88,19 @@ function setup() {
     // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
   }, color(0, 255, 0, 100));
 
+  POX = new Body({
+    type: 'box', // type of shape : sphere, box, cylinder 
+    size: [50, 10, 50], // size of shape
+    pos: [0, (5 - 15), 0], // start position in degree
+    move: false, // dynamic or statique
+    density: 1,
+    friction: 0.6,
+    restitution: 0,
+    name: "POX",
+    // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
+    // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
+  }, color(0, 0, 255, 100));
+
   // upperBorder = new Body({
   //   type: 'box', // type of shape : sphere, box, cylinder 
   //   size: [100, 50, 10], // size of shape
@@ -151,9 +164,10 @@ function setup() {
 
   AllWaveCycles();  // async in setup not draw
 
-  console.log(OIMO.Math.rand(0, 1));
-  console.log(OIMO.Math.random());
-  console.log(OIMO.Math.randInt(0, 10));
+  // oimo library random
+  // console.log(OIMO.Math.rand(0, 1));
+  // console.log(OIMO.Math.random());
+  // console.log(OIMO.Math.randInt(0, 10));
 }
 
 
@@ -222,9 +236,11 @@ function draw() {
   // leftBorder.update();
   // rightBorder.update();
   // obstacles.updateDisplay();
+  POX.update();
 
   if (MODE == 5) {
     ground.display();
+    POX.display();
     // upperBorder.display();
     lowerBorder.display();
     // leftBorder.display();
@@ -406,11 +422,6 @@ async function AllWaveCycles() {
 
   console.log("index: " + waveIndex);
   console.log("limit: " + WAVEINDEXMAX);
-
-  // if (waveIndex > WAVEINDEXMAX) {
-  //   terminate()
-  //   return;
-  // }
 
   apples = new AppleSystem(400);
   console.log("Cycle starting");
