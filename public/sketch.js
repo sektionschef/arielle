@@ -33,6 +33,7 @@ let PALETTE;
 const WAVECOUNT = 3;
 const WAVEINDEXMAX = WAVECOUNT - 1;
 let waveIndex = 0;
+LIGHT = "dark";
 
 function preload() {
   // img = loadImage('download.png');
@@ -50,6 +51,7 @@ function setup() {
   scaleDynamically();
 
   canvas = createCanvas(rescaling_width, rescaling_height, WEBGL);
+  canvas.id('badAssCanvas');
   cam = createCamera();  // needed?
 
   createPalette();
@@ -169,8 +171,12 @@ function draw() {
   // specularMaterial(250);
 
   // runs
-  ambientLight(150);
-  directionalLight(200, 200, 200, 1, -1, 0);
+  if (LIGHT == "full") {
+    ambientLight(150);
+    directionalLight(200, 200, 200, 1, -1, 0);
+  } else if (LIGHT == "dark") {
+    ambientLight(150);
+  }
   // runs out
 
   // directionalLight(155, 155, 155, 0, -1, 0); 
@@ -239,7 +245,7 @@ function draw() {
 }
 
 function mousePressed() {
-  console.log("frameCount; " + frameCount);
+  // console.log("frameCount; " + frameCount);
 }
 
 
@@ -408,16 +414,17 @@ async function AllWaveCycles() {
   console.log("index: " + waveIndex);
   console.log("limit: " + WAVEINDEXMAX);
 
+  LIGHT = "dark";
+  directionalLight(200, 200, 200, 1, -1, 0);
   console.log("Initial fall");
-  world.setGravity([0, -9.8, 9.8]);
+  world.setGravity([0, -9.8, 30]);
   apples = new AppleSystem(400, true);
-  await sleep(1000 * 10);
+  await sleep(1000 * 7);
   world.setGravity([0, -9.8, 3]);
   console.log("Cycle starting");
 
-  console.log("start: " + frameCount);
+  LIGHT = "full";
   waveCycle(apples, 0.2);
-  console.log("end: " + frameCount);
 
   // debug
   // console.log("body count: " + world.numRigidBodies);
@@ -427,8 +434,8 @@ async function AllWaveCycles() {
   console.log("index: " + waveIndex);
   console.log("limit: " + WAVEINDEXMAX);
   apples2 = new AppleSystem(200);
-  console.log("stat?: " + fxrand());
   waveCycle(apples2, 0.1);
+  // console.log("stat?: " + fxrand());
 
   await sleep(1000 * 60 * 0.05);
   waveIndex += 1;

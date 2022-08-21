@@ -186,11 +186,9 @@ function exportHighResolution() {
 }
 
 function exportCanvas() {
-    // save(canvas, 'myCanvas.jpg');
 
-    // Saves the canvas as an image by default
-    save('myCanvas.jpg');
-    describe(`An example for saving a canvas as an image.`);
+    // window.location.reload();
+    save('myCanvas.png');
 }
 
 function getTimestamp() {
