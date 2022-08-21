@@ -2,7 +2,7 @@ const MODE = 1  // "FINE ART";
 // const MODE = 5 // all debug messages
 
 const NOISESEED = hashFnv32a(fxhash);
-// console.log("Noise seed: " + NOISESEED);
+console.log("Noise seed: " + NOISESEED);
 
 let PaperDimensions = {
   "Quickie": {
@@ -19,7 +19,7 @@ let PaperDimensions = {
   },
 }
 // convert pixel to real world physics
-let conv = 10;
+const conv = 10;
 
 let exportPaper = PaperDimensions['1to1']
 
@@ -68,6 +68,7 @@ function setup() {
     broadphase: 2, // 1 brute force, 2 sweep and prune, 3 volume tree
     worldscale: 1, // scale full world 
     random: true,  // randomize sample
+    // random: false,  // randomize sample
     info: false,   // calculate statistic or not
     // gravity: [0, -9.8, 0]
     gravity: [0, -9.8, 3]
@@ -85,7 +86,7 @@ function setup() {
     name: "ground",
     // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
     // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
-  }, { "fill": color(0, 255, 0, 100) });
+  }, color(0, 255, 0, 100));
 
   // upperBorder = new Body({
   //   type: 'box', // type of shape : sphere, box, cylinder 
@@ -109,7 +110,7 @@ function setup() {
     friction: 0.2,
     restitution: 0.2,
     name: "lowerBorder",
-  }, { "fill": color(0, 155, 0, 100) });
+  }, color(0, 155, 0, 100));
 
   // leftBorder = new Body({
   //   type: 'box', // type of shape : sphere, box, cylinder 
@@ -136,19 +137,23 @@ function setup() {
   // }, { "fill": color(0, 155, 0, 100), "stroke": "black" });
 
   pushers = new PusherSystem(ground.body.shapes.width);
-  obstacles = new ObstacleSystem(5);
+  // obstacles = new ObstacleSystem(5);
 
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
   if (MODE == 5) {
     // camera(0, 1500, 0, 0, 0, 0, 0, 0, 1); // debug - on top view
-    camera(-2000, 0, 0, 0, 0, 0, 0, -1, 0); // debug -- side view
+    camera(-1500, 0, 0, 0, 0, 0, 0, -1, 0); // debug -- side view
   } else {
     camera(0, 700, 0, 0, 0, 0, 0, 0, 1);
   }
 
   // debugMode(AXES);
 
-  AllWaveCycles();
+  AllWaveCycles();  // async in setup not draw
+
+  console.log(OIMO.Math.rand(0, 1));
+  console.log(OIMO.Math.random());
+  console.log(OIMO.Math.randInt(0, 10));
 }
 
 
@@ -216,7 +221,7 @@ function draw() {
   lowerBorder.update();
   // leftBorder.update();
   // rightBorder.update();
-  obstacles.updateDisplay();
+  // obstacles.updateDisplay();
 
   if (MODE == 5) {
     ground.display();
@@ -234,6 +239,7 @@ function draw() {
 
 function mousePressed() {
   // console.log(cam);
+  waveCycle(apples, 0.5);
 }
 
 
@@ -413,20 +419,21 @@ async function AllWaveCycles() {
   // debug
   // console.log("body count: " + world.numRigidBodies);
 
-  await sleep(1000 * 60 * 0.1);
-  waveIndex += 1;
-  console.log("index: " + waveIndex);
-  console.log("limit: " + WAVEINDEXMAX);
-  apples2 = new AppleSystem(200);
-  waveCycle(apples2, 0.1);
+  // await sleep(1000 * 60 * 0.1);
+  // waveIndex += 1;
+  // console.log("index: " + waveIndex);
+  // console.log("limit: " + WAVEINDEXMAX);
+  // apples2 = new AppleSystem(200);
+  // console.log("stat?: " + fxrand());
+  // waveCycle(apples2, 0.1);
 
-  await sleep(1000 * 60 * 0.05);
-  waveIndex += 1;
-  console.log("index: " + waveIndex);
-  console.log("limit: " + WAVEINDEXMAX);
-  apples3 = new AppleSystem(100);
-  waveCycle(apples3, 0.1);
-  await sleep(1000 * 60 * 0.03);
+  // await sleep(1000 * 60 * 0.05);
+  // waveIndex += 1;
+  // console.log("index: " + waveIndex);
+  // console.log("limit: " + WAVEINDEXMAX);
+  // apples3 = new AppleSystem(100);
+  // waveCycle(apples3, 0.1);
+  // await sleep(1000 * 60 * 0.03);
 
   // colored layer or medusa text;
   // push();
@@ -434,6 +441,4 @@ async function AllWaveCycles() {
   // box(300, 300, 300, 500, 100, 500);
   // pop();
 
-  // waveIndex += 1;
-  // waveCycle();
 }

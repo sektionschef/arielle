@@ -15,7 +15,6 @@ class Body {
         this.body = world.add(
             data
         );
-
     }
 
     // from here: https://stackoverflow.com/questions/62457529/how-do-you-get-the-axis-and-angle-representation-of-a-quaternion-in-three-js 
@@ -129,6 +128,14 @@ class AppleSystem {
             var appleColor = getRandomFromList(PALETTE.apples);
 
 
+            var appleSize = 1;
+            var applePerRow = 90;
+            var startX = (applePerRow / 2 - (i * appleSize) % applePerRow);  // from -45 to 45
+            // console.log(startX);
+            var startZ = 50 + Math.floor(i * appleSize / applePerRow) * -1;
+            // console.log(startZ);
+
+
             var data = {
                 // type: 'box', // type of shape : sphere, box, cylinder 
                 // size: [bodySize, bodySize, bodySize], // size of shape
@@ -138,7 +145,8 @@ class AppleSystem {
                 // size: [bodySize], // size of shape
                 type: form.type,
                 size: form.size,
-                pos: [getRandomFromInterval(-50, 50), -15, getRandomFromInterval(45, 50)], // start position in degree
+                // pos: [getRandomFromInterval(-50, 50), -15, getRandomFromInterval(45, 50)], // start position in degree
+                pos: [startX, (-15 + appleSize / 2), startZ], // start position in degree
                 rot: [0, 0, 0], // start rotation in degree
                 move: true, // dynamic or statique
                 density: 1,
@@ -252,7 +260,7 @@ class PusherSystem {
                 name: "Pusher_" + i,
             };
 
-            this.bodies.push(new Pusher(data, { "fill": fillColor }));
+            this.bodies.push(new Pusher(data, fillColor));
         }
     }
 
@@ -311,7 +319,7 @@ class ObstacleSystem {
                 name: "obstacle",
             }
 
-            this.bodies.push(new Body(data, { "fill": color(0, 155, 0, 100) }));
+            this.bodies.push(new Body(data, color(0, 155, 0, 100)));
         }
 
     }
