@@ -109,11 +109,14 @@ class AppleSystem {
             var appleColor = getRandomFromList(PALETTE.apples);
 
             var applePerRow = 100;
+            var appleRowCount = amount / applePerRow;
+
             var startX = applePerRow / 2 - (i * this.appleSize) % applePerRow;  // from -45 to 45
             // console.log(startX);
             var startY = (-15 + this.appleSize / 2); // floor level - dependent on height of ground and its position.
             if (this.initFall) {
-                var startZ = 20 + Math.floor(i * this.appleSize / applePerRow) * -1;
+                // from above
+                var startZ = -50 + Math.floor(i * this.appleSize / applePerRow);
             } else {
                 var startZ = 50 + Math.floor(i * this.appleSize / applePerRow) * -1;
             }
