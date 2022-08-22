@@ -188,7 +188,7 @@ function exportHighResolution() {
 function exportCanvas() {
 
     // window.location.reload();
-    save('myCanvas.png');
+    // save('myCanvas.png');
 }
 
 function getTimestamp() {

@@ -35,18 +35,19 @@ const WAVEINDEXMAX = WAVECOUNT - 1;
 let waveIndex = 0;
 LIGHT = "dark";
 
+let POX1 = false;
+
 function preload() {
   // img = loadImage('download.png');
 }
 
 function setup() {
-
   noiseSeed(NOISESEED);
   randomSeed(NOISESEED);
   // setAttributes('antialias', true);
 
   // console.log("Pixel density: " + pixelDensity())
-  exportRatio /= pixelDensity();
+  // exportRatio /= pixelDensity();
 
   scaleDynamically();
 
@@ -90,18 +91,6 @@ function setup() {
     // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
   }, color(0, 255, 0, 100));
 
-  // upperBorder = new Body({
-  //   type: 'box', // type of shape : sphere, box, cylinder 
-  //   size: [100, 50, 10], // size of shape
-  //   pos: [0, 0, -50], // start position in degree
-  //   rot: [0, 0, 0], // start rotation in degree
-  //   move: false, // dynamic or statique
-  //   density: 1000,
-  //   friction: 0.2,
-  //   restitution: 0.2,
-  //   name: "upperBorder",
-  // }, { "fill": color(0, 155, 0, 100), "stroke": "black" });
-
   lowerBorder = new Body({
     type: 'box', // type of shape : sphere, box, cylinder 
     size: [100, 50, 10], // size of shape
@@ -114,31 +103,8 @@ function setup() {
     name: "lowerBorder",
   }, color(0, 155, 0, 100));
 
-  // leftBorder = new Body({
-  //   type: 'box', // type of shape : sphere, box, cylinder 
-  //   size: [10, 50, 100], // size of shape
-  //   pos: [50, 0, 0], // start position in degree
-  //   rot: [0, 0, 0], // start rotation in degree
-  //   move: false, // dynamic or statique
-  //   density: 1000,
-  //   friction: 0.2,
-  //   restitution: 0.2,
-  //   name: "leftBorder",
-  // }, { "fill": color(0, 155, 0, 100), "stroke": "black" });
-
-  // rightBorder = new Body({
-  //   type: 'box', // type of shape : sphere, box, cylinder 
-  //   size: [10, 50, 100], // size of shape
-  //   pos: [-50, 0, 0], // start position in degree
-  //   rot: [0, 0, 0], // start rotation in degree
-  //   move: false, // dynamic or statique
-  //   density: 1000,
-  //   friction: 0.2,
-  //   restitution: 0.2,
-  //   name: "leftBorder",
-  // }, { "fill": color(0, 155, 0, 100), "stroke": "black" });
-
   pushers = new PusherSystem(ground.body.shapes.width);
+
   // obstacles = new ObstacleSystem(5); // then set position
 
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
@@ -168,30 +134,16 @@ function draw() {
 
   // ambientLight(255, 255, 255);
   // ambientMaterial(255);
-  // specularMaterial(250);
+  // specularMaterial(255);
 
-  // runs
   if (LIGHT == "full") {
     ambientLight(150);
     directionalLight(200, 200, 200, 1, -1, 0);
   } else if (LIGHT == "dark") {
     ambientLight(150);
   }
-  // runs out
 
-  // directionalLight(155, 155, 155, 0, -1, 0); 
   // pointLight(255, 255, 255, getRandomFromInterval(-50, 50), 0, getRandomFromInterval(-30, 30))
-
-  // contrast only single light, no ambient light
-  // if (waveIndex == 0) {
-  //   ambientLight(100);
-  //   directionalLight(155, 155, 155, 1, -1, 0); // from right and above
-  // } else if (waveIndex == 1) {
-  //   ambientLight(50);
-  //   directionalLight(255, 255, 255, 1, -1, 0); // from right and above
-  //   // directionalLight(155, 155, 155, -1, -1, 0); // from left and above
-  // } else {
-  // }
 
 
   if (MODE == 5) {
@@ -224,24 +176,23 @@ function draw() {
 
 
   ground.update();
-  // upperBorder.update();
   lowerBorder.update();
-  // leftBorder.update();
-  // rightBorder.update();
-  // obstacles.updateDisplay();
 
   if (MODE == 5) {
     ground.display();
-    // upperBorder.display();
     lowerBorder.display();
-    // leftBorder.display();
-    // rightBorder.display();
   }
 
   pushers.updateDisplay();
 
-  // console.log("safety check for diff resolutions same hash: " + fxrand());
+  if (frameCount == 300) {
+    POX1 = true;
+  }
 
+  if (POX1) {
+    console.log("please once");
+    POX1 = false;
+  }
 }
 
 function mousePressed() {
@@ -435,7 +386,6 @@ async function AllWaveCycles() {
   console.log("limit: " + WAVEINDEXMAX);
   apples2 = new AppleSystem(200);
   waveCycle(apples2, 0.1);
-  // console.log("stat?: " + fxrand());
 
   await sleep(1000 * 60 * 0.05);
   waveIndex += 1;
@@ -450,5 +400,8 @@ async function AllWaveCycles() {
   // fill(0, 0, 0, 70);
   // box(300, 300, 300, 500, 100, 500);
   // pop();
+
+  console.log("stat?: " + fxrand());
+  terminate();
 
 }
