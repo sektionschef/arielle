@@ -346,6 +346,7 @@ function terminate() {
   apples.killAllCall();
   apples2.killAllCall();
   apples3.killAllCall();
+  console.log("Physical body count: " + world.numRigidBodies);
   noLoop();
   fxpreview();
 }
@@ -363,6 +364,14 @@ let START = 10;
 let ENDFALL = 180;
 let WAVE1 = 200;
 let WAVE1END = 700;
+let PREWAVE2 = 500;
+let WAVE2 = 520;
+let WAVE2END = 900;
+let PREWAVE3 = 700;
+let WAVE3 = 720;
+let WAVE3END = 1100;
+
+
 
 function timing() {
   if (frameCount == START) {
@@ -392,6 +401,46 @@ function timing() {
   if (frameCount == WAVE1END) {
     apples.killAllCall();
   }
+
+  if (frameCount == PREWAVE2) {
+    waveIndex += 1;
+    console.log("Starting wave: " + waveIndex);
+    apples2 = new AppleSystem(200);
+  }
+
+  if (frameCount == WAVE2) {
+    console.log("Pushers fire.");
+    pushers.fire();
+  }
+
+  if (frameCount == WAVE2END) {
+    apples2.killAllCall();
+  }
+
+  //   // colored layer or medusa text;
+  //   // push();
+  //   // fill(0, 0, 0, 70);
+  //   // box(300, 300, 300, 500, 100, 500);
+  //   // pop();
+
+
+  if (frameCount == PREWAVE3) {
+    waveIndex += 1;
+    console.log("Starting wave: " + waveIndex);
+    apples3 = new AppleSystem(200);
+  }
+
+  if (frameCount == WAVE3) {
+    console.log("Pushers fire.");
+    pushers.fire();
+  }
+
+  if (frameCount == WAVE3END) {
+    apples3.killAllCall();
+  }
+
+  //   console.log("stat?: " + fxrand());
+  //   terminate();
 
 }
 
