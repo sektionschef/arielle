@@ -58,12 +58,12 @@ function setup() {
   createPalette();
   addTexture();
 
-  backgroundImage = drawPixelBuffer(
-    100 * conv,
-    100 * conv,
-    PALETTE.background,
-    10
-  );
+  // backgroundImage = drawPixelBuffer(
+  //   100 * conv,
+  //   100 * conv,
+  //   PALETTE.background,
+  //   10
+  // );
 
   world = new OIMO.World({
     timestep: 1 / 60,
@@ -117,7 +117,7 @@ function setup() {
 
   // debugMode(AXES);
 
-  AllWaveCycles();  // async in setup not draw
+  // AllWaveCycles();  // async in setup not draw
 
   // oimo library random
   // console.log(OIMO.Math.rand(0, 1));
@@ -151,19 +151,23 @@ function draw() {
   }
 
   if (frameCount == 1) {
-    // background(PALETTE.background);
-    push()
-    translate(0, -15 * conv, 0);
-    rotateX(PI / 2);
-    texture(backgroundImage, 0, 0);
-    noStroke();
-    plane(backgroundImage.width, backgroundImage.height);
-    pop();
+    background(255);
+    //   // background(PALETTE.background);
+    //   push()
+    //   translate(0, -15 * conv, 0);
+    //   rotateX(PI / 2);
+    //   texture(backgroundImage, 0, 0);
+    //   noStroke();
+    //   plane(backgroundImage.width, backgroundImage.height);
+    //   pop();
   }
 
   // update world
   world.step();
 
+  if (typeof applesFall != "undefined") {
+    applesFall.updateDisplay();
+  }
   if (typeof apples != "undefined") {
     apples.updateDisplay();
   }
@@ -185,18 +189,11 @@ function draw() {
 
   pushers.updateDisplay();
 
-  if (frameCount == 300) {
-    POX1 = true;
-  }
-
-  if (POX1) {
-    console.log("please once");
-    POX1 = false;
-  }
+  timing();
 }
 
 function mousePressed() {
-  // console.log("frameCount; " + frameCount);
+  console.log("frameCount; " + frameCount);
 }
 
 
@@ -345,63 +342,101 @@ function sleep(ms) {
 
 function terminate() {
   console.log("Shutting down!");
+  applesFall.killAllCall();
   apples.killAllCall();
   apples2.killAllCall();
-  // apples.killAllCall();
+  apples3.killAllCall();
   noLoop();
   fxpreview();
 }
 
-async function waveCycle(bodiesObject, waitTime) {
-  console.log("Pushers fire.");
-  await sleep(1000 * 60 * 0.01);
-  pushers.fire();
-  await sleep(1000 * 60 * waitTime);
-  bodiesObject.killAllCall();
-}
+// async function waveCycle(bodiesObject, waitTime) {
+//   console.log("Pushers fire.");
+//   await sleep(1000 * 60 * 0.01);
+//   pushers.fire();
+//   await sleep(1000 * 60 * waitTime);
+//   bodiesObject.killAllCall();
+// }
 
-async function AllWaveCycles() {
+// in frames
+let START = 10;
+let ENDFALL = 180;
+let WAVE1 = 200;
+let WAVE1END = 700;
 
-  console.log("index: " + waveIndex);
-  console.log("limit: " + WAVEINDEXMAX);
+function timing() {
+  if (frameCount == START) {
+    world.setGravity([0, -9.8, 30]);
+    applesFall = new AppleSystem(100, true);
+    LIGHT = "dark";
+  }
 
-  LIGHT = "dark";
-  directionalLight(200, 200, 200, 1, -1, 0);
-  console.log("Initial fall");
-  world.setGravity([0, -9.8, 30]);
-  apples = new AppleSystem(400, true);
-  await sleep(1000 * 7);
-  world.setGravity([0, -9.8, 3]);
-  console.log("Cycle starting");
+  //   console.log("index: " + waveIndex);
+  //   console.log("limit: " + WAVEINDEXMAX);
 
-  LIGHT = "full";
-  waveCycle(apples, 0.2);
+  if (frameCount == ENDFALL) {
+    console.log("Ending Fall")
+    applesFall.killAllCall();
+    world.setGravity([0, -9.8, 3]);
 
-  // debug
-  // console.log("body count: " + world.numRigidBodies);
+    console.log("Starting wave: " + waveIndex);
+    apples = new AppleSystem(400);
+  }
 
-  await sleep(1000 * 60 * 0.1);
-  waveIndex += 1;
-  console.log("index: " + waveIndex);
-  console.log("limit: " + WAVEINDEXMAX);
-  apples2 = new AppleSystem(200);
-  waveCycle(apples2, 0.1);
+  if (frameCount == WAVE1) {
+    LIGHT = "full";
+    console.log("Pushers fire.");
+    pushers.fire();
+  }
 
-  await sleep(1000 * 60 * 0.05);
-  waveIndex += 1;
-  console.log("index: " + waveIndex);
-  console.log("limit: " + WAVEINDEXMAX);
-  apples3 = new AppleSystem(100);
-  waveCycle(apples3, 0.1);
-  await sleep(1000 * 60 * 0.03);
-
-  // colored layer or medusa text;
-  // push();
-  // fill(0, 0, 0, 70);
-  // box(300, 300, 300, 500, 100, 500);
-  // pop();
-
-  console.log("stat?: " + fxrand());
-  terminate();
+  if (frameCount == WAVE1END) {
+    apples.killAllCall();
+  }
 
 }
+
+// async function AllWaveCycles() {
+
+//   console.log("index: " + waveIndex);
+//   console.log("limit: " + WAVEINDEXMAX);
+
+//   LIGHT = "dark";
+//   directionalLight(200, 200, 200, 1, -1, 0);
+//   console.log("Initial fall");
+//   world.setGravity([0, -9.8, 30]);
+//   apples = new AppleSystem(400, true);
+//   await sleep(1000 * 7);
+//   world.setGravity([0, -9.8, 3]);
+//   console.log("Cycle starting");
+
+//   LIGHT = "full";
+//   waveCycle(apples, 0.2);
+
+//   // debug
+//   // console.log("body count: " + world.numRigidBodies);
+
+//   await sleep(1000 * 60 * 0.1);
+//   waveIndex += 1;
+//   console.log("index: " + waveIndex);
+//   console.log("limit: " + WAVEINDEXMAX);
+//   apples2 = new AppleSystem(200);
+//   waveCycle(apples2, 0.1);
+
+//   await sleep(1000 * 60 * 0.05);
+//   waveIndex += 1;
+//   console.log("index: " + waveIndex);
+//   console.log("limit: " + WAVEINDEXMAX);
+//   apples3 = new AppleSystem(100);
+//   waveCycle(apples3, 0.1);
+//   await sleep(1000 * 60 * 0.03);
+
+//   // colored layer or medusa text;
+//   // push();
+//   // fill(0, 0, 0, 70);
+//   // box(300, 300, 300, 500, 100, 500);
+//   // pop();
+
+//   console.log("stat?: " + fxrand());
+//   terminate();
+
+// }
