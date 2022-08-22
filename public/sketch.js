@@ -37,6 +37,93 @@ LIGHT = "dark";
 
 let POX1 = false;
 
+function createPalette() {
+  const PALETTESYSTEM = {
+    "Medusa": {
+      "apples": [
+        color("#534438"),
+        color("#FBE1BB"),
+        color("#785237"),
+        color("#926139"),
+      ]
+    },
+    "Ierissos": {
+      "apples": [
+        color("#e7d3a4"),
+        color("#ede7d1"),
+        color("#404040"),
+        color("#7d9bb3"),
+      ]
+    },
+    "Niko": {
+      "apples": [
+        color("#211f1f"),
+        color("#808080"),
+        color("#c0c0c0"),
+        color("#ffffff"),
+      ]
+    },
+    "Fix Hellas": {
+      "apples": [
+        color("#A10035"),
+        color("#FEC260"),
+        color("#3FA796"),
+        color("#2A0944"),
+      ]
+    },
+    "Lasagne": {
+      "apples": [
+        color("#ffd1a9"),
+        color("#ff9e79"),
+        color("#fb6d4c"),
+        color("#c23b22"),
+        color("#580000"),
+      ]
+    },
+    "Mamos": {
+      "apples": [
+        color("#77d8f9"),
+        color("#624c38"),
+        color("#cedeed"),
+        color("#c64b62"),
+      ]
+    },
+    "Babushka": {
+      "apples": [
+        color("#d8bc00"),
+        color("#040c21"),
+        color("#74a2c6"),
+        color("#a43b4f"),
+      ]
+    },
+    "Autodrom": {
+      "apples": [
+        color("#d8bc00"),
+        color("#894292"),
+        color("#67bfee"),
+        color("#3e2543"),
+      ]
+    },
+    "Olivenhain": {
+      "apples": [
+        color("	#14140a"),
+        color("#918e41"),
+        color("#ffc83d"),
+        color("#4e542c"),
+      ]
+    },
+  }
+
+  allPalettes = [];
+  for (var palette_name in PALETTESYSTEM) {
+    // console.log(palette_name);
+    allPalettes.push(palette_name);
+  }
+
+  // console.log(allPalettes);
+  PALETTE = PALETTESYSTEM[getRandomFromList(allPalettes)];
+}
+
 function preload() {
   // img = loadImage('download.png');
 }
@@ -57,13 +144,6 @@ function setup() {
 
   createPalette();
   addTexture();
-
-  // backgroundImage = drawPixelBuffer(
-  //   100 * conv,
-  //   100 * conv,
-  //   PALETTE.background,
-  //   10
-  // );
 
   world = new OIMO.World({
     timestep: 1 / 60,
@@ -105,8 +185,6 @@ function setup() {
 
   pushers = new PusherSystem(ground.body.shapes.width);
 
-  // obstacles = new ObstacleSystem(5); // then set position
-
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
   if (MODE == 5) {
     camera(0, 800, 0, 0, 0, 0, 0, 0, 1); // debug - on top view
@@ -114,10 +192,6 @@ function setup() {
   } else {
     camera(0, 700, 0, 0, 0, 0, 0, 0, 1);
   }
-
-  // debugMode(AXES);
-
-  // AllWaveCycles();  // async in setup not draw
 
   // oimo library random
   // console.log(OIMO.Math.rand(0, 1));
@@ -151,15 +225,7 @@ function draw() {
   }
 
   if (frameCount == 1) {
-    background(255);
-    //   // background(PALETTE.background);
-    //   push()
-    //   translate(0, -15 * conv, 0);
-    //   rotateX(PI / 2);
-    //   texture(backgroundImage, 0, 0);
-    //   noStroke();
-    //   plane(backgroundImage.width, backgroundImage.height);
-    //   pop();
+    background(255);  // white background once
   }
 
   // update world
@@ -189,101 +255,15 @@ function draw() {
 
   pushers.updateDisplay();
 
+  if (typeof obstacles != "undefined") {
+    obstacles.updateDisplay();
+  }
+
   timing();
 }
 
 function mousePressed() {
   console.log("frameCount; " + frameCount);
-}
-
-
-function createPalette() {
-  const PALETTESYSTEM = {
-    "Medusa": {
-      "background": color("#CEA588"),
-      "apples": [
-        color("#534438"),
-        color("#FBE1BB"),
-        color("#785237"),
-        color("#926139"),
-      ]
-    },
-    "Ierissos": {
-      "background": color("#bed4e4"),
-      "apples": [
-        color("#e7d3a4"),
-        color("#ede7d1"),
-        color("#404040"),
-        color("#7d9bb3"),
-      ]
-    },
-    "Niko": {
-      "background": color("#404040"),
-      "apples": [
-        color("#211f1f"),
-        color("#808080"),
-        color("#c0c0c0"),
-        color("#ffffff"),
-      ]
-    },
-    "Fix Hellas": {
-      "background": color("#555c5b1"),
-      "apples": [
-        color("#A10035"),
-        color("#FEC260"),
-        color("#3FA796"),
-        color("#2A0944"),
-      ]
-    },
-    "Lasagne": {
-      "background": color("#8a0000"),
-      "apples": [
-        color("#ffd1a9"),
-        color("#ff9e79"),
-        color("#fb6d4c"),
-        color("#c23b22"),
-        color("#580000"),
-      ]
-    },
-    "Mamos": {
-      "background": color("#f5eee4"),
-      "apples": [
-        color("#77d8f9"),
-        color("#624c38"),
-        color("#cedeed"),
-        color("#c64b62"),
-      ]
-    },
-    "Babushka": {
-      "background": color("#9ebbc1"),
-      "apples": [
-        color("#d8bc00"),
-        color("#040c21"),
-        color("#74a2c6"),
-        color("#a43b4f"),
-      ]
-    },
-    "Autodrom": {
-      "background": color("#657582"),
-      "apples": [
-        color("#d8bc00"),
-        color("#894292"),
-        color("#67bfee"),
-        color("#3e2543"),
-      ]
-    },
-    "Olivenhain": {
-      "background": color("#919079"),
-      "apples": [
-        color("	#14140a"),
-        color("#918e41"),
-        color("#ffc83d"),
-        color("#4e542c"),
-      ]
-    },
-  }
-
-  PALETTE = PALETTESYSTEM['Olivenhain'];
 }
 
 function drawPixelBuffer(bufferWidth, bufferHeight, baseColor, range) {
@@ -333,13 +313,6 @@ function addTexture() {
 
 }
 
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-  // return Promise.resolve();
-}
-
-
 function terminate() {
   console.log("Shutting down!");
   applesFall.killAllCall();
@@ -351,17 +324,10 @@ function terminate() {
   fxpreview();
 }
 
-// async function waveCycle(bodiesObject, waitTime) {
-//   console.log("Pushers fire.");
-//   await sleep(1000 * 60 * 0.01);
-//   pushers.fire();
-//   await sleep(1000 * 60 * waitTime);
-//   bodiesObject.killAllCall();
-// }
-
 // in frames
 let START = 10;
 let ENDFALL = 180;
+let PREWAVE1 = 190;
 let WAVE1 = 200;
 let WAVE1END = 700;
 let PREWAVE2 = 500;
@@ -370,7 +336,7 @@ let WAVE2END = 900;
 let PREWAVE3 = 700;
 let WAVE3 = 720;
 let WAVE3END = 1100;
-
+let END = 1120;
 
 
 function timing() {
@@ -387,13 +353,17 @@ function timing() {
     console.log("Ending Fall")
     applesFall.killAllCall();
     world.setGravity([0, -9.8, 3]);
-
-    console.log("Starting wave: " + waveIndex);
-    apples = new AppleSystem(400);
+    LIGHT = "full";
   }
 
+  if (frameCount == PREWAVE1) {
+    console.log("Starting wave: " + waveIndex + "/" + WAVEINDEXMAX);
+    apples = new AppleSystem(400);
+    obstacles = new ObstacleSystem(5); // then set position
+  }
+
+
   if (frameCount == WAVE1) {
-    LIGHT = "full";
     console.log("Pushers fire.");
     pushers.fire();
   }
@@ -404,7 +374,7 @@ function timing() {
 
   if (frameCount == PREWAVE2) {
     waveIndex += 1;
-    console.log("Starting wave: " + waveIndex);
+    console.log("Starting wave: " + waveIndex + "/" + WAVEINDEXMAX);
     apples2 = new AppleSystem(200);
   }
 
@@ -426,7 +396,7 @@ function timing() {
 
   if (frameCount == PREWAVE3) {
     waveIndex += 1;
-    console.log("Starting wave: " + waveIndex);
+    console.log("Starting wave: " + waveIndex + "/" + WAVEINDEXMAX);
     apples3 = new AppleSystem(200);
   }
 
@@ -439,53 +409,9 @@ function timing() {
     apples3.killAllCall();
   }
 
-  //   console.log("stat?: " + fxrand());
-  //   terminate();
+  if (frameCount == END) {
+    console.log("Safety: " + fxrand());
+    terminate();
+  }
 
 }
-
-// async function AllWaveCycles() {
-
-//   console.log("index: " + waveIndex);
-//   console.log("limit: " + WAVEINDEXMAX);
-
-//   LIGHT = "dark";
-//   directionalLight(200, 200, 200, 1, -1, 0);
-//   console.log("Initial fall");
-//   world.setGravity([0, -9.8, 30]);
-//   apples = new AppleSystem(400, true);
-//   await sleep(1000 * 7);
-//   world.setGravity([0, -9.8, 3]);
-//   console.log("Cycle starting");
-
-//   LIGHT = "full";
-//   waveCycle(apples, 0.2);
-
-//   // debug
-//   // console.log("body count: " + world.numRigidBodies);
-
-//   await sleep(1000 * 60 * 0.1);
-//   waveIndex += 1;
-//   console.log("index: " + waveIndex);
-//   console.log("limit: " + WAVEINDEXMAX);
-//   apples2 = new AppleSystem(200);
-//   waveCycle(apples2, 0.1);
-
-//   await sleep(1000 * 60 * 0.05);
-//   waveIndex += 1;
-//   console.log("index: " + waveIndex);
-//   console.log("limit: " + WAVEINDEXMAX);
-//   apples3 = new AppleSystem(100);
-//   waveCycle(apples3, 0.1);
-//   await sleep(1000 * 60 * 0.03);
-
-//   // colored layer or medusa text;
-//   // push();
-//   // fill(0, 0, 0, 70);
-//   // box(300, 300, 300, 500, 100, 500);
-//   // pop();
-
-//   console.log("stat?: " + fxrand());
-//   terminate();
-
-// }

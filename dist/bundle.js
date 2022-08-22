@@ -1,0 +1,1 @@
+console.info(`fxhash: %c${fxhash}`,"font-weight: bold");
