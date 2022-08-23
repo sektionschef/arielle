@@ -15,25 +15,25 @@
 // [https://fxhash.xyz/articles/guide-mint-generative-token#features]
 //
 
-// window.$fxhashFeatures = {
-//     "Palette": PALETTE,
-//     "Number of elements": CountFeatureLabel,
-//     "Graininess": grainFeatureLabel,
-//     "Blurriness": blurFeatureLabel,
-//     "Opacity": opacityFeatureLabel,
-//     "SoftNoise": softNoiseFeatureLabel,
-// }
+window.$fxhashFeatures = {
+    "Palette": PALETTE_LABEL,
+    // "Number of elements": CountFeatureLabel,
+    // "Graininess": grainFeatureLabel,
+    // "Blurriness": blurFeatureLabel,
+    // "Opacity": opacityFeatureLabel,
+    // "SoftNoise": softNoiseFeatureLabel,
+}
 
 console.info(`fxhash: %c${fxhash}`, 'font-weight: bold');
 
 // console.log('');
-// console.group(`Palette: %c${PALETTE}`, 'font-weight: bold');
+console.group(`Palette: %c${PALETTE_LABEL}`, 'font-weight: bold');
 // console.log("Background: " + "%c   ", `background:${colors[PALETTE].background};`);
 // console.log("Dark: " + "%c   ", `background:${colors[PALETTE].fillAll[0]};`);
 // console.log("Mid: " + "%c   ", `background:${colors[PALETTE].fillAll[1]};`);
 // console.log("Light: " + "%c   ", `background:${colors[PALETTE].fillAll[2]};`);
 // console.log("Duft: " + "%c   ", `background:${colors[PALETTE].duft};`);
-// console.groupEnd();
+console.groupEnd();
 
 // console.log(`Count of shapes: %c${CountFeatureLabel} (${CountFeature})`, 'font-weight: bold');
 // console.log(`Graininess: %c${grainFeatureLabel} (${grainFeature})`, 'font-weight: bold');

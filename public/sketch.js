@@ -30,12 +30,30 @@ let rescaling_width;
 let rescaling_height;
 
 let PALETTE;
+let PALETTE_LABEL;
+let APPLESIZE = 1 //getRandomFromInterval(1, 2);  // width -> number of
+
 const WAVECOUNT = 3;
 const WAVEINDEXMAX = WAVECOUNT - 1;
 let waveIndex = 0;
 LIGHT = "dark";
 
 let POX1 = false;
+
+allPalettes = [
+  "Olivenhain",
+  "Autodrom",
+  "Babushka",
+  "Mamos",
+  "Lasagne",
+  "Fix Hellas",
+  "Niko",
+  "Ierissos",
+  "Medusa",
+]
+
+// console.log(allPalettes);
+PALETTE_LABEL = getRandomFromList(allPalettes);
 
 function createPalette() {
   const PALETTESYSTEM = {
@@ -114,14 +132,8 @@ function createPalette() {
     },
   }
 
-  allPalettes = [];
-  for (var palette_name in PALETTESYSTEM) {
-    // console.log(palette_name);
-    allPalettes.push(palette_name);
-  }
-
-  // console.log(allPalettes);
-  PALETTE = PALETTESYSTEM[getRandomFromList(allPalettes)];
+  // console.log(PALETTE_LABEL);
+  PALETTE = PALETTESYSTEM[PALETTE_LABEL];
 }
 
 function preload() {
@@ -266,8 +278,10 @@ function mousePressed() {
   console.log("frameCount; " + frameCount);
 }
 
-function drawPixelBuffer(bufferWidth, bufferHeight, baseColor, range) {
+function drawPixelBuffer(bufferWidth, bufferHeight, baseColor, secondColor, range) {
   let buffer = createGraphics(bufferWidth, bufferHeight);
+
+  // console.log(secondColor);
 
   buffer.loadPixels();
   // let baseColor = color(242, 210, 169);
@@ -277,11 +291,14 @@ function drawPixelBuffer(bufferWidth, bufferHeight, baseColor, range) {
     for (let x = 0; x < buffer.width; x++) {
       // formula to get each pixels rgba
       let index = (x + y * buffer.width) * 4;
-      if (fxrand() < 0.01) {
-        buffer.pixels[index + 0] = 50;
-        buffer.pixels[index + 1] = 50;
-        buffer.pixels[index + 2] = 50;
-      } else if (fxrand() > 0.99) {
+      if (fxrand() < 0.02) {
+        // buffer.pixels[index + 0] = 50;
+        // buffer.pixels[index + 1] = 50;
+        // buffer.pixels[index + 2] = 50;
+        buffer.pixels[index + 0] = red(secondColor);
+        buffer.pixels[index + 1] = green(secondColor);
+        buffer.pixels[index + 2] = blue(secondColor);
+      } else if (fxrand() > 0.98) {
         buffer.pixels[index + 0] = 200;
         buffer.pixels[index + 1] = 200;
         buffer.pixels[index + 2] = 200;
@@ -302,13 +319,19 @@ function addTexture() {
   for (var i = 0; i < PALETTE['apples'].length; i++) {
 
     // console.log(PALETTE['apples'][i]);
+    if (i == 0) {
+      var j = (PALETTE['apples'].length - 1);
+    } else {
+      var j = i - 1;
+    }
 
     // size of the biggest apple, inclusive conv
     PALETTE['apples'][i]["img"] = drawPixelBuffer(
       1 * conv,
       1 * conv,
       PALETTE['apples'][i],
-      20);
+      PALETTE['apples'][j],
+      25);
   }
 
 }

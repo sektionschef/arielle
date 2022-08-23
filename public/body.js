@@ -96,7 +96,7 @@ class AppleSystem {
         this.bodies = [];
         this.initFall = initFall;
 
-        this.appleSize = 1;
+        this.appleSize = APPLESIZE;
 
         for (let i = 0; i < amount; i++) {
 
@@ -108,6 +108,9 @@ class AppleSystem {
 
             var appleColor = getRandomFromList(PALETTE.apples);
 
+            // var groundWidth = 100
+            // var applePerRow = Math.floor(groundWidth / this.appleSize);
+            // console.log(applePerRow);
             var applePerRow = 100;
             var appleRowCount = amount / applePerRow;
 
