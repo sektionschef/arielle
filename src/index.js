@@ -17,7 +17,7 @@
 
 window.$fxhashFeatures = {
     "Palette": PALETTE_LABEL,
-    // "Number of elements": CountFeatureLabel,
+    "Restitution": RESTITUTIONLabel,
     // "Graininess": grainFeatureLabel,
     // "Blurriness": blurFeatureLabel,
     // "Opacity": opacityFeatureLabel,
@@ -35,7 +35,7 @@ console.group(`Palette: %c${PALETTE_LABEL}`, 'font-weight: bold');
 // console.log("Duft: " + "%c   ", `background:${colors[PALETTE].duft};`);
 console.groupEnd();
 
-// console.log(`Count of shapes: %c${CountFeatureLabel} (${CountFeature})`, 'font-weight: bold');
+console.log(`Restitution: %c${RESTITUTIONLabel} (${RESTITUTION})`, 'font-weight: bold');
 // console.log(`Graininess: %c${grainFeatureLabel} (${grainFeature})`, 'font-weight: bold');
 // console.log(`Blurriness: %c${blurFeatureLabel} (${blurFeature})`, 'font-weight: bold');
 // console.log(`Opacity: %c${opacityFeatureLabel} (${opacityFeature})`, 'font-weight: bold');

@@ -33,6 +33,11 @@ let PALETTE;
 let PALETTE_LABEL;
 let APPLESIZE = 1 //getRandomFromInterval(1, 2);  // width -> number of
 
+let RESTITUTIONMin = 0;
+let RESTITUTIONMax = 1;
+let RESTITUTION = Math.round(getRandomFromInterval(RESTITUTIONMin, RESTITUTIONMax) * 100) / 100;
+let RESTITUTIONLabel = label_feature(RESTITUTION, RESTITUTIONMin, RESTITUTIONMax);
+
 const WAVECOUNT = 3;
 const WAVEINDEXMAX = WAVECOUNT - 1;
 let waveIndex = 0;
@@ -225,11 +230,20 @@ function draw() {
   if (LIGHT == "full") {
     ambientLight(150);
     directionalLight(200, 200, 200, 1, -1, 0);
+
+  } else if (LIGHT == "Rembrandt") {
+
+    ambientLight(50);
+    pointLight(75, 75, 75, getRandomFromInterval(-50, 50), -10, getRandomFromInterval(-30, 30))
+    pointLight(75, 75, 75, getRandomFromInterval(-50, 50), -10, getRandomFromInterval(-30, 30))
+    pointLight(75, 75, 75, getRandomFromInterval(-50, 50), -10, getRandomFromInterval(-30, 30))
+    pointLight(75, 75, 75, getRandomFromInterval(-50, 50), -10, getRandomFromInterval(-30, 30))
+    pointLight(75, 75, 75, getRandomFromInterval(-50, 50), -10, getRandomFromInterval(-30, 30))
+
   } else if (LIGHT == "dark") {
-    ambientLight(150);
+    ambientLight(130);
   }
 
-  // pointLight(255, 255, 255, getRandomFromInterval(-50, 50), 0, getRandomFromInterval(-30, 30))
 
 
   if (MODE == 5) {
@@ -376,7 +390,8 @@ function timing() {
     console.log("Ending Fall")
     applesFall.killAllCall();
     world.setGravity([0, -9.8, 3]);
-    LIGHT = "full";
+    LIGHT = getRandomFromList(["full", "Rembrandt"]);
+    // LIGHT = getRandomFromList(["Rembrandt"]);
   }
 
   if (frameCount == PREWAVE1) {

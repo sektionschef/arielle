@@ -134,7 +134,7 @@ class AppleSystem {
                 move: true, // dynamic or statique
                 density: 1,
                 friction: 0,
-                restitution: 0,
+                restitution: RESTITUTION,
                 noSleep: true,
                 name: "apple_" + i,
                 // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
