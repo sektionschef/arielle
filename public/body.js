@@ -65,6 +65,7 @@ class Body {
         // stroke(color(this.strokeColor));
         // strokeWeight(1);
         noStroke();
+        smooth();
         translate(this.bodyPosition.x * conv, this.bodyPosition.y * conv, this.bodyPosition.z * conv);
 
 
@@ -106,7 +107,7 @@ class AppleSystem {
                 { type: 'box', size: [this.appleSize, this.appleSize, this.appleSize] },
             ]);
 
-            var appleColor = getRandomFromList(PALETTE.apples);
+            var appleColor = getRandomFromList(PALETTE);
 
             // var groundWidth = 100
             // var applePerRow = Math.floor(groundWidth / this.appleSize);

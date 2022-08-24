@@ -18,3 +18,9 @@ positioning relative to center of object, so move by object's half.
 pixeldensity is.
 
 npm run build
+
+
+  // oimo library random
+  // console.log(OIMO.Math.rand(0, 1));
+  // console.log(OIMO.Math.random());
+  // console.log(OIMO.Math.randInt(0, 10));

@@ -62,79 +62,61 @@ PALETTE_LABEL = getRandomFromList(allPalettes);
 
 function createPalette() {
   const PALETTESYSTEM = {
-    "Medusa": {
-      "apples": [
-        color("#534438"),
-        color("#FBE1BB"),
-        color("#785237"),
-        color("#926139"),
-      ]
-    },
-    "Ierissos": {
-      "apples": [
-        color("#e7d3a4"),
-        color("#ede7d1"),
-        color("#404040"),
-        color("#7d9bb3"),
-      ]
-    },
-    "Niko": {
-      "apples": [
-        color("#211f1f"),
-        color("#808080"),
-        color("#c0c0c0"),
-        color("#ffffff"),
-      ]
-    },
-    "Fix Hellas": {
-      "apples": [
-        color("#A10035"),
-        color("#FEC260"),
-        color("#3FA796"),
-        color("#2A0944"),
-      ]
-    },
-    "Lasagne": {
-      "apples": [
-        color("#ffd1a9"),
-        color("#ff9e79"),
-        color("#fb6d4c"),
-        color("#c23b22"),
-        color("#580000"),
-      ]
-    },
-    "Mamos": {
-      "apples": [
-        color("#77d8f9"),
-        color("#624c38"),
-        color("#cedeed"),
-        color("#c64b62"),
-      ]
-    },
-    "Babushka": {
-      "apples": [
-        color("#d8bc00"),
-        color("#040c21"),
-        color("#74a2c6"),
-        color("#a43b4f"),
-      ]
-    },
-    "Autodrom": {
-      "apples": [
-        color("#d8bc00"),
-        color("#894292"),
-        color("#67bfee"),
-        color("#3e2543"),
-      ]
-    },
-    "Olivenhain": {
-      "apples": [
-        color("	#14140a"),
-        color("#918e41"),
-        color("#ffc83d"),
-        color("#4e542c"),
-      ]
-    },
+    "Medusa": [
+      color("#534438"),
+      color("#FBE1BB"),
+      color("#785237"),
+      color("#926139"),
+    ],
+    "Ierissos": [
+      color("#e7d3a4"),
+      color("#ede7d1"),
+      color("#404040"),
+      color("#7d9bb3"),
+    ],
+    "Niko": [
+      color("#211f1f"),
+      color("#808080"),
+      color("#c0c0c0"),
+      color("#ffffff"),
+    ],
+    "Fix Hellas": [
+      color("#A10035"),
+      color("#FEC260"),
+      color("#3FA796"),
+      color("#2A0944"),
+    ],
+    "Lasagne": [
+      color("#ffd1a9"),
+      color("#ff9e79"),
+      color("#fb6d4c"),
+      color("#c23b22"),
+      color("#580000"),
+    ],
+    "Mamos": [
+      color("#77d8f9"),
+      color("#624c38"),
+      color("#cedeed"),
+      color("#c64b62"),
+    ],
+    "Babushka": [
+      color("#d8bc00"),
+      color("#040c21"),
+      color("#74a2c6"),
+      color("#a43b4f"),
+    ],
+    "Autodrom": [
+      color("#d8bc00"),
+      color("#894292"),
+      color("#67bfee"),
+      color("#3e2543"),
+    ],
+    "Olivenhain": [
+      color("	#14140a"),
+      color("#918e41"),
+      color("#ffc83d"),
+      color("#4e542c"),
+    ],
   }
 
   // console.log(PALETTE_LABEL);
@@ -148,7 +130,7 @@ function preload() {
 function setup() {
   noiseSeed(NOISESEED);
   randomSeed(NOISESEED);
-  // setAttributes('antialias', true);
+  setAttributes('antialias', true);
 
   // console.log("Pixel density: " + pixelDensity())
   // exportRatio /= pixelDensity();
@@ -157,7 +139,6 @@ function setup() {
 
   canvas = createCanvas(rescaling_width, rescaling_height, WEBGL);
   canvas.id('badAssCanvas');
-  cam = createCamera();  // needed?
 
   createPalette();
   addTexture();
@@ -202,6 +183,11 @@ function setup() {
 
   pushers = new PusherSystem(ground.body.shapes.width);
 
+}
+
+
+function draw() {
+
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
   if (MODE == 5) {
     camera(0, 800, 0, 0, 0, 0, 0, 0, 1); // debug - on top view
@@ -209,15 +195,6 @@ function setup() {
   } else {
     camera(0, 700, 0, 0, 0, 0, 0, 0, 1);
   }
-
-  // oimo library random
-  // console.log(OIMO.Math.rand(0, 1));
-  // console.log(OIMO.Math.random());
-  // console.log(OIMO.Math.randInt(0, 10));
-}
-
-
-function draw() {
 
   if (MODE == 5) {
     // orbitControl();
@@ -248,10 +225,6 @@ function draw() {
 
   if (MODE == 5) {
     background(100);
-  }
-
-  if (frameCount == 1) {
-    background(255);  // white background once
   }
 
   // update world
@@ -330,21 +303,21 @@ function drawPixelBuffer(bufferWidth, bufferHeight, baseColor, secondColor, rang
 
 function addTexture() {
 
-  for (var i = 0; i < PALETTE['apples'].length; i++) {
+  for (var i = 0; i < PALETTE.length; i++) {
 
-    // console.log(PALETTE['apples'][i]);
+    // console.log(PALETTE[i]);
     if (i == 0) {
-      var j = (PALETTE['apples'].length - 1);
+      var j = (PALETTE.length - 1);
     } else {
       var j = i - 1;
     }
 
     // size of the biggest apple, inclusive conv
-    PALETTE['apples'][i]["img"] = drawPixelBuffer(
+    PALETTE[i]["img"] = drawPixelBuffer(
       1 * conv,
       1 * conv,
-      PALETTE['apples'][i],
-      PALETTE['apples'][j],
+      PALETTE[i],
+      PALETTE[j],
       25);
   }
 
@@ -362,6 +335,7 @@ function terminate() {
 }
 
 // in frames
+let SETUP = 1;
 let START = 10;
 let ENDFALL = 180;
 let PREWAVE1 = 190;
@@ -377,10 +351,18 @@ let END = 1120;
 
 
 function timing() {
+
+  if (frameCount == SETUP) {
+    background(255);  // white background once
+
+
+  }
+
   if (frameCount == START) {
     world.setGravity([0, -9.8, 30]);
     applesFall = new AppleSystem(100, true);
-    LIGHT = "dark";
+    // LIGHT = "dark";
+    LIGHT = "Rembrandt";
   }
 
   //   console.log("index: " + waveIndex);
