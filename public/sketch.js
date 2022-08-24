@@ -31,7 +31,7 @@ let rescaling_height;
 
 let PALETTE;
 let PALETTE_LABEL;
-let APPLESIZE = 1 //getRandomFromInterval(1, 2);  // width -> number of
+let APPLESIZE = 1;
 
 let RESTITUTIONMin = 0;
 let RESTITUTIONMax = 1;
@@ -330,8 +330,8 @@ function addTexture() {
 
     // size of the biggest apple, inclusive conv
     PALETTE[i]["img"] = drawPixelBuffer(
-      1 * conv,
-      1 * conv,
+      APPLESIZE * conv,
+      APPLESIZE * conv,
       PALETTE[i],
       PALETTE[j],
       25);

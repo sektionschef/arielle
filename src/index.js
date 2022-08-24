@@ -19,6 +19,7 @@ window.$fxhashFeatures = {
     "Palette": PALETTE_LABEL,
     "Restitution": RESTITUTIONLabel,
     "Obstacles": OBSTACLESSWITCH,
+    "Lighting": LIGHTING,
 }
 
 console.info(`fxhash: %c${fxhash}`, 'font-weight: bold');
