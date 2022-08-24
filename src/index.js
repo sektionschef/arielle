@@ -18,29 +18,23 @@
 window.$fxhashFeatures = {
     "Palette": PALETTE_LABEL,
     "Restitution": RESTITUTIONLabel,
-    // "Graininess": grainFeatureLabel,
-    // "Blurriness": blurFeatureLabel,
-    // "Opacity": opacityFeatureLabel,
-    // "SoftNoise": softNoiseFeatureLabel,
+    "Obstacles": OBSTACLESSWITCH,
 }
 
 console.info(`fxhash: %c${fxhash}`, 'font-weight: bold');
 
-// console.log('');
+console.log('');
 console.group(`Palette: %c${PALETTE_LABEL}`, 'font-weight: bold');
-// console.log("Background: " + "%c   ", `background:${colors[PALETTE].background};`);
-// console.log("Dark: " + "%c   ", `background:${colors[PALETTE].fillAll[0]};`);
-// console.log("Mid: " + "%c   ", `background:${colors[PALETTE].fillAll[1]};`);
-// console.log("Light: " + "%c   ", `background:${colors[PALETTE].fillAll[2]};`);
-// console.log("Duft: " + "%c   ", `background:${colors[PALETTE].duft};`);
+for (var i = 0; i < PALETTESYSTEM[PALETTE_LABEL].length; i++) {
+    // console.log(PALETTESYSTEM[PALETTE_LABEL][i])
+    console.log(`Color${i}: ` + "%c   ", `background:${PALETTESYSTEM[PALETTE_LABEL][i]};`);
+}
 console.groupEnd();
 
 console.log(`Restitution: %c${RESTITUTIONLabel} (${RESTITUTION})`, 'font-weight: bold');
-// console.log(`Graininess: %c${grainFeatureLabel} (${grainFeature})`, 'font-weight: bold');
-// console.log(`Blurriness: %c${blurFeatureLabel} (${blurFeature})`, 'font-weight: bold');
-// console.log(`Opacity: %c${opacityFeatureLabel} (${opacityFeature})`, 'font-weight: bold');
-// console.log(`Softnoise: %c${softNoiseFeatureLabel}`, 'font-weight: bold');
-// console.log('');
+console.log(`Obstacles: %c${OBSTACLESSWITCH}`, 'font-weight: bold');
+console.log(`Lighting: %c${LIGHTING}`, 'font-weight: bold');
+console.log('');
 
 // this code writes the values to the DOM as an example
 // const containero = document.createElement("div")

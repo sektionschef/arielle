@@ -38,89 +38,101 @@ let RESTITUTIONMax = 1;
 let RESTITUTION = Math.round(getRandomFromInterval(RESTITUTIONMin, RESTITUTIONMax) * 100) / 100;
 let RESTITUTIONLabel = label_feature(RESTITUTION, RESTITUTIONMin, RESTITUTIONMax);
 
+let OBSTACLESSWITCH = getRandomFromList([true, false]);
+let OBSTACLESCOUNT = 5;
+
+let LIGHTING = getRandomFromList(["Below", "Lab", "Drama", "Full"]);
+// let LIGHTING = "Full";
+
 const WAVECOUNT = 3;
 const WAVEINDEXMAX = WAVECOUNT - 1;
 let waveIndex = 0;
-LIGHT = "dark";
 
 let POX1 = false;
 
-allPalettes = [
-  "Olivenhain",
-  "Autodrom",
-  "Babushka",
-  "Mamos",
-  "Lasagne",
-  "Fix Hellas",
-  "Niko",
-  "Ierissos",
-  "Medusa",
-]
 
-// console.log(allPalettes);
-PALETTE_LABEL = getRandomFromList(allPalettes);
+const PALETTESYSTEM = {
+  "Medusa": [
+    "#534438",
+    "#FBE1BB",
+    "#785237",
+    "#926139",
+  ],
+  "Ierissos": [
+    "#e7d3a4",
+    "#ede7d1",
+    "#404040",
+    "#7d9bb3",
+  ],
+  "Niko": [
+    "#211f1f",
+    "#808080",
+    "#c0c0c0",
+    "#ffffff",
+  ],
+  "Fix Hellas": [
+    "#A10035",
+    "#FEC260",
+    "#3FA796",
+    "#2A0944",
+  ],
+  "Lasagne": [
+    "#ffd1a9",
+    "#ff9e79",
+    "#fb6d4c",
+    "#c23b22",
+    "#580000",
+  ],
+  "Mamos": [
+    "#77d8f9",
+    "#624c38",
+    "#cedeed",
+    "#c64b62",
+  ],
+  "Babushka": [
+    "#d8bc00",
+    "#040c21",
+    "#74a2c6",
+    "#a43b4f",
+  ],
+  "Autodrom": [
+    "#d8bc00",
+    "#894292",
+    "#67bfee",
+    "#3e2543",
+  ],
+  "Olivenhain": [
+    "	#14140a",
+    "#918e41",
+    "#ffc83d",
+    "#4e542c",
+  ],
+}
 
-function createPalette() {
-  const PALETTESYSTEM = {
-    "Medusa": [
-      color("#534438"),
-      color("#FBE1BB"),
-      color("#785237"),
-      color("#926139"),
-    ],
-    "Ierissos": [
-      color("#e7d3a4"),
-      color("#ede7d1"),
-      color("#404040"),
-      color("#7d9bb3"),
-    ],
-    "Niko": [
-      color("#211f1f"),
-      color("#808080"),
-      color("#c0c0c0"),
-      color("#ffffff"),
-    ],
-    "Fix Hellas": [
-      color("#A10035"),
-      color("#FEC260"),
-      color("#3FA796"),
-      color("#2A0944"),
-    ],
-    "Lasagne": [
-      color("#ffd1a9"),
-      color("#ff9e79"),
-      color("#fb6d4c"),
-      color("#c23b22"),
-      color("#580000"),
-    ],
-    "Mamos": [
-      color("#77d8f9"),
-      color("#624c38"),
-      color("#cedeed"),
-      color("#c64b62"),
-    ],
-    "Babushka": [
-      color("#d8bc00"),
-      color("#040c21"),
-      color("#74a2c6"),
-      color("#a43b4f"),
-    ],
-    "Autodrom": [
-      color("#d8bc00"),
-      color("#894292"),
-      color("#67bfee"),
-      color("#3e2543"),
-    ],
-    "Olivenhain": [
-      color("	#14140a"),
-      color("#918e41"),
-      color("#ffc83d"),
-      color("#4e542c"),
-    ],
+choosePalette()
+
+function choosePalette() {
+
+  allPalettes = [];
+  for (let palette in PALETTESYSTEM) {
+    // console.log(palette)
+    allPalettes.push(palette)
   }
-
+  // console.log(allPalettes);
+  PALETTE_LABEL = getRandomFromList(allPalettes);
   // console.log(PALETTE_LABEL);
   PALETTE = PALETTESYSTEM[PALETTE_LABEL];
+}
+
+function createPaletteColors() {
+
+  for (let palette in PALETTESYSTEM) {
+    // console.log(palette)
+    for (var i = 0; i < PALETTESYSTEM[palette].length; i++) {
+      // console.log(PALETTESYSTEM[palette][i])
+      PALETTESYSTEM[palette][i] = color(PALETTESYSTEM[palette][i]);
+    }
+  }
 }
 
 function preload() {
@@ -140,7 +152,7 @@ function setup() {
   canvas = createCanvas(rescaling_width, rescaling_height, WEBGL);
   canvas.id('badAssCanvas');
 
-  createPalette();
+  createPaletteColors();
   addTexture();
 
   world = new OIMO.World({
@@ -204,11 +216,11 @@ function draw() {
   // ambientMaterial(255);
   // specularMaterial(255);
 
-  if (LIGHT == "full") {
+  if (LIGHTING == "Full") {
     ambientLight(150);
     directionalLight(200, 200, 200, 1, -1, 0);
 
-  } else if (LIGHT == "Rembrandt") {
+  } else if (LIGHTING == "Drama") {
 
     ambientLight(50);
     pointLight(75, 75, 75, getRandomFromInterval(-50, 50), -10, getRandomFromInterval(-30, 30))
@@ -217,10 +229,14 @@ function draw() {
     pointLight(75, 75, 75, getRandomFromInterval(-50, 50), -10, getRandomFromInterval(-30, 30))
     pointLight(75, 75, 75, getRandomFromInterval(-50, 50), -10, getRandomFromInterval(-30, 30))
 
-  } else if (LIGHT == "dark") {
-    ambientLight(130);
+  } else if (LIGHTING == "Below") {
+    ambientLight(100);
+    directionalLight(180, 180, 180, 0, -1, 0); // crazy
+    // directionalLight(255, 255, 255, 0, 0, -1);  // also crazy
+  } else if (LIGHTING == "Lab") {
+    ambientLight(50);
+    directionalLight(255, 255, 255, 0, -1, -1);  // also crazy
   }
-
 
 
   if (MODE == 5) {
@@ -354,15 +370,11 @@ function timing() {
 
   if (frameCount == SETUP) {
     background(255);  // white background once
-
-
   }
 
   if (frameCount == START) {
     world.setGravity([0, -9.8, 30]);
     applesFall = new AppleSystem(100, true);
-    // LIGHT = "dark";
-    LIGHT = "Rembrandt";
   }
 
   //   console.log("index: " + waveIndex);
@@ -372,14 +384,14 @@ function timing() {
     console.log("Ending Fall")
     applesFall.killAllCall();
     world.setGravity([0, -9.8, 3]);
-    LIGHT = getRandomFromList(["full", "Rembrandt"]);
-    // LIGHT = getRandomFromList(["Rembrandt"]);
   }
 
   if (frameCount == PREWAVE1) {
     console.log("Starting wave: " + waveIndex + "/" + WAVEINDEXMAX);
     apples = new AppleSystem(400);
-    obstacles = new ObstacleSystem(5); // then set position
+    if (OBSTACLESSWITCH) {
+      obstacles = new ObstacleSystem(OBSTACLESCOUNT); // then set position
+    }
   }
 
 
