@@ -200,6 +200,8 @@ function setup() {
 
 function draw() {
 
+  pixelDensity(4);
+
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
   if (MODE == 5) {
     camera(0, 800, 0, 0, 0, 0, 0, 0, 1); // debug - on top view
@@ -278,7 +280,7 @@ function draw() {
 }
 
 function mousePressed() {
-  console.log("frameCount; " + frameCount);
+  // console.log("frameCount; " + frameCount);
 }
 
 function drawPixelBuffer(bufferWidth, bufferHeight, baseColor, secondColor, range) {

@@ -126,7 +126,7 @@ function windowResized() {
 function keyTyped() {
     if (key === 'e' || key == 'E') {
         // exportHighResolution();
-        exportCanvas();
+        exportCanvas(canvas);
     } else if (key === "r") {
         // reset_camera()
     } else if (key === "c") {
@@ -173,11 +173,7 @@ function exportHighResolution() {
     buffer = createGraphics(scaleRatio * width, scaleRatio * height);
     draw();
 
-    // Get timestamp to name the ouput file
-    let timestamp = getTimestamp();
-
-    // Save as PNG
-    save(buffer, fxhash + "_" + timestamp, 'png');
+    exportCanvas(buffer);
 
     // Reset scaleRation back to 1, re-create buffer, re-draw
     scaleRatio = 1;
@@ -185,10 +181,14 @@ function exportHighResolution() {
     draw();
 }
 
-function exportCanvas() {
+function exportCanvas(canvasName) {
 
     // window.location.reload();
-    // save('myCanvas.png');
+    // Get timestamp to name the ouput file
+    let timestamp = getTimestamp();
+
+    // Save as PNG
+    save(canvasName, fxhash + "_" + timestamp, 'png');
 }
 
 function getTimestamp() {
