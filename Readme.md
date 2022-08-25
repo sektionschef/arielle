@@ -1,5 +1,7 @@
 # Medusa
 
+using oimo.js - phyics - 
+
 waves.
 
 positioning relative to center of object, so move by object's half.

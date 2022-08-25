@@ -92,8 +92,7 @@ function fromHSBtoRGB(colorObject) {
 // calculate the scaling params - choose the limiting factor either height or width
 function scaleDynamically() {
 
-    scaleRatio = 1;  // scale to window width
-    exportRatio = 5;  // scale to the export dimensions
+    // scaleRatio = 1;
     dynamicWidthRatio = exportPaper.width / windowWidth;
     dynamicHeightRatio = exportPaper.height / windowHeight;
 
@@ -105,8 +104,16 @@ function scaleDynamically() {
         exportRatio = dynamicHeightRatio;
     }
 
+    console.log("Display density: " + displayDensity());
+    console.log("Pixel density: " + pixelDensity())
+    exportRatio /= pixelDensity();
+    console.log("exportRatio: " + exportRatio);
+
+
     rescaling_width = Math.floor(exportPaper.width / exportRatio);
     rescaling_height = Math.floor(exportPaper.height / exportRatio);
+    // rescaling_width = Math.floor(exportPaper.width);
+    // rescaling_height = Math.floor(exportPaper.height);
 }
 
 // each time window.innerWidth changes
@@ -125,12 +132,12 @@ function windowResized() {
 
 function keyTyped() {
     if (key === 'e' || key == 'E') {
-        // exportHighResolution();
-        exportCanvas(canvas);
-    } else if (key === "r") {
-        // reset_camera()
-    } else if (key === "c") {
-        // camera(0, 0, height * 1.5, 0, 0, 0, 0, 1, 0);
+        exportHighResolution();
+        // exportCanvas(canvas);
+    } else if (key === 'h' || key == 'H') {
+        HIGHRES = true;
+        clear();
+
     }
 }
 
@@ -167,16 +174,17 @@ function hashFnv32a(str, asString, seed) {
 
 
 function exportHighResolution() {
-    scaleRatio = exportRatio;
+    // scaleRatio = exportRatio;
 
     // Re-create buffer with exportRatio and re-draw
-    buffer = createGraphics(scaleRatio * width, scaleRatio * height);
+    buffer = createGraphics(exportRatio * width, exportRatio * height);
+
     draw();
 
     exportCanvas(buffer);
 
     // Reset scaleRation back to 1, re-create buffer, re-draw
-    scaleRatio = 1;
+    // scaleRatio = 1;
     buffer = createGraphics(width, height);
     draw();
 }

@@ -23,7 +23,6 @@ const conv = 10;
 
 let exportPaper = PaperDimensions['1to1']
 
-let scaleRatio;
 let exportRatio;
 let canvas;
 let rescaling_width;
@@ -49,7 +48,7 @@ const WAVEINDEXMAX = WAVECOUNT - 1;
 let waveIndex = 0;
 
 let POX1 = false;
-
+let HIGHRES = false;
 
 const PALETTESYSTEM = {
   "Medusa": [
@@ -135,17 +134,10 @@ function createPaletteColors() {
   }
 }
 
-function preload() {
-  // img = loadImage('download.png');
-}
-
 function setup() {
   noiseSeed(NOISESEED);
   randomSeed(NOISESEED);
   setAttributes('antialias', true);
-
-  // console.log("Pixel density: " + pixelDensity())
-  // exportRatio /= pixelDensity();
 
   scaleDynamically();
 
@@ -200,7 +192,10 @@ function setup() {
 
 function draw() {
 
-  pixelDensity(4);
+  if (HIGHRES) {
+    pixelDensity(4);
+  }
+
 
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
   if (MODE == 5) {
@@ -332,8 +327,8 @@ function addTexture() {
 
     // size of the biggest apple, inclusive conv
     PALETTE[i]["img"] = drawPixelBuffer(
-      APPLESIZE * conv,
-      APPLESIZE * conv,
+      Math.round(APPLESIZE * conv * exportRatio),  // full size
+      Math.round(APPLESIZE * conv * exportRatio),  // full size
       PALETTE[i],
       PALETTE[j],
       25);
