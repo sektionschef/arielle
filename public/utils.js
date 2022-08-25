@@ -126,11 +126,12 @@ function windowResized() {
 
 function keyTyped() {
     if (key === 'e' || key == 'E') {
-        exportHighResolution();
-        // exportCanvas(canvas);
+        // exportHighResolution();  // paper
+        exportCanvas(canvas);
     } else if (key === 'h' || key == 'H') {
         HIGHRES = true;
-        clear();
+        terminate();
+        timingInit = frameCount;
 
     }
 }

@@ -339,13 +339,20 @@ function addTexture() {
 
 function terminate() {
   console.log("Shutting down!");
-  applesFall.killAllCall();
-  apples.killAllCall();
-  apples2.killAllCall();
-  apples3.killAllCall();
+
+  if (typeof applesFall != "undefined") {
+    applesFall.killAllCall();
+  }
+  if (typeof apples != "undefined") {
+    apples.killAllCall();
+  }
+  if (typeof apples2 != "undefined") {
+    apples2.killAllCall();
+  }
+  if (typeof apples3 != "undefined") {
+    apples3.killAllCall();
+  }
   console.log("Physical body count: " + world.numRigidBodies);
-  noLoop();
-  fxpreview();
 }
 
 
@@ -442,6 +449,8 @@ function timing(startFrame) {
   if (frameCount == END) {
     console.log("Safety: " + fxrand());
     terminate();
+    noLoop();
+    fxpreview();
   }
 
 }
