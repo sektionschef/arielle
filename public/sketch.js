@@ -30,6 +30,8 @@ let canvas;
 let rescaling_width;
 let rescaling_height;
 
+let timingInit
+
 let PALETTE;
 let PALETTE_LABEL;
 let APPLESIZE = 1;
@@ -189,6 +191,7 @@ function setup() {
 
   pushers = new PusherSystem(ground.body.shapes.width);
 
+  timingInit = 0
 }
 
 
@@ -269,7 +272,7 @@ function draw() {
     obstacles.updateDisplay();
   }
 
-  timing();
+  timing(timingInit);
 }
 
 function mousePressed() {
@@ -345,23 +348,23 @@ function terminate() {
   fxpreview();
 }
 
-// in frames
-let SETUP = 1;
-let START = 10;
-let ENDFALL = 180;
-let PREWAVE1 = 190;
-let WAVE1 = 200;
-let WAVE1END = 700;
-let PREWAVE2 = 500;
-let WAVE2 = 520;
-let WAVE2END = 900;
-let PREWAVE3 = 700;
-let WAVE3 = 720;
-let WAVE3END = 1100;
-let END = 1120;
 
+function timing(startFrame) {
 
-function timing() {
+  // in frames
+  let SETUP = startFrame + 1;
+  let START = startFrame + 10;
+  let ENDFALL = startFrame + 180;
+  let PREWAVE1 = startFrame + 190;
+  let WAVE1 = startFrame + 200;
+  let WAVE1END = startFrame + 700;
+  let PREWAVE2 = startFrame + 500;
+  let WAVE2 = startFrame + 520;
+  let WAVE2END = startFrame + 900;
+  let PREWAVE3 = startFrame + 700;
+  let WAVE3 = startFrame + 720;
+  let WAVE3END = startFrame + 1100;
+  let END = startFrame + 1120;
 
   if (frameCount == SETUP) {
     background(255);  // white background once
