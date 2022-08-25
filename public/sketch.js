@@ -4,6 +4,8 @@ const MODE = 1  // "FINE ART";
 const NOISESEED = hashFnv32a(fxhash);
 console.log("Noise seed: " + NOISESEED);
 
+const HIGHRESPIXELRATIO = 4;
+
 let PaperDimensions = {
   "Quickie": {
     width: 800,
@@ -193,7 +195,7 @@ function setup() {
 function draw() {
 
   if (HIGHRES) {
-    pixelDensity(4);
+    pixelDensity(HIGHRESPIXELRATIO);
   }
 
 
@@ -203,10 +205,6 @@ function draw() {
     // camera(-1500, 0, 0, 0, 0, 0, 0, -1, 0); // debug -- side view
   } else {
     camera(0, 700, 0, 0, 0, 0, 0, 0, 1);
-  }
-
-  if (MODE == 5) {
-    // orbitControl();
   }
 
   // ambientLight(255, 255, 255);
@@ -327,8 +325,8 @@ function addTexture() {
 
     // size of the biggest apple, inclusive conv
     PALETTE[i]["img"] = drawPixelBuffer(
-      Math.round(APPLESIZE * conv * exportRatio),  // full size
-      Math.round(APPLESIZE * conv * exportRatio),  // full size
+      Math.round(APPLESIZE * conv * HIGHRESPIXELRATIO),  // full size
+      Math.round(APPLESIZE * conv * HIGHRESPIXELRATIO),  // full size
       PALETTE[i],
       PALETTE[j],
       25);

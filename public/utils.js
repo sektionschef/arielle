@@ -92,9 +92,11 @@ function fromHSBtoRGB(colorObject) {
 // calculate the scaling params - choose the limiting factor either height or width
 function scaleDynamically() {
 
+    const GOAL = 4000;
+
     // scaleRatio = 1;
-    dynamicWidthRatio = exportPaper.width / windowWidth;
-    dynamicHeightRatio = exportPaper.height / windowHeight;
+    dynamicWidthRatio = GOAL / windowWidth;
+    dynamicHeightRatio = GOAL / windowHeight;
 
     if (dynamicWidthRatio > dynamicHeightRatio) {
         // console.log("Width is smaller than height. Width dominates")
@@ -110,8 +112,8 @@ function scaleDynamically() {
     console.log("exportRatio: " + exportRatio);
 
 
-    rescaling_width = Math.floor(exportPaper.width / exportRatio);
-    rescaling_height = Math.floor(exportPaper.height / exportRatio);
+    rescaling_width = Math.floor(GOAL / exportRatio);
+    rescaling_height = Math.floor(GOAL / exportRatio);
     // rescaling_width = Math.floor(exportPaper.width);
     // rescaling_height = Math.floor(exportPaper.height);
 }
@@ -120,14 +122,6 @@ function scaleDynamically() {
 function windowResized() {
     // console.log("Window is resized.");
     window.location.reload();
-
-    // var url = window.location.href;
-    // if (url.indexOf('?') > -1) {
-    //     url += '&fxhash=ooWCvcfdxaRxiYE8ncJ2DLcp7kuoLQixDfu9GR6BRcVEKAFtbaf'
-    // } else {
-    //     url += '?fxhash=ooWCvcfdxaRxiYE8ncJ2DLcp7kuoLQixDfu9GR6BRcVEKAFtbaf'
-    // }
-    // window.location.href = url;
 }
 
 function keyTyped() {
