@@ -93,55 +93,64 @@ class Body {
 
 class AppleSystem {
 
-    constructor(amount, initFall) {
+    constructor(index, initFall) {
         this.bodies = [];
         this.initFall = initFall;
 
         this.appleSize = APPLESIZE;
+        this.groundWidth = 100;  // dependent on ground
 
-        for (let i = 0; i < amount; i++) {
+        var applePerRow = Math.floor(this.groundWidth / this.appleSize);
+        console.log("appleperrow: " + applePerRow);
 
-            var form = getRandomFromList([
-                // { type: "sphere", size: [0.5] },
-                // { type: 'cylinder', size: [0.5, 1] },
-                { type: 'box', size: [this.appleSize, this.appleSize, this.appleSize] },
-            ]);
+        if (index == 1) {
+            var appleRowCount = 4;
+        } else if (index == 2) {
+            var appleRowCount = 2;
+        } else if (index == 3) {
+            var appleRowCount = 2;
+        } else if (index == 0) {
+            var appleRowCount = 1;
+        }
 
-            var appleColor = getRandomFromList(PALETTE);
+        var amount = appleRowCount * applePerRow;
+        console.log("amount: " + amount);
 
-            // var groundWidth = 100
-            // var applePerRow = Math.floor(groundWidth / this.appleSize);
-            // console.log(applePerRow);
-            var applePerRow = 100;
-            var appleRowCount = amount / applePerRow;
+        for (let j = 0; j < appleRowCount; j++) {
+            for (let i = 0; i < applePerRow; i++) {
+                var startX = (i * this.appleSize) - Math.round(applePerRow * this.appleSize) / 2;  // from -45 to 45
+                // console.log(startX);
 
-            var startX = applePerRow / 2 - (i * this.appleSize) % applePerRow;  // from -45 to 45
-            // console.log(startX);
-            var startY = (-15 + this.appleSize / 2); // floor level - dependent on height of ground and its position.
-            if (this.initFall) {
-                // from above
-                var startZ = -50 + Math.floor(i * this.appleSize / applePerRow);
-            } else {
-                var startZ = 50 + Math.floor(i * this.appleSize / applePerRow) * -1;
+                var startY = (-15 + this.appleSize / 2); // floor level - dependent on height of ground and its position.
+
+                if (this.initFall) {
+                    // from above
+                    var startZ = -50 + Math.floor(j * this.appleSize);
+                } else {
+                    var startZ = 50 + Math.floor(j * this.appleSize) * -1;
+                }
+                // console.log(startZ);
+
+                var form = { type: 'box', size: [this.appleSize, this.appleSize, this.appleSize] };
+                var appleColor = getRandomFromList(PALETTE);
+
+                var data = {
+                    type: form.type,
+                    size: form.size,
+                    // pos: [getRandomFromInterval(-50, 50), -15, getRandomFromInterval(45, 50)], // start position in degree
+                    pos: [startX, startY, startZ], // start position in degree
+                    rot: [0, 0, 0], // start rotation in degree
+                    move: true, // dynamic or statique
+                    density: 1,
+                    friction: 0,
+                    restitution: RESTITUTION,
+                    noSleep: true,
+                    name: "apple_" + i,
+                    // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
+                    // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
+                };
+                this.bodies.push(new Body(data, appleColor));
             }
-            // console.log(startZ);
-
-            var data = {
-                type: form.type,
-                size: form.size,
-                // pos: [getRandomFromInterval(-50, 50), -15, getRandomFromInterval(45, 50)], // start position in degree
-                pos: [startX, startY, startZ], // start position in degree
-                rot: [0, 0, 0], // start rotation in degree
-                move: true, // dynamic or statique
-                density: 1,
-                friction: 0,
-                restitution: RESTITUTION,
-                noSleep: true,
-                name: "apple_" + i,
-                // belongsTo: 1, // The bits of the collision groups to which the shape belongs.
-                // collidesWith: 0xffffffff // The bits of the collision groups with which the shape collides.
-            };
-            this.bodies.push(new Body(data, appleColor));
         }
     }
 
@@ -311,7 +320,7 @@ class ObstacleSystem {
                 name: "obstacle",
             }
 
-            this.bodies.push(new Body(data, color(0, 155, 0, 100)));
+            this.bodies.push(new Body(data, color(0, 0, 155, 100)));
         }
 
     }

@@ -137,6 +137,7 @@ function scaleDynamically() {
 function windowResized() {
     // console.log("Window is resized.");
     window.location.reload();
+    scaleDynamically();
 }
 
 function keyTyped() {

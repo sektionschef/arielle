@@ -17,7 +17,7 @@ let timingInit
 
 let PALETTE;
 let PALETTE_LABEL;
-let APPLESIZE = 1;
+let APPLESIZE = 1.5;
 
 let RESTITUTIONMin = 0;
 let RESTITUTIONMax = 1;
@@ -201,7 +201,10 @@ function draw() {
   // ambientMaterial(255);
   // specularMaterial(255);
 
-  if (LIGHTING == "Full") {
+  if (MODE == 5) {
+    ambientLight(255, 255, 255);
+
+  } else if (LIGHTING == "Full") {
     ambientLight(150);
     directionalLight(200, 200, 200, 1, -1, 0);
 
@@ -369,7 +372,7 @@ function timing(startFrame) {
 
   if (frameCount == START && startFrame == 0) {
     world.setGravity([0, -9.8, 30]);
-    applesFall = new AppleSystem(100, true);
+    applesFall = new AppleSystem(0, true);
   }
 
   //   console.log("index: " + waveIndex);
@@ -383,7 +386,7 @@ function timing(startFrame) {
 
   if (frameCount == PREWAVE1) {
     console.log("Starting wave: " + waveIndex + "/" + WAVEINDEXMAX);
-    apples = new AppleSystem(400);
+    apples = new AppleSystem(1);
     if (OBSTACLESSWITCH) {
       obstacles = new ObstacleSystem(OBSTACLESCOUNT); // then set position
     }
@@ -402,7 +405,7 @@ function timing(startFrame) {
   if (frameCount == PREWAVE2) {
     waveIndex += 1;
     console.log("Starting wave: " + waveIndex + "/" + WAVEINDEXMAX);
-    apples2 = new AppleSystem(200);
+    apples2 = new AppleSystem(2);
   }
 
   if (frameCount == WAVE2) {
@@ -417,7 +420,7 @@ function timing(startFrame) {
   if (frameCount == PREWAVE3) {
     waveIndex += 1;
     console.log("Starting wave: " + waveIndex + "/" + WAVEINDEXMAX);
-    apples3 = new AppleSystem(200);
+    apples3 = new AppleSystem(3);
   }
 
   if (frameCount == WAVE3) {
