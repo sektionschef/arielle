@@ -90,7 +90,7 @@ function fromHSBtoRGB(colorObject) {
 }
 
 // calculate the scaling params - choose the limiting factor either height or width
-function scaleDynamically() {
+function scaleDynamicallyPaper() {
 
     const GOAL = 4000;
 
@@ -114,8 +114,23 @@ function scaleDynamically() {
 
     rescaling_width = Math.floor(GOAL / exportRatio);
     rescaling_height = Math.floor(GOAL / exportRatio);
-    // rescaling_width = Math.floor(exportPaper.width);
-    // rescaling_height = Math.floor(exportPaper.height);
+}
+
+function scaleDynamically() {
+
+    console.log("Display density: " + displayDensity());
+    console.log("Pixel density: " + pixelDensity())
+
+    if (windowHeight > windowWidth) {
+        console.log("Width is smaller than height. Width dominates")
+        rescaling_width = Math.floor(windowWidth * displayDensity());
+        rescaling_height = Math.floor(windowWidth * displayDensity());
+    } else {
+        console.log("width is larger than height. Height dominates.")
+        rescaling_width = Math.floor(windowHeight * displayDensity());
+        rescaling_height = Math.floor(windowHeight * displayDensity());
+    }
+
 }
 
 // each time window.innerWidth changes
@@ -127,7 +142,7 @@ function windowResized() {
 function keyTyped() {
     if (key === 'e' || key == 'E') {
         // exportHighResolution();  // paper
-        exportCanvas(canvas);
+        exportCanvas(canvas);  // webgl
     } else if (key === 'h' || key == 'H') {
         HIGHRES = true;
         terminate();

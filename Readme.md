@@ -26,3 +26,10 @@ npm run build
   // console.log(OIMO.Math.rand(0, 1));
   // console.log(OIMO.Math.random());
   // console.log(OIMO.Math.randInt(0, 10));
+
+
+  2 arten resizen
+  * buffer hochboosten auf fixe size
+  * pixeldensity
+
+  

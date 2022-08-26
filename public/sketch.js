@@ -1,31 +1,14 @@
-const MODE = 1  // "FINE ART";
-// const MODE = 5 // all debug messages
+// const MODE = 1  // "FINE ART";
+const MODE = 5 // all debug messages
 
 const NOISESEED = hashFnv32a(fxhash);
 console.log("Noise seed: " + NOISESEED);
 
 const HIGHRESPIXELRATIO = 4;
 
-let PaperDimensions = {
-  "Quickie": {
-    width: 800,
-    height: 800
-  },
-  "Stammersdorf": {
-    width: 3840,
-    height: 2160
-  },
-  "1to1": {
-    width: 4000,
-    height: 4000
-  },
-}
 // convert pixel to real world physics
 const conv = 10;
 
-let exportPaper = PaperDimensions['1to1']
-
-let exportRatio;
 let canvas;
 let rescaling_width;
 let rescaling_height;
@@ -41,6 +24,7 @@ let RESTITUTIONMax = 1;
 let RESTITUTION = Math.round(getRandomFromInterval(RESTITUTIONMin, RESTITUTIONMax) * 100) / 100;
 let RESTITUTIONLabel = label_feature(RESTITUTION, RESTITUTIONMin, RESTITUTIONMax);
 
+// let OBSTACLESSWITCH = true;
 let OBSTACLESSWITCH = getRandomFromList([true, false]);
 let OBSTACLESCOUNT = 5;
 
@@ -191,6 +175,7 @@ function setup() {
 
   pushers = new PusherSystem(ground.body.shapes.width);
 
+  // start frame of the cycle
   timingInit = 0
 }
 
@@ -351,6 +336,9 @@ function terminate() {
   }
   if (typeof apples3 != "undefined") {
     apples3.killAllCall();
+  }
+  if (typeof obstacles != "undefined") {
+    obstacles.killAllCall();
   }
   console.log("Physical body count: " + world.numRigidBodies);
 }
