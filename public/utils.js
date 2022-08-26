@@ -147,7 +147,13 @@ function keyTyped() {
         HIGHRES = true;
         terminate();
         timingInit = frameCount;
-
+    } else if (key === 'i' || key == 'I') {
+        if (INFINITY == true) {
+            INFINITY = false;
+        } else {
+            INFINITY = true;
+        }
+        console.log("INFINITY: " + INFINITY)
     }
 }
 

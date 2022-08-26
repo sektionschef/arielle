@@ -38,7 +38,7 @@ let waveIndex = 0;
 let POX1 = false;
 let HIGHRES = false;
 
-let INFINITY = true;
+let INFINITY = false;
 
 const PALETTESYSTEM = {
   "Medusa": [
@@ -431,6 +431,7 @@ function timing(startFrame) {
 
   if (frameCount == END && INFINITY == false) {
     console.log("Safety: " + fxrand());
+    console.log("Shutting down");
     terminate();
     noLoop();
     fxpreview();
@@ -438,6 +439,6 @@ function timing(startFrame) {
     console.log("continuing to draw");
     waveIndex += 1;
     terminate();
-    timingInit = frameCount + 100;
+    timingInit = frameCount;
   }
 }
