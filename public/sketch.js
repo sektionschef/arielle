@@ -1,5 +1,5 @@
-// const MODE = 1  // "FINE ART";
-const MODE = 5 // all debug messages
+const MODE = 1  // "FINE ART";
+// const MODE = 5 // all debug messages
 
 const NOISESEED = hashFnv32a(fxhash);
 console.log("Noise seed: " + NOISESEED);
@@ -37,6 +37,8 @@ let waveIndex = 0;
 
 let POX1 = false;
 let HIGHRES = false;
+
+let INFINITY = true;
 
 const PALETTESYSTEM = {
   "Medusa": [
@@ -323,7 +325,7 @@ function addTexture() {
 }
 
 function terminate() {
-  console.log("Shutting down!");
+  console.log("Terminating");
 
   if (typeof applesFall != "undefined") {
     applesFall.killAllCall();
@@ -361,11 +363,11 @@ function timing(startFrame) {
   let WAVE3END = startFrame + 1100;
   let END = startFrame + 1120;
 
-  if (frameCount == SETUP) {
+  if (frameCount == SETUP && startFrame == 0) {
     background(255);  // white background once
   }
 
-  if (frameCount == START) {
+  if (frameCount == START && startFrame == 0) {
     world.setGravity([0, -9.8, 30]);
     applesFall = new AppleSystem(100, true);
   }
@@ -373,7 +375,7 @@ function timing(startFrame) {
   //   console.log("index: " + waveIndex);
   //   console.log("limit: " + WAVEINDEXMAX);
 
-  if (frameCount == ENDFALL) {
+  if (frameCount == ENDFALL && startFrame == 0) {
     console.log("Ending Fall")
     applesFall.killAllCall();
     world.setGravity([0, -9.8, 3]);
@@ -412,13 +414,6 @@ function timing(startFrame) {
     apples2.killAllCall();
   }
 
-  //   // colored layer or medusa text;
-  //   // push();
-  //   // fill(0, 0, 0, 70);
-  //   // box(300, 300, 300, 500, 100, 500);
-  //   // pop();
-
-
   if (frameCount == PREWAVE3) {
     waveIndex += 1;
     console.log("Starting wave: " + waveIndex + "/" + WAVEINDEXMAX);
@@ -434,11 +429,15 @@ function timing(startFrame) {
     apples3.killAllCall();
   }
 
-  if (frameCount == END) {
+  if (frameCount == END && INFINITY == false) {
     console.log("Safety: " + fxrand());
     terminate();
     noLoop();
     fxpreview();
+  } else if (frameCount == END && INFINITY == true) {
+    console.log("continuing to draw");
+    waveIndex += 1;
+    terminate();
+    timingInit = frameCount + 100;
   }
-
 }
