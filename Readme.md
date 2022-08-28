@@ -2,12 +2,18 @@
 
 “Nunc, o fortissime, fare, precor, Perseu, quanta virtute quibusque artibus abstuleris crinita draconibus ora!”
 Ovid - Metamorphoses Book IV, 769
-"Perseus, I beg you to tell us by what prowess and by what arts you carried off that head with snakes for hair."  https://www.poetryintranslation.com/PITBR/Latin/Metamorph4.php
+"Perseus, I beg you to tell us by what prowess and by what arts you carried off that head with snakes for hair."  https://www.poetryintranslation.com/PITBR/Latin/Metamorph4.php 
 
-high res output - press h in the first. to 4 times resolution. and then export it with e
-drawing will stop after 3 waves, if I is not pressed. Either 
-using oimo.js - phyics - 
+I will donate every Tezo, primary and secondary, from this project towards the NGO Save the Children.
 
+For high resolution renderings (four times resolution) press *h*. For an export as .png press *e*.
+Created with p5.js and the physics engine oimo.js. see LICENSE.md.
+
+Stefan Schwaha, @sektionschef, https://digitalitility.com/
+
+###
+
+tags: animated, p5js, physics
 
 
 

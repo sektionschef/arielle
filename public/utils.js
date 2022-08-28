@@ -232,7 +232,7 @@ function getTimestamp() {
     // from: https://www.kindacode.com/article/javascript-get-current-date-time-in-yyyy-mm-dd-hh-mm-ss-format/
 
     const dateObj = new Date;
-    console.log(dateObj);
+    // console.log(dateObj);
 
     let year = dateObj.getFullYear();
 
