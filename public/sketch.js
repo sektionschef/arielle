@@ -367,11 +367,11 @@ function timing(startFrame) {
   let WAVE3END = startFrame + 1100;
   let END = startFrame + 1120;
 
-  if (frameCount == SETUP && startFrame == 0) {
+  if (frameCount == SETUP && INFINITY == false) {
     background(255);  // white background once
   }
 
-  if (frameCount == START && startFrame == 0) {
+  if (frameCount == START && INFINITY == false) {
     world.setGravity([0, -9.8, 30]);
     applesFall = new AppleSystem(0, true);
   }
@@ -379,7 +379,7 @@ function timing(startFrame) {
   //   console.log("index: " + waveIndex);
   //   console.log("limit: " + WAVEINDEXMAX);
 
-  if (frameCount == ENDFALL && startFrame == 0) {
+  if (frameCount == ENDFALL && INFINITY == false) {
     if (MODE > 1) {
       console.log("Ending Fall")
     }

@@ -161,11 +161,12 @@ function keyTyped() {
     } else if (key === 'i' || key == 'I') {
         if (INFINITY == true) {
             INFINITY = false;
+            noLoop();
         } else {
             INFINITY = true;
+            loop();
         }
         console.log("INFINITY: " + INFINITY)
-        loop();
     }
 }
 

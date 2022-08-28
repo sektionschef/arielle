@@ -4,24 +4,21 @@
 Ovid - Metamorphoses Book IV, 769
 "Perseus, I beg you to tell us by what prowess and by what arts you carried off that head with snakes for hair."  https://www.poetryintranslation.com/PITBR/Latin/Metamorph4.php
 
+high res output - press h in the first. to 4 times resolution. and then export it with e
+drawing will stop after 3 waves, if I is not pressed. Either 
 using oimo.js - phyics - 
 
-waves.
-
-positioning relative to center of object, so move by object's half.
 
 
-## tasks
-* dieing particles
+
+
+## Notes 
 
 ## literature
 * helpful for kinematic: https://lo-th.github.io/Oimo.js/#kinematic 
-
 * sine up and down movement: https://editor.p5js.org/cs4all/sketches/0FqWv8Rhf
 * two canvases: https://editor.p5js.org/caminofarol/sketches/r609C2cs 
 
-
-pixeldensity is.
 
 npm run build
 
