@@ -5,11 +5,9 @@ class Body {
 
         if (typeof appleColor != "undefined") {
             this.fillColor = appleColor;
-            // this.strokeColor = appleColor.stroke;
             this.img = appleColor.img;
         } else {
             this.fillColor = color("white");
-            // this.strokeColor = color("black");
         }
 
         this.body = world.add(
@@ -62,8 +60,6 @@ class Body {
 
         push();
         fill(color(this.fillColor))
-        // stroke(color(this.strokeColor));
-        // strokeWeight(1);
         noStroke();
         smooth();
         translate(this.bodyPosition.x * conv, this.bodyPosition.y * conv, this.bodyPosition.z * conv);
@@ -101,7 +97,7 @@ class AppleSystem {
         this.groundWidth = 100;  // dependent on ground
 
         var applePerRow = Math.floor(this.groundWidth / this.appleSize);
-        console.log("appleperrow: " + applePerRow);
+        // console.log("appleperrow: " + applePerRow);
 
         if (index == 1) {
             var appleRowCount = 4;
@@ -112,10 +108,9 @@ class AppleSystem {
         } else if (index == 0) {
             var appleRowCount = 1;
         }
-        // var appleRowCount = 1;
 
         var amount = appleRowCount * applePerRow;
-        console.log("amount: " + amount);
+        // console.log("amount: " + amount);
 
         for (let j = 0; j < appleRowCount; j++) {
             for (let i = 0; i < applePerRow; i++) {
@@ -245,7 +240,6 @@ class PusherSystem {
         this.bodies = []
 
         var fillColor = color(0, 0, 255, 100);
-        // var strokeColor = color("black");
 
         for (let i = 0; i < this.amount; i++) {
             var data = {
@@ -339,12 +333,6 @@ class ObstacleSystem {
                 }
             }
         }
-        // for (let i = 0; i < this.bodies.length; i++) {
-        //     this.bodies[i].update();
-        //     if (MODE == 5) {
-        //         this.bodies[i].display();
-        //     }
-        // }
     }
 
     killAllCall() {

@@ -105,11 +105,14 @@ function scaleDynamicallyPaper() {
         // console.log("width is larger than height. Height dominates.")
         exportRatio = dynamicHeightRatio;
     }
-
-    console.log("Display density: " + displayDensity());
-    console.log("Pixel density: " + pixelDensity())
+    if (MODE > 1) {
+        console.log("Display density: " + displayDensity());
+        console.log("Pixel density: " + pixelDensity())
+    }
     exportRatio /= pixelDensity();
-    console.log("exportRatio: " + exportRatio);
+    if (MODE > 1) {
+        console.log("exportRatio: " + exportRatio);
+    }
 
 
     rescaling_width = Math.floor(GOAL / exportRatio);
@@ -118,16 +121,22 @@ function scaleDynamicallyPaper() {
 
 function scaleDynamically() {
 
-    console.log("Display density: " + displayDensity());
-    console.log("Pixel density: " + pixelDensity())
+    if (MODE > 1) {
+        console.log("Display density: " + displayDensity());
+        console.log("Pixel density: " + pixelDensity())
+    }
     pixelDensity(1);
 
     if (windowHeight > windowWidth) {
-        console.log("Width is smaller than height. Width dominates")
+        if (MODE > 1) {
+            console.log("Width is smaller than height. Width dominates")
+        }
         rescaling_width = Math.floor(windowWidth);
         rescaling_height = Math.floor(windowWidth);
     } else {
-        console.log("width is larger than height. Height dominates.")
+        if (MODE > 1) {
+            console.log("width is larger than height. Height dominates.")
+        }
         rescaling_width = Math.floor(windowHeight);
         rescaling_height = Math.floor(windowHeight);
     }
@@ -156,6 +165,7 @@ function keyTyped() {
             INFINITY = true;
         }
         console.log("INFINITY: " + INFINITY)
+        loop();
     }
 }
 

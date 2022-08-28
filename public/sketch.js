@@ -1,9 +1,11 @@
 const MODE = 1  // "FINE ART";
+// const MODE = 2  // DEBUG MESSAGES
 // const MODE = 5 // all debug messages
 
 const NOISESEED = hashFnv32a(fxhash);
-console.log("Noise seed: " + NOISESEED);
-
+if (MODE > 1) {
+  console.log("Noise seed: " + NOISESEED);
+}
 const HIGHRESPIXELRATIO = 4;
 
 // convert pixel to real world physics
@@ -37,19 +39,17 @@ let OBSTACLESSWITCH = getRandomFromList([true, false]);
 let OBSTACLESCOUNT = 5;
 
 let LIGHTING = getRandomFromList(["Below", "Lab", "Drama", "Full"]);
-// let LIGHTING = "Full";
+// let LIGHTING = "Lab";
 
 const WAVECOUNT = 3;
 const WAVEINDEXMAX = WAVECOUNT - 1;
 let waveIndex = 0;
 
-let POX1 = false;
 let HIGHRES = false;
-
 let INFINITY = false;
 
 const PALETTESYSTEM = {
-  "Medusa": [
+  "Arielle": [
     "#534438",
     "#FBE1BB",
     "#785237",
@@ -73,7 +73,7 @@ const PALETTESYSTEM = {
     "#3FA796",
     "#2A0944",
   ],
-  "Lasagne": [
+  "Parmigiana": [
     "#ffd1a9",
     "#ff9e79",
     "#fb6d4c",
@@ -227,11 +227,10 @@ function draw() {
 
   } else if (LIGHTING == "Below") {
     ambientLight(100);
-    directionalLight(180, 180, 180, 0, -1, 0); // crazy
-    // directionalLight(255, 255, 255, 0, 0, -1);  // also crazy
+    directionalLight(180, 180, 180, 0, -1, 0);
   } else if (LIGHTING == "Lab") {
-    ambientLight(50);
-    directionalLight(255, 255, 255, 0, -1, -1);  // also crazy
+    ambientLight(100);
+    directionalLight(255, 255, 255, 0, -1, -1);
   }
 
 
@@ -254,7 +253,6 @@ function draw() {
   if (typeof apples3 != "undefined") {
     apples3.updateDisplay();
   }
-
 
   ground.update();
   lowerBorder.update();
@@ -280,20 +278,12 @@ function mousePressed() {
 function drawPixelBuffer(bufferWidth, bufferHeight, baseColor, secondColor, range) {
   let buffer = createGraphics(bufferWidth, bufferHeight);
 
-  // console.log(secondColor);
-
   buffer.loadPixels();
-  // let baseColor = color(242, 210, 169);
-  // let range = 40;
 
   for (let y = 0; y < buffer.height; y++) {
     for (let x = 0; x < buffer.width; x++) {
-      // formula to get each pixels rgba
       let index = (x + y * buffer.width) * 4;
       if (fxrand() < 0.02) {
-        // buffer.pixels[index + 0] = 50;
-        // buffer.pixels[index + 1] = 50;
-        // buffer.pixels[index + 2] = 50;
         buffer.pixels[index + 0] = red(secondColor);
         buffer.pixels[index + 1] = green(secondColor);
         buffer.pixels[index + 2] = blue(secondColor);
@@ -317,7 +307,6 @@ function addTexture() {
 
   for (var i = 0; i < PALETTE.length; i++) {
 
-    // console.log(PALETTE[i]);
     if (i == 0) {
       var j = (PALETTE.length - 1);
     } else {
@@ -336,7 +325,9 @@ function addTexture() {
 }
 
 function terminate() {
-  console.log("Terminating");
+  if (MODE > 1) {
+    console.log("Terminating");
+  }
 
   if (typeof applesFall != "undefined") {
     applesFall.killAllCall();
@@ -353,7 +344,9 @@ function terminate() {
   if (typeof obstacles != "undefined") {
     obstacles.killAllCall();
   }
-  console.log("Physical body count: " + world.numRigidBodies);
+  if (MODE > 1) {
+    console.log("Physical body count: " + world.numRigidBodies);
+  }
 }
 
 
@@ -387,13 +380,17 @@ function timing(startFrame) {
   //   console.log("limit: " + WAVEINDEXMAX);
 
   if (frameCount == ENDFALL && startFrame == 0) {
-    console.log("Ending Fall")
+    if (MODE > 1) {
+      console.log("Ending Fall")
+    }
     applesFall.killAllCall();
     world.setGravity([0, -9.8, 3]);
   }
 
   if (frameCount == PREWAVE1) {
-    console.log("Starting wave: " + waveIndex + "/" + WAVEINDEXMAX);
+    if (MODE > 1) {
+      console.log("Starting wave: " + waveIndex + "/" + WAVEINDEXMAX);
+    }
     apples = new AppleSystem(1);
     if (OBSTACLESSWITCH) {
       obstacles = new ObstacleSystem(OBSTACLESCOUNT); // then set position
@@ -402,7 +399,9 @@ function timing(startFrame) {
 
 
   if (frameCount == WAVE1) {
-    console.log("Pushers fire.");
+    if (MODE > 1) {
+      console.log("Fire!");
+    }
     pushers.fire();
   }
 
@@ -412,12 +411,16 @@ function timing(startFrame) {
 
   if (frameCount == PREWAVE2) {
     waveIndex += 1;
-    console.log("Starting wave: " + waveIndex + "/" + WAVEINDEXMAX);
+    if (MODE > 1) {
+      console.log("Starting wave: " + waveIndex + "/" + WAVEINDEXMAX);
+    }
     apples2 = new AppleSystem(2);
   }
 
   if (frameCount == WAVE2) {
-    console.log("Pushers fire.");
+    if (MODE > 1) {
+      console.log("Fire!");
+    }
     pushers.fire();
   }
 
@@ -427,12 +430,16 @@ function timing(startFrame) {
 
   if (frameCount == PREWAVE3) {
     waveIndex += 1;
-    console.log("Starting wave: " + waveIndex + "/" + WAVEINDEXMAX);
+    if (MODE > 1) {
+      console.log("Starting wave: " + waveIndex + "/" + WAVEINDEXMAX);
+    }
     apples3 = new AppleSystem(3);
   }
 
   if (frameCount == WAVE3) {
-    console.log("Pushers fire.");
+    if (MODE > 1) {
+      console.log("Fire!");
+    }
     pushers.fire();
   }
 
@@ -441,13 +448,17 @@ function timing(startFrame) {
   }
 
   if (frameCount == END && INFINITY == false) {
-    console.log("Safety: " + fxrand());
-    console.log("Shutting down");
+    if (MODE > 1) {
+      console.log("Safety: " + fxrand());
+      console.log("Shutting down");
+    }
     terminate();
     noLoop();
     fxpreview();
   } else if (frameCount == END && INFINITY == true) {
-    console.log("continuing to draw");
+    if (MODE > 1) {
+      console.log("Continuing to draw");
+    }
     waveIndex += 1;
     terminate();
     timingInit = frameCount;

@@ -26,27 +26,27 @@ window.$fxhashFeatures = {
 console.info(`fxhash: %c${fxhash}`, 'font-weight: bold');
 
 // var allColorsStrings = [];
-for (var i = 0; i < PALETTESYSTEM[PALETTE_LABEL].length; i++) {
-    // allColorsStrings.push(PALETTESYSTEM[PALETTE_LABEL][i]);
-    // `"%c   ", `background: ${ PALETTESYSTEM[PALETTE_LABEL][i] }`);
-}
+// for (var i = 0; i < PALETTESYSTEM[PALETTE_LABEL].length; i++) {
+// allColorsStrings.push(PALETTESYSTEM[PALETTE_LABEL][i]);
+// `"%c   ", `background: ${ PALETTESYSTEM[PALETTE_LABEL][i] }`);
+// }
 // console.log(allColorsStrings);
 // for (var colorString of allColorsStrings) {
 
 // }
 
 console.log('');
-console.group(`Palette: % c${PALETTE_LABEL} `, 'font-weight: bold');
+console.group(`Palette: %c${PALETTE_LABEL} `, 'font-weight: bold');
 for (var i = 0; i < PALETTESYSTEM[PALETTE_LABEL].length; i++) {
     // console.log(PALETTESYSTEM[PALETTE_LABEL][i])
-    console.log("%c   ", `background: ${PALETTESYSTEM[PALETTE_LABEL][i]}; `);
+    console.log(`%c   `, `background: ${PALETTESYSTEM[PALETTE_LABEL][i]}; `);
 }
 console.groupEnd();
 
-console.log(`Size of particles: % c${APPLESIZELABEL} (${APPLESIZE})`, 'font-weight: bold');
-console.log(`Restitution: % c${RESTITUTIONLabel} (${RESTITUTION})`, 'font-weight: bold');
-console.log(`Obstacles: % c${OBSTACLESSWITCH} `, 'font-weight: bold');
-console.log(`Lighting: % c${LIGHTING} `, 'font-weight: bold');
+console.log(`Size of particles: %c${APPLESIZELABEL} (${APPLESIZE})`, 'font-weight: bold');
+console.log(`Restitution: %c${RESTITUTIONLabel} (${RESTITUTION})`, 'font-weight: bold');
+console.log(`Obstacles: %c${OBSTACLESSWITCH} `, 'font-weight: bold');
+console.log(`Lighting: %c${LIGHTING} `, 'font-weight: bold');
 console.log('');
 
 // this code writes the values to the DOM as an example
