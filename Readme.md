@@ -1,5 +1,9 @@
 # Medusa
 
+“Nunc, o fortissime, fare, precor, Perseu, quanta virtute quibusque artibus abstuleris crinita draconibus ora!”
+Ovid - Metamorphoses Book IV, 769
+"Perseus, I beg you to tell us by what prowess and by what arts you carried off that head with snakes for hair."  https://www.poetryintranslation.com/PITBR/Latin/Metamorph4.php
+
 using oimo.js - phyics - 
 
 waves.

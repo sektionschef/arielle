@@ -120,15 +120,16 @@ function scaleDynamically() {
 
     console.log("Display density: " + displayDensity());
     console.log("Pixel density: " + pixelDensity())
+    pixelDensity(1);
 
     if (windowHeight > windowWidth) {
         console.log("Width is smaller than height. Width dominates")
-        rescaling_width = Math.floor(windowWidth * displayDensity());
-        rescaling_height = Math.floor(windowWidth * displayDensity());
+        rescaling_width = Math.floor(windowWidth);
+        rescaling_height = Math.floor(windowWidth);
     } else {
         console.log("width is larger than height. Height dominates.")
-        rescaling_width = Math.floor(windowHeight * displayDensity());
-        rescaling_height = Math.floor(windowHeight * displayDensity());
+        rescaling_width = Math.floor(windowHeight);
+        rescaling_height = Math.floor(windowHeight);
     }
 
 }

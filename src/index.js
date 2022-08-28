@@ -17,6 +17,7 @@
 
 window.$fxhashFeatures = {
     "Palette": PALETTE_LABEL,
+    "Size of particles": APPLESIZELABEL,
     "Restitution": RESTITUTIONLabel,
     "Obstacles": OBSTACLESSWITCH,
     "Lighting": LIGHTING,
@@ -32,6 +33,7 @@ for (var i = 0; i < PALETTESYSTEM[PALETTE_LABEL].length; i++) {
 }
 console.groupEnd();
 
+console.log(`Size of particles: %c${APPLESIZELABEL} (${APPLESIZE})`, 'font-weight: bold');
 console.log(`Restitution: %c${RESTITUTIONLabel} (${RESTITUTION})`, 'font-weight: bold');
 console.log(`Obstacles: %c${OBSTACLESSWITCH}`, 'font-weight: bold');
 console.log(`Lighting: %c${LIGHTING}`, 'font-weight: bold');

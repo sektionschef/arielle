@@ -112,6 +112,7 @@ class AppleSystem {
         } else if (index == 0) {
             var appleRowCount = 1;
         }
+        // var appleRowCount = 1;
 
         var amount = appleRowCount * applePerRow;
         console.log("amount: " + amount);

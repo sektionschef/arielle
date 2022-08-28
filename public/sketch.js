@@ -17,7 +17,15 @@ let timingInit
 
 let PALETTE;
 let PALETTE_LABEL;
-let APPLESIZE = 1.5;
+let APPLESIZELABEL;
+let APPLESIZE = getRandomFromList([1, 1.5, 2, 3]);
+if (APPLESIZE < 2) {
+  APPLESIZELABEL = "small";
+} else if (APPLESIZE == 2) {
+  APPLESIZELABEL = "medium";
+} else {
+  APPLESIZELABEL = "large";
+}
 
 let RESTITUTIONMin = 0;
 let RESTITUTIONMax = 1;
