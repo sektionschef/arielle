@@ -16,6 +16,9 @@ Stefan Schwaha, @sektionschef, https://digitalitility.com/
 tags: animated, p5js, physics
 
 
+url param for a version with higher resolution: "&highres=4" to the url.
+
+
 
 neu laden mit zufall und physics engine keine gleichen ergebnisse geplant - hardcoded pixeldensity allerdings schon.
 

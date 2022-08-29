@@ -44,11 +44,11 @@ const WAVECOUNT = 3;
 const WAVEINDEXMAX = WAVECOUNT - 1;
 let waveIndex = 0;
 
-// let INFINITY = false;
+let INFINITY = false;
 
-let CURRENTPIXELDENS;
+let CURRENTPIXELDENS = 1;
 const HIGHRESPIXELRATIO = 4;
-const RESBOOST = 3;  // factor for the size of the texture
+const RESBOOST = 4;  // factor for the size of the texture
 
 const PALETTESYSTEM = {
   "Arielle": [
@@ -135,20 +135,19 @@ function createPaletteColors() {
 }
 
 function preload() {
-  // Get params
   const queryString = window.location.search;
-  // console.log(queryString);
   const urlParams = new URLSearchParams(queryString);
-  // console.log(urlParams);
-  const PixelParam = urlParams.get('highres');
-  // console.log(urlParams.has('highres'));
-  // console.log(PixelParam);
 
-  console.log("PixelParam: " + PixelParam);
   if (urlParams.has('highres')) {
-    CURRENTPIXELDENS = parseInt(PixelParam);
+    CURRENTPIXELDENS = parseInt(urlParams.get('highres'));
   }
   console.log("CURRENTPIXELDENS: " + CURRENTPIXELDENS);
+
+  if (urlParams.has('infinity')) {
+    INFINITYSTRING = urlParams.get('infinity');
+    INFINITY = (INFINITYSTRING === 'true');
+  }
+  console.log("INFINITY: " + INFINITY);
 }
 
 function setup() {
@@ -164,11 +163,9 @@ function setup() {
   canvas = createCanvas(rescaling_width, rescaling_height, WEBGL);
   canvas.id('badAssCanvas');
 
-
-  console.log("CURRENTPIXELDENS: " + CURRENTPIXELDENS);
   if (MODE > 1) {
     console.log("Display density: " + displayDensity());
-    // console.log("Pixel density: " + pixelDensity())
+    console.log("Pixel density: " + pixelDensity())
   }
 
   createPaletteColors();
