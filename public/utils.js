@@ -121,12 +121,6 @@ function scaleDynamicallyPaper() {
 
 function scaleDynamically() {
 
-    pixelDensity(CURRENTPIXELDENS);
-    if (MODE > 1) {
-        console.log("Display density: " + displayDensity());
-        console.log("Pixel density: " + pixelDensity())
-    }
-
     if (windowHeight > windowWidth) {
         if (MODE > 1) {
             console.log("Width is smaller than height. Width dominates")

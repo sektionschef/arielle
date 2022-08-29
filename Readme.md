@@ -17,6 +17,8 @@ tags: animated, p5js, physics
 
 
 
+neu laden mit zufall und physics engine keine gleichen ergebnisse geplant - hardcoded pixeldensity allerdings schon.
+
 
 ## Notes 
 

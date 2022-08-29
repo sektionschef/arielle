@@ -15,6 +15,7 @@
 // [https://fxhash.xyz/articles/guide-mint-generative-token#features]
 //
 
+
 window.$fxhashFeatures = {
     "Palette": PALETTE_LABEL,
     "Size of particles": APPLESIZELABEL,

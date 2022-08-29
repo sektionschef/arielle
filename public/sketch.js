@@ -33,8 +33,8 @@ let RESTITUTIONMax = 1;
 let RESTITUTION = Math.round(getRandomFromInterval(RESTITUTIONMin, RESTITUTIONMax) * 100) / 100;
 let RESTITUTIONLabel = label_feature(RESTITUTION, RESTITUTIONMin, RESTITUTIONMax);
 
-// let OBSTACLESSWITCH = true;
-let OBSTACLESSWITCH = getRandomFromList([true, false]);
+let OBSTACLESSWITCH = false;
+// let OBSTACLESSWITCH = getRandomFromList([true, false]);
 let OBSTACLESCOUNT = 5;
 
 let LIGHTING = getRandomFromList(["Below", "Lab", "Drama", "Full"]);
@@ -45,8 +45,10 @@ const WAVEINDEXMAX = WAVECOUNT - 1;
 let waveIndex = 0;
 
 // let INFINITY = false;
-let CURRENTPIXELDENS = 2;
-const HIGHRESPIXELRATIO = 2;
+
+let CURRENTPIXELDENS;
+const HIGHRESPIXELRATIO = 4;
+const RESBOOST = 3;  // factor for the size of the texture
 
 const PALETTESYSTEM = {
   "Arielle": [
@@ -132,15 +134,42 @@ function createPaletteColors() {
   }
 }
 
+function preload() {
+  // Get params
+  const queryString = window.location.search;
+  // console.log(queryString);
+  const urlParams = new URLSearchParams(queryString);
+  // console.log(urlParams);
+  const PixelParam = urlParams.get('highres');
+  // console.log(urlParams.has('highres'));
+  // console.log(PixelParam);
+
+  console.log("PixelParam: " + PixelParam);
+  if (urlParams.has('highres')) {
+    CURRENTPIXELDENS = parseInt(PixelParam);
+  }
+  console.log("CURRENTPIXELDENS: " + CURRENTPIXELDENS);
+}
+
 function setup() {
   noiseSeed(NOISESEED);
   randomSeed(NOISESEED);
   setAttributes('antialias', true);
 
+
+
+
   scaleDynamically();
 
   canvas = createCanvas(rescaling_width, rescaling_height, WEBGL);
   canvas.id('badAssCanvas');
+
+
+  console.log("CURRENTPIXELDENS: " + CURRENTPIXELDENS);
+  if (MODE > 1) {
+    console.log("Display density: " + displayDensity());
+    // console.log("Pixel density: " + pixelDensity())
+  }
 
   createPaletteColors();
   addTexture();
@@ -317,8 +346,8 @@ function addTexture() {
     PALETTE[i]["img"] = drawPixelBuffer(
       // Math.round(APPLESIZE * conv * HIGHRESPIXELRATIO),  // full size
       // Math.round(APPLESIZE * conv * HIGHRESPIXELRATIO),  // full size
-      APPLESIZE * conv * 1,  // higher res
-      APPLESIZE * conv * 1,  // higher res
+      APPLESIZE * conv * RESBOOST,  // higher res
+      APPLESIZE * conv * RESBOOST,  // higher res
       PALETTE[i],
       PALETTE[j],
       25);
