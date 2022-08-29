@@ -121,11 +121,11 @@ function scaleDynamicallyPaper() {
 
 function scaleDynamically() {
 
+    pixelDensity(CURRENTPIXELDENS);
     if (MODE > 1) {
         console.log("Display density: " + displayDensity());
         console.log("Pixel density: " + pixelDensity())
     }
-    pixelDensity(1);
 
     if (windowHeight > windowWidth) {
         if (MODE > 1) {
@@ -155,9 +155,15 @@ function keyTyped() {
         // exportHighResolution();  // paper
         exportCanvas(canvas);  // webgl
     } else if (key === 'h' || key == 'H') {
-        HIGHRES = true;
-        terminate();
-        timingInit = frameCount;
+        if (CURRENTPIXELDENS != HIGHRESPIXELRATIO) {
+            terminate();
+            CURRENTPIXELDENS = HIGHRESPIXELRATIO;
+            timingInit = frameCount;
+        } else {
+            terminate();
+            CURRENTPIXELDENS = 1;
+            timingInit = frameCount;
+        }
     } else if (key === 'i' || key == 'I') {
         // if (INFINITY == true) {
         //     INFINITY = false;

@@ -6,7 +6,7 @@ Ovid - Metamorphoses Book IV, 769
 
 I will donate every Tezo, primary and secondary, from this project towards the NGO Save the Children.
 
-For high resolution renderings (four times resolution) press *h*. For an export as .png press *e*.
+For high resolution renderings (four times resolution) press *h* during rendering. For an export as .png press *e*.
 Created with p5.js and the physics engine oimo.js. see LICENSE.md.
 
 Stefan Schwaha, @sektionschef, https://digitalitility.com/

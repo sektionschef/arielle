@@ -1,12 +1,11 @@
-const MODE = 1  // "FINE ART";
-// const MODE = 2  // DEBUG MESSAGES
+// const MODE = 1  // "FINE ART";
+const MODE = 2  // DEBUG MESSAGES
 // const MODE = 5 // all debug messages
 
 const NOISESEED = hashFnv32a(fxhash);
 if (MODE > 1) {
   console.log("Noise seed: " + NOISESEED);
 }
-const HIGHRESPIXELRATIO = 4;
 
 // convert pixel to real world physics
 const conv = 10;
@@ -45,8 +44,9 @@ const WAVECOUNT = 3;
 const WAVEINDEXMAX = WAVECOUNT - 1;
 let waveIndex = 0;
 
-let HIGHRES = false;
 // let INFINITY = false;
+let CURRENTPIXELDENS = 2;
+const HIGHRESPIXELRATIO = 2;
 
 const PALETTESYSTEM = {
   "Arielle": [
@@ -192,9 +192,7 @@ function setup() {
 
 function draw() {
 
-  if (HIGHRES) {
-    pixelDensity(HIGHRESPIXELRATIO);
-  }
+  pixelDensity(CURRENTPIXELDENS);
 
 
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
@@ -219,11 +217,12 @@ function draw() {
   } else if (LIGHTING == "Drama") {
 
     ambientLight(50);
-    pointLight(75, 75, 75, getRandomFromInterval(-50, 50), -10, getRandomFromInterval(-30, 30))
-    pointLight(75, 75, 75, getRandomFromInterval(-50, 50), -10, getRandomFromInterval(-30, 30))
-    pointLight(75, 75, 75, getRandomFromInterval(-50, 50), -10, getRandomFromInterval(-30, 30))
-    pointLight(75, 75, 75, getRandomFromInterval(-50, 50), -10, getRandomFromInterval(-30, 30))
-    pointLight(75, 75, 75, getRandomFromInterval(-50, 50), -10, getRandomFromInterval(-30, 30))
+
+    pointLight(75, 75, 75, 20, -10, 30)
+    pointLight(75, 75, 75, 30, -10, 20)
+    pointLight(75, 75, 75, 45, -10, -15)
+    pointLight(75, 75, 75, -30, -10, 5)
+    pointLight(75, 75, 75, -10, -10, -25)
 
   } else if (LIGHTING == "Below") {
     ambientLight(100);
@@ -313,13 +312,17 @@ function addTexture() {
       var j = i - 1;
     }
 
+    pixelDensity(1);
     // size of the biggest apple, inclusive conv
     PALETTE[i]["img"] = drawPixelBuffer(
-      Math.round(APPLESIZE * conv * HIGHRESPIXELRATIO),  // full size
-      Math.round(APPLESIZE * conv * HIGHRESPIXELRATIO),  // full size
+      // Math.round(APPLESIZE * conv * HIGHRESPIXELRATIO),  // full size
+      // Math.round(APPLESIZE * conv * HIGHRESPIXELRATIO),  // full size
+      APPLESIZE * conv * 1,  // higher res
+      APPLESIZE * conv * 1,  // higher res
       PALETTE[i],
       PALETTE[j],
       25);
+    pixelDensity(CURRENTPIXELDENS);
   }
 
 }
