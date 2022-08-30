@@ -14,8 +14,6 @@ let canvas;
 let rescaling_width;
 let rescaling_height;
 
-let timingInit
-
 let PALETTE;
 let PALETTE_LABEL;
 let APPLESIZELABEL;
@@ -396,13 +394,11 @@ function timing(startFrame) {
   let WAVE3END = startFrame + 1100;
   let END = startFrame + 1120;
 
-  // if (frameCount == SETUP && INFINITY == false) {
-  if (frameCount == SETUP) {
+  if (frameCount == SETUP && startFrame == 0) {
     background(255);  // white background once
   }
 
-  // if (frameCount == START && INFINITY == false) {
-  if (frameCount == START) {
+  if (frameCount == START && startFrame == 0) {
     world.setGravity([0, -9.8, 30]);
     applesFall = new AppleSystem(0, true);
   }
@@ -410,8 +406,7 @@ function timing(startFrame) {
   //   console.log("index: " + waveIndex);
   //   console.log("limit: " + WAVEINDEXMAX);
 
-  // if (frameCount == ENDFALL && INFINITY == false) {
-  if (frameCount == ENDFALL) {
+  if (frameCount == ENDFALL && startFrame == 0) {
     if (MODE > 1) {
       console.log("Ending Fall")
     }
@@ -479,8 +474,8 @@ function timing(startFrame) {
     apples3.killAllCall();
   }
 
-  // if (frameCount == END && INFINITY == false) {
-  if (frameCount == END) {
+
+  if (frameCount == END && INFINITY == false) {
     if (MODE > 1) {
       console.log("Safety: " + fxrand());
       console.log("Shutting down");
@@ -489,12 +484,12 @@ function timing(startFrame) {
     fxpreview();
     noLoop();
   }
-  // else if (frameCount == END && INFINITY == true) {
-  //   if (MODE > 1) {
-  //     console.log("Continuing to draw");
-  //   }
-  //   waveIndex += 1;
-  //   terminate();
-  //   timingInit = frameCount;
-  // }
+  else if (frameCount == END && INFINITY == true) {
+    if (MODE > 1) {
+      console.log("Continuing to draw");
+    }
+    waveIndex += 1;
+    terminate();
+    timingInit = frameCount;
+  }
 }

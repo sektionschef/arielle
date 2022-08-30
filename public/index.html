@@ -22,7 +22,7 @@
     //---- do not edit the following code (you can indent as you wish)
     let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
     var fxhash = "oo" + Array(49).fill(0).map(_ => alphabet[(Math.random() * alphabet.length) | 0]).join('')
-    var fxhash = "oosqjUggtdKQKN5aMjuEKXHu3HhPV4HccLiggz7DvCHUpKtFUDK"  // black
+    // var fxhash = "oosqjUggtdKQKN5aMjuEKXHu3HhPV4HccLiggz7DvCHUpKtFUDK"  
     // var fxhash = "ookLv6QX3qPZSKft6ifF8M72XH8iufCeYEnYk2g93KkQ6u9oc8h"  // green
     let b58dec = str => [...str].reduce((p, c) => p * alphabet.length + alphabet.indexOf(c) | 0, 0)
     let fxhashTrunc = fxhash.slice(2)
