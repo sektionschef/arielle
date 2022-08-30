@@ -377,22 +377,39 @@ function terminate() {
 }
 
 
-function timing(startFrame) {
+function timing(startFrame, infiniFlag = true) {
 
   // in frames
+  // let SETUP = startFrame + 1;
+  // let START = startFrame + 10;
+  // let ENDFALL = startFrame + 180;
+  // let PREWAVE1 = startFrame + 190;
+  // let WAVE1 = startFrame + 200;
+  // let WAVE1END = startFrame + 700;
+  // let PREWAVE2 = startFrame + 500;
+  // let WAVE2 = startFrame + 520;
+  // let WAVE2END = startFrame + 900;
+  // let PREWAVE3 = startFrame + 700;
+  // let WAVE3 = startFrame + 720;
+  // let WAVE3END = startFrame + 1100;
+  // let END = startFrame + 1120;
+
   let SETUP = startFrame + 1;
-  let START = startFrame + 10;
-  let ENDFALL = startFrame + 180;
-  let PREWAVE1 = startFrame + 190;
-  let WAVE1 = startFrame + 200;
-  let WAVE1END = startFrame + 700;
-  let PREWAVE2 = startFrame + 500;
-  let WAVE2 = startFrame + 520;
-  let WAVE2END = startFrame + 900;
-  let PREWAVE3 = startFrame + 700;
-  let WAVE3 = startFrame + 720;
-  let WAVE3END = startFrame + 1100;
-  let END = startFrame + 1120;
+  let START = SETUP + 9;
+  let ENDFALL = START + 170;
+  if (startFrame != 0) {  // if it is not tehe start
+    let ENDFALL = startFrame;
+  }
+  let PREWAVE1 = ENDFALL + 10;
+  let WAVE1 = PREWAVE1 + 10;
+  let WAVE1END = WAVE1 + 500;
+  let PREWAVE2 = WAVE1 + 300;
+  let WAVE2 = PREWAVE2 + 20;
+  let WAVE2END = WAVE2 + 380;
+  let PREWAVE3 = WAVE2 + 180;
+  let WAVE3 = PREWAVE3 + 20;
+  let WAVE3END = WAVE3 + 380;
+  let END = WAVE3END + 20;
 
   if (frameCount == SETUP && startFrame == 0) {
     background(255);  // white background once
@@ -490,6 +507,6 @@ function timing(startFrame) {
     }
     waveIndex += 1;
     terminate();
-    timingInit = frameCount;
+    timingInit = frameCount;  // beginning of wave 1
   }
 }
