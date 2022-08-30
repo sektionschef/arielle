@@ -148,25 +148,6 @@ function keyTyped() {
     if (key === 'e' || key == 'E') {
         // exportHighResolution();  // paper
         exportCanvas(canvas);  // webgl
-    } else if (key === 'h' || key == 'H') {
-        if (CURRENTPIXELDENS != HIGHRESPIXELRATIO) {
-            terminate();
-            CURRENTPIXELDENS = HIGHRESPIXELRATIO;
-            timingInit = frameCount;
-        } else {
-            terminate();
-            CURRENTPIXELDENS = 1;
-            timingInit = frameCount;
-        }
-    } else if (key === 'i' || key == 'I') {
-        // if (INFINITY == true) {
-        //     INFINITY = false;
-        //     noLoop();
-        // } else {
-        //     INFINITY = true;
-        //     loop();
-        // }
-        // console.log("INFINITY: " + INFINITY)
     }
 }
 

@@ -1,5 +1,5 @@
-// const MODE = 1  // "FINE ART";
-const MODE = 2  // DEBUG MESSAGES
+const MODE = 1  // "FINE ART";
+// const MODE = 2  // DEBUG MESSAGES
 // const MODE = 5 // all debug messages
 
 const NOISESEED = hashFnv32a(fxhash);
@@ -36,7 +36,7 @@ let OBSTACLESSWITCH = false;
 let OBSTACLESCOUNT = 5;
 
 let LIGHTING = getRandomFromList(["Below", "Lab", "Drama", "Full"]);
-// let LIGHTING = "Lab";
+// let LIGHTING = "Drama";
 
 const WAVECOUNT = 3;
 const WAVEINDEXMAX = WAVECOUNT - 1;
@@ -242,11 +242,11 @@ function draw() {
 
     ambientLight(50);
 
-    pointLight(75, 75, 75, 20, -10, 30)
-    pointLight(75, 75, 75, 30, -10, 20)
-    pointLight(75, 75, 75, 45, -10, -15)
-    pointLight(75, 75, 75, -30, -10, 5)
-    pointLight(75, 75, 75, -10, -10, -25)
+    pointLight(155, 155, 155, 20 * conv, 0 * conv, -30 * conv)
+    pointLight(155, 155, 155, 30 * conv, 0 * conv, 20 * conv)
+    pointLight(155, 155, 155, 45 * conv, 0 * conv, -15 + conv)
+    // pointLight(75, 75, 75, -30, -10, 5)
+    // pointLight(75, 75, 75, -10, -10, -25)
 
   } else if (LIGHTING == "Below") {
     ambientLight(100);
