@@ -31,8 +31,8 @@ let RESTITUTIONMax = 1;
 let RESTITUTION = Math.round(getRandomFromInterval(RESTITUTIONMin, RESTITUTIONMax) * 100) / 100;
 let RESTITUTIONLabel = label_feature(RESTITUTION, RESTITUTIONMin, RESTITUTIONMax);
 
-let OBSTACLESSWITCH = false;
-// let OBSTACLESSWITCH = getRandomFromList([true, false]);
+// let OBSTACLESSWITCH = false;
+let OBSTACLESSWITCH = getRandomFromList([true, false]);
 let OBSTACLESCOUNT = 5;
 
 let LIGHTING = getRandomFromList(["Below", "Lab", "Drama", "Full"]);
@@ -43,7 +43,6 @@ const WAVEINDEXMAX = WAVECOUNT - 1;
 let waveIndex = 0;
 
 let INFINITY = false;
-
 let CURRENTPIXELDENS = 1;
 const HIGHRESPIXELRATIO = 4;
 const RESBOOST = 4;  // factor for the size of the texture
@@ -153,9 +152,6 @@ function setup() {
   randomSeed(NOISESEED);
   setAttributes('antialias', true);
 
-
-
-
   scaleDynamically();
 
   canvas = createCanvas(rescaling_width, rescaling_height, WEBGL);
@@ -163,7 +159,7 @@ function setup() {
 
   if (MODE > 1) {
     console.log("Display density: " + displayDensity());
-    console.log("Pixel density: " + pixelDensity())
+    // console.log("Pixel density: " + pixelDensity())
   }
 
   createPaletteColors();
@@ -217,7 +213,6 @@ function setup() {
 function draw() {
 
   pixelDensity(CURRENTPIXELDENS);
-
 
   // camera(0, 0, (height / 2) / tan(PI / 6), 0, 0, 0, 0, 1, 0);  // default
   if (MODE == 5) {
@@ -339,8 +334,6 @@ function addTexture() {
     pixelDensity(1);
     // size of the biggest apple, inclusive conv
     PALETTE[i]["img"] = drawPixelBuffer(
-      // Math.round(APPLESIZE * conv * HIGHRESPIXELRATIO),  // full size
-      // Math.round(APPLESIZE * conv * HIGHRESPIXELRATIO),  // full size
       APPLESIZE * conv * RESBOOST,  // higher res
       APPLESIZE * conv * RESBOOST,  // higher res
       PALETTE[i],
@@ -378,21 +371,6 @@ function terminate() {
 
 
 function timing(startFrame, infiniFlag = true) {
-
-  // in frames
-  // let SETUP = startFrame + 1;
-  // let START = startFrame + 10;
-  // let ENDFALL = startFrame + 180;
-  // let PREWAVE1 = startFrame + 190;
-  // let WAVE1 = startFrame + 200;
-  // let WAVE1END = startFrame + 700;
-  // let PREWAVE2 = startFrame + 500;
-  // let WAVE2 = startFrame + 520;
-  // let WAVE2END = startFrame + 900;
-  // let PREWAVE3 = startFrame + 700;
-  // let WAVE3 = startFrame + 720;
-  // let WAVE3END = startFrame + 1100;
-  // let END = startFrame + 1120;
 
   let SETUP = startFrame + 1;
   let START = SETUP + 9;

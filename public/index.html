@@ -13,7 +13,7 @@
   <meta property="og:title" content="Medusa">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://digitalitility.com">
-  <meta property="og:description" content="Washed ashore of the tides of war.">
+  <meta property="og:description" content="artwork - washed ashore of the tides of war.">
   <!-- <meta property="og:image" content="thumbnail.png"> -->
 
   <link rel="icon" href="favicon.ico">
@@ -22,10 +22,10 @@
     //---- do not edit the following code (you can indent as you wish)
     let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
     var fxhash = "oo" + Array(49).fill(0).map(_ => alphabet[(Math.random() * alphabet.length) | 0]).join('')
-    // var fxhash = "ooYb1eszGXNTvxzaASg8F9dYN5xtE6mAQjJeQPYrbmdSFiwXMPG"  // black
-    // var fxhash = "ooXDiDcsBmGaNM5RcfwHB8ZFVefPnmwPfkuE5niYU2AsWRGwtR5"  // black
-    // var fxhash = "oouyKxdeSzrsCX9kzuuVK7fY3T2r2TYPvnE1x14uT6ytafNKavD"  // this one
-    // var fxhash = "ooyaZcGBtBzxjRqixhTmeGpxQr86sfvoxoiSBAtZxeY1cnJar57"
+    // var fxhash = "oowwSmyik7UkLQp9h8nn1BAoqbxZ3Q8MwG5YuxRamp6Hzb58tPd"  // black
+    // var fxhash = "ooBACzUQhxgqEgi1nqEckqxA743PjkF5kPvn7Tzgq7kbcaj2rR9"
+    // var fxhash = "oodoFg2X4mS2wATEpPoQfmaU4HENpXtywy6Fx25QZyGEA7WsdQp"
+    // var fxhash = "oofHCL17K1Tk8C5aBhKUTTHE7Ddba9ku1VG9adAqqw4voH2s8Kq"
     let b58dec = str => [...str].reduce((p, c) => p * alphabet.length + alphabet.indexOf(c) | 0, 0)
     let fxhashTrunc = fxhash.slice(2)
     let regex = new RegExp(".{" + ((fxhash.length / 4) | 0) + "}", 'g')
@@ -54,7 +54,6 @@
   </script>
 
   <script type="text/javascript" src="oimo.min.seeded.js"></script>
-  <!-- <script type="text/javascript" src="oimo.min.js"></script> -->
   <script type="text/javascript" src="p5.min.js"></script>
   <script type="text/javascript" src='body.js' ) }}></script>
   <script type="text/javascript" src='utils.js' ) }}></script>
